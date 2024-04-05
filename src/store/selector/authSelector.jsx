@@ -6,8 +6,6 @@ export const isLoggedInSelector = selector({
   get: ({ get }) => {
     const token = get(tokenState);
 
-    console.log(token);
-
     return !!token;
   },
 });

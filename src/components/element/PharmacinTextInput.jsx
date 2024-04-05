@@ -30,17 +30,29 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
             paddingVertical: inputData.type === "password" ? 3 : 10,
             borderColor: validationError ? colors.Danger : colors.LightBorder,
           },
+          inputData.type === "search"
+            ? styles.inputBoxSearch
+            : styles.inputBoxElse,
         ]}
       >
+        {inputData.type === "search" && (
+          <Image source={require("@assets/images/search.png")} />
+        )}
+
         <TextInput
           value={field.value}
-          placeholder={inputData.placeholder}
+          placeholder={
+            inputData.type === "search"
+              ? "Cari disini..."
+              : inputData.placeholder
+          }
           placeholderTextColor={colors.Placeholder}
           onChangeText={field.onChange}
           secureTextEntry={
             inputData.type === "password" ? !showPassword : false
           }
           style={[styles.input, systemFonts.H4]}
+          onSubmitEditing={inputData.type === "search" && inputData.onSubmit}
         />
 
         {inputData.type === "password" && (
@@ -78,13 +90,19 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   inputBox: {
-    borderWidth: 1,
     paddingHorizontal: 14,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
+  },
+  inputBoxSearch: {
+    backgroundColor: colors.Inactive,
+    width: 350,
+  },
+  inputBoxElse: {
     backgroundColor: colors.White,
+    borderWidth: 1,
   },
   input: {
     color: colors.Black,

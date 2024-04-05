@@ -1,5 +1,7 @@
+import { tokenState } from "@store/atom/authState";
 import { axiosInstance } from "@utils/config/axios";
 import { endpoints } from "@utils/config/endpoint";
+import { getRecoil } from "recoil-nexus";
 
 export const login = async (data) => {
   try {
@@ -14,6 +16,20 @@ export const login = async (data) => {
 export const register = async (data) => {
   try {
     const response = await axiosInstance.post(endpoints.registerAdmin, data);
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const logout = async () => {
+  try {
+    const response = await axiosInstance.get(endpoints.logout, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {

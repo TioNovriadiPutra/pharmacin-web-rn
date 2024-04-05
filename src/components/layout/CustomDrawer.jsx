@@ -12,10 +12,19 @@ import DrawerLogo from "@components/fragment/DrawerLogo";
 import { colors } from "@themes/colors";
 import DrawerList from "@components/fragment/DrawerList";
 import DrawerNotification from "@components/fragment/DrawerNotification";
+import Bar from "@components/element/Bar";
+import { drawerAdmin } from "@utils/constant/drawer";
 
-const CustomDrawer = () => {
-  const { drawerStatus, drawerAnimatedStyle, handleDrawer, closeDrawer } =
-    useDrawer();
+const CustomDrawer = (prop) => {
+  const {
+    drawerStatus,
+    roleId,
+    drawerAnimatedStyle,
+    handleDrawer,
+    handleNavigation,
+    handleSubMenu,
+    closeDrawer,
+  } = useDrawer(prop);
 
   return (
     <View style={styles.mainContainer}>
@@ -27,9 +36,15 @@ const CustomDrawer = () => {
       <Animated.View style={[styles.container, drawerAnimatedStyle]}>
         <DrawerLogo onPress={handleDrawer} />
 
-        <DrawerNotification />
+        <DrawerNotification onNavigate={handleNavigation} />
 
-        <DrawerList />
+        <Bar containerStyle={styles.bar} />
+
+        <DrawerList
+          onNavigate={handleNavigation}
+          onSubMenu={handleSubMenu}
+          drawerData={drawerAdmin}
+        />
       </Animated.View>
     </View>
   );
@@ -54,5 +69,9 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     backgroundColor: colors.Modal,
+  },
+  bar: {
+    marginVertical: 24,
+    marginHorizontal: 15,
   },
 });

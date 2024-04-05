@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 19,
+    marginBottom: 46,
   },
   title: {
     color: colors.Primary,

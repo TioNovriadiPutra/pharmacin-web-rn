@@ -43,7 +43,7 @@ const AppNav = () => {
       <NavigationContainer linking={linking}>
         {!appReady ? (
           <SplashStack />
-        ) : isLoggedIn ? (
+        ) : checkLogin ? (
           <AppStack />
         ) : (
           <AuthStack />

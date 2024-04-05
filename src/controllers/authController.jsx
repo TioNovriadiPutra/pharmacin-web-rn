@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { login, register } from "@services/auth";
+import { login, logout, register } from "@services/auth";
 import {
   paymentStatusState,
   roleIdState,
@@ -71,6 +71,28 @@ const useAuthController = (nav) => {
     },
   });
 
+  const logoutMutation = useMutation(logout, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+    },
+    onSuccess: (response) => {
+      setRecoil(tokenState, null);
+      setRecoil(roleIdState, null);
+      setRecoil(paymentStatusState, null);
+      AsyncStorage.removeItem("@token");
+      AsyncStorage.removeItem("@roleId");
+      AsyncStorage.removeItem("@paymentStatus");
+
+      handleToast("success", response.message);
+    },
+    onError: (error) => {
+      handleToast("failed", error.error.message);
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   return {
     login: (data) => loginMutation.mutate(data),
     register: (data) =>
@@ -79,6 +101,7 @@ const useAuthController = (nav) => {
         gender: data.gender ? data.gender.value : null,
       }),
     isLoggedIn,
+    logout: () => logoutMutation.mutate(),
   };
 };
 

@@ -1,8 +1,38 @@
 const config = {
   screens: {
-    Splash: "splash",
+    Splash: "",
     Login: "login",
     Register: "register",
+    Dashboard: "dashboard",
+    Pendaftaran: "pendaftaran",
+    PasienStack: {
+      screens: {
+        Pasien: "pasien",
+        PasienRecord: "pasien/riwayat",
+        PasienRecordDetail: "pasien/riwayat/:id",
+      },
+    },
+    StokStack: {
+      screens: {
+        Stok: "stok",
+        StokOpname: "stok/opname",
+        StokOpnameDetail: "stok/opname/:id",
+        StokRiwayatOpname: "stok/riwayat",
+      },
+    },
+    ObatStack: {
+      screens: {
+        ObatKategori: "obat/kategori",
+        ObatKelola: "obat/kelola",
+        ObatRacikan: "obat/racikan",
+      },
+    },
+    PabrikanStack: {
+      screens: {
+        Pabrikan: "pabrikan",
+        PabrikanDetail: "pabrikan/:id",
+      },
+    },
   },
 };
 

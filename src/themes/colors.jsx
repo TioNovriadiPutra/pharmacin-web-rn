@@ -3,6 +3,7 @@ export const colors = {
   Black: "#373737",
   Primary: "#58BE62",
   Secondary: "#295497",
+  DarkSecondary: "#2D3257",
   Info: "#ECD37A",
   Danger: "#D85E5E",
   LightBlue: "#9FC5FE",
@@ -17,4 +18,7 @@ export const colors = {
   Failed: "#FFE3E3",
   Modal: "rgba(0, 0, 0, 0.5)",
   Shadow: "#000000",
+  Default: "#F9F9FC",
+  SubTitle: "#969696",
+  TableBorder: "#F2F2F3",
 };
