@@ -13,29 +13,9 @@ const Form = ({ control, inputListData }) => {
     <View style={styles.list}>
       {inputListData.map((input, index) => {
         if (input.type === "dropdown") {
-          return (
-            <PharmacinDropdown
-              key={index.toString()}
-              control={control}
-              inputData={input}
-              validationError={
-                validationError &&
-                validationError.find((error) => error.field === input.name)
-              }
-            />
-          );
+          return <PharmacinDropdown key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
         } else {
-          return (
-            <PharmacinTextInput
-              key={index.toString()}
-              control={control}
-              inputData={input}
-              validationError={
-                validationError &&
-                validationError.find((error) => error.field === input.name)
-              }
-            />
-          );
+          return <PharmacinTextInput key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
         }
       })}
     </View>

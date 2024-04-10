@@ -11,11 +11,7 @@ const DrawerNotification = ({ onNavigate }) => {
 
   return (
     <View style={styles.container}>
-      <DrawerItem
-        drawerItemData={notifDrawer}
-        onNavigate={onNavigate}
-        status={drawerIndex === 0}
-      />
+      <DrawerItem drawerItemData={notifDrawer} onNavigate={onNavigate} status={drawerIndex === 0} subMenuStatus={false} />
     </View>
   );
 };

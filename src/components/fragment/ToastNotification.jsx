@@ -9,31 +9,16 @@ const ToastNotification = () => {
   const { toastMessage, toastType, toastAnimatedStyle } = useToast();
 
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        toastType === "success"
-          ? styles.containerSuccess
-          : styles.containerFailed,
-        toastAnimatedStyle,
-      ]}
-    >
+    <Animated.View style={[styles.container, toastType === "success" ? styles.containerSuccess : styles.containerFailed, toastAnimatedStyle]}>
       <View
         style={[
           styles.circle,
           {
-            backgroundColor:
-              toastType === "success" ? colors.Primary : colors.Danger,
+            backgroundColor: toastType === "success" ? colors.Primary : colors.Danger,
           },
         ]}
       >
-        <Image
-          source={
-            toastType === "success"
-              ? require("@assets/images/success.png")
-              : require("@assets/images/failed.png")
-          }
-        />
+        <Image source={toastType === "success" ? require("@assets/images/success.png") : require("@assets/images/failed.png")} />
       </View>
 
       <Text style={[styles.message, systemFonts.H4]}>{toastMessage}</Text>

@@ -1,53 +1,118 @@
 import usePabrikanModel from "@models/pabrikanModel";
-import { addDrugFactory } from "@services/pabrikan";
+import { addDrugFactory, deleteDrugFactory } from "@services/pabrikan";
 import { formDataState, validationErrorState } from "@store/atom/formState";
-import { isLoadingState, showFormModalState } from "@store/atom/pageState";
+import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
+import { queryClient } from "@utils/config/client";
+import { addDrugFactoryForm } from "@utils/constant/form";
+import { pabrikanDetail } from "@utils/constant/pageDetail";
 import { pabrikanData } from "@utils/constant/pageTable";
+import { currencyFormatter } from "@utils/helper/currency";
 import { hashId } from "@utils/helper/hash";
 import { handleToast } from "@utils/helper/toast";
 import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
 
 const usePabrikanController = () => {
-  const { useGetDrugFactories } = usePabrikanModel();
+  const { useGetDrugFactories, useGetDrugFactoryDetail } = usePabrikanModel();
 
-  function useGetDrugFactoriesQuery() {
-    const { data, isLoading } = useGetDrugFactories();
+  const useGetDrugFactoriesQuery = () => {
+    const { data, isLoading, isError } = useGetDrugFactories();
 
     if (!isLoading) {
-      Object.assign(pabrikanData, {
-        tableData: data.data.map((tmp) => {
-          const arr = [
-            tmp.id,
-            tmp.factory_name,
-            tmp.factory_email,
-            tmp.factory_phone,
-          ];
+      if (!isError) {
+        Object.assign(pabrikanData, {
+          tableData: data.data.map((tmp) => {
+            const arr = [tmp.id, tmp.factory_name, tmp.factory_email, tmp.factory_phone];
 
-          return {
-            tables: arr,
-            actions: [
-              {
-                type: "delete",
-              },
-            ],
-            rowPress: (nav) => {
-              nav.navigate("PabrikanStack", {
-                screen: "PabrikanDetail",
-                params: {
-                  id: hashId(tmp.id),
+            return {
+              tables: arr,
+              actions: [
+                {
+                  type: "delete",
+                  onPress: () => {
+                    setRecoil(rowIdState, {
+                      onDelete: () => deleteDrugFactoryMutation.mutate(tmp.id),
+                    });
+                    setRecoil(showValidationModalState, true);
+                  },
                 },
-              });
-            },
-          };
-        }),
-      });
+              ],
+              rowPress: (nav) => {
+                nav.navigate("PabrikanStack", {
+                  screen: "PabrikanDetail",
+                  params: {
+                    id: hashId(tmp.id),
+                  },
+                });
+              },
+            };
+          }),
+        });
+
+        Object.assign(addDrugFactoryForm, {
+          onSubmit: (data) => addDrugFactoryMutation.mutate(data),
+        });
+      }
     }
 
     return {
       isLoading,
     };
-  }
+  };
+
+  const useGetDrugFactoryDetailQuery = (id) => {
+    const { data, isLoading, isError } = useGetDrugFactoryDetail(id);
+
+    if (!isLoading) {
+      if (!isError) {
+        Object.assign(pabrikanDetail, {
+          title: data.data.factory_name,
+          tableData: data.data.drugs.map((drug) => {
+            const arr = [
+              drug.drug,
+              drug.drug_generic_name || "-",
+              drug.drugCategory.category_name,
+              currencyFormatter(drug.purchase_price),
+              currencyFormatter(drug.selling_price),
+              drug.composition,
+              drug.total_stock,
+            ];
+
+            return {
+              tables: arr,
+            };
+          }),
+          detailData: {
+            ...pabrikanDetail.detailData,
+            list: [
+              {
+                ...pabrikanDetail.detailData.list[0],
+                data: data.data.factory_name,
+              },
+              {
+                ...pabrikanDetail.detailData.list[1],
+                data: data.data.factory_email,
+              },
+              {
+                ...pabrikanDetail.detailData.list[2],
+                data: data.data.factory_phone,
+              },
+            ],
+            footer: [
+              {
+                ...pabrikanDetail.detailData.footer[0],
+                value: data.data.drugs.length,
+              },
+            ],
+          },
+        });
+      }
+    }
+
+    return {
+      isLoading,
+    };
+  };
 
   const addDrugFactoryMutation = useMutation(addDrugFactory, {
     onMutate: () => {
@@ -58,6 +123,7 @@ const usePabrikanController = () => {
       handleToast("success", response.message);
       setRecoil(formDataState, null);
       setRecoil(showFormModalState, false);
+      queryClient.invalidateQueries(["getDrugFactories"]);
     },
     onError: (error) => {
       if (error.error.status === 422) {
@@ -71,8 +137,27 @@ const usePabrikanController = () => {
     },
   });
 
+  const deleteDrugFactoryMutation = useMutation(deleteDrugFactory, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      queryClient.invalidateQueries(["getDrugFactories"]);
+    },
+    onError: (error) => {
+      handleToast("failed", error.error.message);
+    },
+    onSettled: () => {
+      setRecoil(showValidationModalState, false);
+      setRecoil(rowIdState, null);
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   return {
     useGetDrugFactoriesQuery,
+    useGetDrugFactoryDetailQuery,
     addDrugFactory: (data) => addDrugFactoryMutation.mutate(data),
   };
 };

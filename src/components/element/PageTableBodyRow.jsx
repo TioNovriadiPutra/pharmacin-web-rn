@@ -10,10 +10,7 @@ const PageTableBodyRow = ({ bodyData }) => {
 
   return (
     <Pressable
-      style={[
-        styles.container,
-        { paddingVertical: bodyData.actions ? 11 : 18 },
-      ]}
+      style={[styles.container, { paddingVertical: bodyData.actions ? 11 : 18 }]}
       onPress={() => {
         if (bodyData.rowPress) {
           bodyData.rowPress(nav);
@@ -29,14 +26,8 @@ const PageTableBodyRow = ({ bodyData }) => {
       {bodyData.actions && (
         <View style={styles.actionContainer}>
           {bodyData.actions.map((action, index) => (
-            <Pressable key={index.toString()}>
-              <Image
-                source={
-                  action.type === "delete"
-                    ? require("@assets/images/delete.png")
-                    : require("@assets/images/edit.png")
-                }
-              />
+            <Pressable key={index.toString()} onPress={action.onPress}>
+              <Image source={action.type === "delete" ? require("@assets/images/delete.png") : action.type === "edit" ? require("@assets/images/edit.png") : require("@assets/images/info.png")} />
             </Pressable>
           ))}
         </View>
@@ -68,5 +59,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
+    gap: 10,
   },
 });

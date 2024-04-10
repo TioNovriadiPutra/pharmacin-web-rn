@@ -7,19 +7,16 @@ export const addDrugFactoryForm = {
       type: "text",
       name: "factoryName",
       placeholder: "Nama Pabrik",
-      outside: true,
     },
     {
       type: "text",
       name: "factoryEmail",
       placeholder: "Email Pabrik",
-      outside: true,
     },
     {
       type: "phone",
       name: "factoryPhone",
       placeholder: "Telepon Pabrik",
-      outside: true,
     },
   ],
   defaultValues: {
@@ -31,4 +28,44 @@ export const addDrugFactoryForm = {
     label: "Tambah Pabrik",
     color: colors.Primary,
   },
+};
+
+export const addDrugCategoryForm = {
+  title: "Tambah Kategori",
+  inputs: [
+    {
+      type: "text",
+      name: "categoryName",
+      placeholder: "Nama Kategori",
+    },
+  ],
+  defaultValues: {
+    categoryName: "",
+  },
+  submitButton: {
+    label: "Tambah Kategori",
+    color: colors.Primary,
+  },
+};
+
+export const addDrugForm = {
+  title: "Tambah Obat",
+  inputs: [
+    {
+      type: "text",
+      name: "drug",
+      placeholder: "Nama Obat",
+    },
+    {
+      type: "text",
+      name: "drugGenericName",
+      placeholder: "Nama Generik",
+    },
+    {
+      type: "dropdown",
+      name: "unitId",
+      placeholder: "Satuan",
+      items: [],
+    },
+  ],
 };

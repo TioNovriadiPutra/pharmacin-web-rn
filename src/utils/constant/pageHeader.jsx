@@ -2,7 +2,7 @@ import { formDataState } from "@store/atom/formState";
 import { showFormModalState } from "@store/atom/pageState";
 import { colors } from "@themes/colors";
 import { setRecoil } from "recoil-nexus";
-import { addDrugFactoryForm } from "./form";
+import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm } from "./form";
 
 export const pabrikanHeader = {
   headerTitle: {
@@ -28,5 +28,53 @@ export const pabrikanHeader = {
     defaultValues: {
       searchPabrikan: "",
     },
+  },
+};
+
+export const obatKategoriHeader = {
+  headerTitle: {
+    title: "Obat",
+    subTitle: "/ Kategori",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Kategori",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addDrugCategoryForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchKategori",
+      },
+    ],
+  },
+};
+
+export const obatHeader = {
+  headerTitle: {
+    title: "Obat",
+    subTitle: "/ Kelola",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Kategori",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addDrugForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchObat",
+      },
+    ],
   },
 };

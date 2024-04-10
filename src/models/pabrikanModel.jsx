@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getDrugFactories } from "@services/pabrikan";
+import { getDrugFactories, getDrugFactoryDetail } from "@services/pabrikan";
 
 const usePabrikanModel = () => {
   const useGetDrugFactories = () => {
@@ -9,8 +9,16 @@ const usePabrikanModel = () => {
     });
   };
 
+  const useGetDrugFactoryDetail = (id) => {
+    return useQuery({
+      queryKey: ["getDrugFactoryDetail"],
+      queryFn: () => getDrugFactoryDetail(id),
+    });
+  };
+
   return {
     useGetDrugFactories,
+    useGetDrugFactoryDetail,
   };
 };
 

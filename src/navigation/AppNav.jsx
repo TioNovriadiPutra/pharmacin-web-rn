@@ -11,6 +11,9 @@ import useAuthController from "src/controllers/authController";
 import { useRecoilValue } from "recoil";
 import { isLoggedInSelector } from "@store/selector/authSelector";
 import AppStack from "@routes/AppStack";
+import FormModal from "@components/modal/FormModal";
+import DetailModal from "@components/modal/DetailModal";
+import ValidationModal from "@components/modal/ValidationModal";
 
 const AppNav = () => {
   const [appReady, setAppReady] = useState(false);
@@ -40,15 +43,10 @@ const AppNav = () => {
     <View style={styles.container} onLayout={onLayoutRootView}>
       <ToastNotification />
       <LoadingModal />
-      <NavigationContainer linking={linking}>
-        {!appReady ? (
-          <SplashStack />
-        ) : checkLogin ? (
-          <AppStack />
-        ) : (
-          <AuthStack />
-        )}
-      </NavigationContainer>
+      <FormModal />
+      <DetailModal />
+      <ValidationModal />
+      <NavigationContainer linking={linking}>{!appReady ? <SplashStack /> : checkLogin ? <AppStack /> : <AuthStack />}</NavigationContainer>
     </View>
   );
 };
