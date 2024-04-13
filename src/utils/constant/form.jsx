@@ -67,5 +67,52 @@ export const addDrugForm = {
       placeholder: "Satuan",
       items: [],
     },
+    {
+      type: "number",
+      name: "composition",
+      placeholder: "Komposisi",
+    },
+    {
+      type: "dropdown",
+      name: "categoryId",
+      placeholder: "Kategori",
+      items: [],
+    },
+    {
+      type: "text",
+      name: "shelve",
+      placeholder: "Rak",
+    },
+    {
+      type: "dropdown",
+      name: "factoryId",
+      placeholder: "Pabrikan",
+      items: [],
+    },
+    {
+      type: "currency",
+      name: "purchasePrice",
+      placeholder: "Harga Beli Pabrikan",
+    },
+    {
+      type: "currency",
+      name: "sellingPrice",
+      placeholder: "Harga Jual",
+    },
   ],
+  defaultValues: {
+    drug: "",
+    drugGenericName: "",
+    unitId: null,
+    composition: "",
+    categoryId: null,
+    shelve: "",
+    factoryId: null,
+    pruchasePrice: "",
+    sellingPrice: "",
+  },
+  submitButton: {
+    label: "Tambah Obat",
+    color: colors.Primary,
+  },
 };

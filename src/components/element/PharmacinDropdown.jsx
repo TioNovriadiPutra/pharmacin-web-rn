@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { any, object } from "prop-types";
 import { useController } from "react-hook-form";
@@ -8,19 +8,14 @@ import useDropdown from "@hooks/useDropdown";
 import Animated from "react-native-reanimated";
 
 const PharmacinDropdown = ({ control, inputData, validationError }) => {
-  const {
-    showDropdown,
-    handleDropdown,
-    handleItem,
-    dropdownIconAnimatedStyle,
-  } = useDropdown();
+  const { showDropdown, handleDropdown, handleItem, dropdownIconAnimatedStyle } = useDropdown();
   const { field } = useController({
     name: inputData.name,
     control,
   });
 
   return (
-    <View style={styles.container}>
+    <View style={{ zIndex: showDropdown ? 2 : 1 }}>
       <Pressable
         style={[
           styles.inputBox,
@@ -30,42 +25,26 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
         ]}
         onPress={handleDropdown}
       >
-        <Text
-          style={[
-            styles.input,
-            systemFonts.H4,
-            { color: field.value ? colors.Black : colors.Placeholder },
-          ]}
-        >
-          {field.value ? field.value.label : inputData.placeholder}
-        </Text>
+        <Text style={[styles.input, systemFonts.H4, { color: field.value ? colors.Black : colors.Placeholder }]}>{field.value ? field.value.label : inputData.placeholder}</Text>
 
-        <Animated.Image
-          source={require("@assets/images/dropdown.png")}
-          style={dropdownIconAnimatedStyle}
-        />
+        <Animated.Image source={require("@assets/images/dropdown.png")} style={dropdownIconAnimatedStyle} />
       </Pressable>
 
-      {validationError && (
-        <Text style={[styles.error, systemFonts.P]}>
-          {validationError.message}
-        </Text>
-      )}
+      {validationError && <Text style={[styles.error, systemFonts.P]}>{validationError.message}</Text>}
 
       {showDropdown && (
-        <View style={styles.dropdown}>
-          {inputData.items.map((item, index) => (
-            <Pressable
-              key={index.toString()}
-              style={styles.dropdownItem}
-              onPress={() => handleItem(field, item)}
-            >
+        <FlatList
+          data={inputData.items}
+          keyExtractor={(_, index) => index.toString()}
+          style={styles.dropdown}
+          renderItem={({ item }) => (
+            <Pressable style={styles.dropdownItem} onPress={() => handleItem(field, item)}>
               <View style={styles.itemBackdrop}>
-                <Text>{item.label}</Text>
+                <Text style={[systemFonts.P, styles.label]}>{item.label}</Text>
               </View>
             </Pressable>
-          ))}
-        </View>
+          )}
+        />
       )}
     </View>
   );
@@ -80,9 +59,6 @@ PharmacinDropdown.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    zIndex: 2,
-  },
   inputBox: {
     borderWidth: 1,
     paddingHorizontal: 14,
@@ -115,6 +91,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 12,
     top: "110%",
+    maxHeight: 324,
   },
   dropdownItem: {
     paddingVertical: 6,
@@ -123,5 +100,8 @@ const styles = StyleSheet.create({
   itemBackdrop: {
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  label: {
+    color: colors.Black,
   },
 });

@@ -64,7 +64,7 @@ export const obatHeader = {
     function: [
       {
         type: "button",
-        label: "Tambah Kategori",
+        label: "Tambah Obat",
         color: colors.Primary,
         onPress: () => {
           setRecoil(showFormModalState, true);

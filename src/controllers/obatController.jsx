@@ -1,7 +1,9 @@
 import useObatModel from "@models/obatModel";
 import { getDrugDetail } from "@services/obat";
 import { detailDataState, showDetailModalState } from "@store/atom/detailState";
-import { isLoadingState } from "@store/atom/pageState";
+import { formDataState } from "@store/atom/formState";
+import { isLoadingState, showFormModalState } from "@store/atom/pageState";
+import { addDrugForm } from "@utils/constant/form";
 import { obatDetail } from "@utils/constant/pageDetail";
 import { obatData } from "@utils/constant/pageTable";
 import { currencyFormatter } from "@utils/helper/currency";
@@ -13,12 +15,15 @@ const useObatController = () => {
   const { useGetDrugs } = useObatModel();
 
   const useGetDrugsQuery = () => {
-    const { data, isLoading, isError } = useGetDrugs();
+    const results = useGetDrugs();
+
+    const isLoading = results.some((result) => result.isLoading);
+    const isError = results.some((result) => result.isError);
 
     if (!isLoading) {
       if (!isError) {
         Object.assign(obatData, {
-          tableData: data.data.map((item) => {
+          tableData: results[0].data.data.map((item) => {
             const arr = [item.drug, item.drug_generic_name || "-", item.category_name, item.shelve || "-", currencyFormatter(item.selling_price), item.composition];
 
             return {
@@ -30,12 +35,48 @@ const useObatController = () => {
                 },
                 {
                   type: "edit",
+                  onPress: () => getDrugUpdateFormMutation.mutate(item.id),
                 },
                 {
                   type: "delete",
                 },
               ],
             };
+          }),
+        });
+
+        Object.assign(addDrugForm, {
+          inputs: addDrugForm.inputs.map((input) => {
+            if (input.name === "unitId") {
+              Object.assign(input, {
+                items: results[3].data.data.map((result) => {
+                  return {
+                    label: result.unit_name,
+                    value: result.id,
+                  };
+                }),
+              });
+            } else if (input.name === "categoryId") {
+              Object.assign(input, {
+                items: results[2].data.data.map((result) => {
+                  return {
+                    label: result.category_name,
+                    value: result.id,
+                  };
+                }),
+              });
+            } else if (input.name === "factoryId") {
+              Object.assign(input, {
+                items: results[1].data.data.map((result) => {
+                  return {
+                    label: result.factory_name,
+                    value: result.id,
+                  };
+                }),
+              });
+            }
+
+            return input;
           }),
         });
       }
@@ -115,10 +156,55 @@ const useObatController = () => {
         },
       });
 
-      console.log(detail);
-
       setRecoil(detailDataState, detail.detailData);
       setRecoil(showDetailModalState, true);
+    },
+    onError: (error) => {
+      handleToast("failed", error.error.message);
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
+  const getDrugUpdateFormMutation = useMutation(getDrugDetail, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+    },
+    onSuccess: (response) => {
+      const formData = JSON.parse(JSON.stringify(addDrugForm));
+
+      Object.assign(formData, {
+        title: "Edit Obat",
+        defaultValues: {
+          drug: response.data.drug,
+          drugGenericName: response.data.drug_generic_name,
+          unitId: {
+            label: response.data.unit.unit_name,
+            value: response.data.unit.id,
+          },
+          composition: response.data.composition,
+          categoryId: {
+            label: response.data.drugCategory.category_name,
+            value: response.data.drugCategory.id,
+          },
+          shelve: response.data.shelve,
+          factoryId: {
+            label: response.data.drugFactory.factory_name,
+            value: response.data.drugFactory.id,
+          },
+          purchasePrice: response.data.purchase_price,
+          sellingPrice: response.data.selling_price,
+        },
+        submitButton: {
+          ...formData.submitButton,
+          label: "Edit Obat",
+        },
+        onSubmit: (data) => updateDrugCategoryMutation.mutate({ data, id: response.data.id }),
+      });
+
+      setRecoil(showFormModalState, true);
+      setRecoil(formDataState, formData);
     },
     onError: (error) => {
       handleToast("failed", error.error.message);

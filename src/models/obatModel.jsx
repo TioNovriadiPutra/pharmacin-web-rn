@@ -1,9 +1,17 @@
 import { getDrugs } from "@services/obat";
-import { useQuery } from "react-query";
+import { getDrugCategories } from "@services/obatKategori";
+import { getDrugFactories } from "@services/pabrikan";
+import { getUnits } from "@services/unit";
+import { useQueries } from "react-query";
 
 const useObatModel = () => {
   const useGetDrugs = () => {
-    return useQuery({ queryKey: ["getDrugs"], queryFn: () => getDrugs() });
+    return useQueries([
+      { queryKey: ["getDrugs"], queryFn: () => getDrugs() },
+      { queryKey: ["getDrugFactoriesDropdown"], queryFn: () => getDrugFactories() },
+      { queryKey: ["getDrugCategoriesDropdown"], queryFn: () => getDrugCategories() },
+      { queryKey: ["getUnitsDropdown"], queryFn: () => getUnits() },
+    ]);
   };
 
   return {

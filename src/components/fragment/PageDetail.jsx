@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
     color: colors.Title,
     textAlign: "center",
     marginBottom: 32,
+    overflow: "visible",
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { any, array } from "prop-types";
 import PharmacinTextInput from "@components/element/PharmacinTextInput";
@@ -10,7 +10,7 @@ const Form = ({ control, inputListData }) => {
   const validationError = useRecoilValue(validationErrorState);
 
   return (
-    <View style={styles.list}>
+    <ScrollView contentContainerStyle={styles.list}>
       {inputListData.map((input, index) => {
         if (input.type === "dropdown") {
           return <PharmacinDropdown key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
@@ -18,7 +18,7 @@ const Form = ({ control, inputListData }) => {
           return <PharmacinTextInput key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
         }
       })}
-    </View>
+    </ScrollView>
   );
 };
 
