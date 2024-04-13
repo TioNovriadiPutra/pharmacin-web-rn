@@ -30,3 +30,54 @@ export const getDrugDetail = async (id) => {
     throw error.response.data;
   }
 };
+
+export const addDrug = async (data) => {
+  try {
+    const finalData = { ...data, unitId: data.unitId ? data.unitId.value : null, categoryId: data.categoryId ? data.categoryId.value : null, factoryId: data.factoryId ? data.factoryId.value : null };
+
+    const response = await axiosInstance.post(endpoints.getDrugs, finalData, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const updateDrug = async (data) => {
+  try {
+    const finalData = {
+      ...data.data,
+      unitId: data.data.unitId ? data.data.unitId.value : null,
+      categoryId: data.data.categoryId ? data.data.categoryId.value : null,
+      factoryId: data.data.factoryId ? data.data.factoryId.value : null,
+    };
+
+    const response = await axiosInstance.put(`${endpoints.getDrugs}/${data.id}`, finalData, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const deleteDrug = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`${endpoints.getDrugs}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

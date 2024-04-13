@@ -1,8 +1,9 @@
 import useObatModel from "@models/obatModel";
-import { getDrugDetail } from "@services/obat";
+import { addDrug, deleteDrug, getDrugDetail, updateDrug } from "@services/obat";
 import { detailDataState, showDetailModalState } from "@store/atom/detailState";
-import { formDataState } from "@store/atom/formState";
-import { isLoadingState, showFormModalState } from "@store/atom/pageState";
+import { formDataState, validationErrorState } from "@store/atom/formState";
+import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
+import { queryClient } from "@utils/config/client";
 import { addDrugForm } from "@utils/constant/form";
 import { obatDetail } from "@utils/constant/pageDetail";
 import { obatData } from "@utils/constant/pageTable";
@@ -24,7 +25,7 @@ const useObatController = () => {
       if (!isError) {
         Object.assign(obatData, {
           tableData: results[0].data.data.map((item) => {
-            const arr = [item.drug, item.drug_generic_name || "-", item.category_name, item.shelve || "-", currencyFormatter(item.selling_price), item.composition];
+            const arr = [item.drug, item.drug_generic_name || "-", item.category_name, item.shelve || "-", currencyFormatter(item.selling_price), item.composition + " mg"];
 
             return {
               tables: arr,
@@ -39,6 +40,12 @@ const useObatController = () => {
                 },
                 {
                   type: "delete",
+                  onPress: () => {
+                    setRecoil(rowIdState, {
+                      onDelete: () => deleteDrugMutation.mutate(item.id),
+                    });
+                    setRecoil(showValidationModalState, true);
+                  },
                 },
               ],
             };
@@ -78,6 +85,7 @@ const useObatController = () => {
 
             return input;
           }),
+          onSubmit: (data) => addDrugMutation.mutate(data),
         });
       }
     }
@@ -200,7 +208,7 @@ const useObatController = () => {
           ...formData.submitButton,
           label: "Edit Obat",
         },
-        onSubmit: (data) => updateDrugCategoryMutation.mutate({ data, id: response.data.id }),
+        onSubmit: (data) => updateDrugMutation.mutate({ data, id: response.data.id }),
       });
 
       setRecoil(showFormModalState, true);
@@ -210,6 +218,70 @@ const useObatController = () => {
       handleToast("failed", error.error.message);
     },
     onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
+  const addDrugMutation = useMutation(addDrug, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(formDataState, null);
+      setRecoil(showFormModalState, false);
+      queryClient.invalidateQueries(["getDrugs"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
+  const updateDrugMutation = useMutation(updateDrug, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(formDataState, null);
+      setRecoil(showFormModalState, false);
+      queryClient.invalidateQueries(["getDrugs"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
+  const deleteDrugMutation = useMutation(deleteDrug, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      queryClient.invalidateQueries(["getDrugs"]);
+    },
+    onError: (error) => {
+      handleToast("failed", error.error.message);
+    },
+    onSettled: () => {
+      setRecoil(showValidationModalState, false);
+      setRecoil(rowIdState, null);
       setRecoil(isLoadingState, false);
     },
   });

@@ -1,11 +1,4 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import { any, object } from "prop-types";
 import { colors } from "@themes/colors";
@@ -14,12 +7,12 @@ import useTextInput from "@hooks/useTextInput";
 import { systemFonts } from "@themes/fonts";
 
 const PharmacinTextInput = ({ control, inputData, validationError }) => {
-  const { showPassword, handlePassword } = useTextInput();
-
   const { field } = useController({
     name: inputData.name,
     control,
   });
+
+  const { showPassword, handlePassword, handleNormal, handleNumber } = useTextInput(field);
 
   return (
     <View style={styles.container}>
@@ -30,49 +23,29 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
             paddingVertical: inputData.type === "password" ? 3 : 10,
             borderColor: validationError ? colors.Danger : colors.LightBorder,
           },
-          inputData.type === "search"
-            ? styles.inputBoxSearch
-            : styles.inputBoxElse,
+          inputData.type === "search" ? styles.inputBoxSearch : styles.inputBoxElse,
         ]}
       >
-        {inputData.type === "search" && (
-          <Image source={require("@assets/images/search.png")} />
-        )}
+        {inputData.type === "search" && <Image source={require("@assets/images/search.png")} />}
 
         <TextInput
           value={field.value}
-          placeholder={
-            inputData.type === "search"
-              ? "Cari disini..."
-              : inputData.placeholder
-          }
+          placeholder={inputData.type === "search" ? "Cari disini..." : inputData.placeholder}
           placeholderTextColor={colors.Placeholder}
-          onChangeText={field.onChange}
-          secureTextEntry={
-            inputData.type === "password" ? !showPassword : false
-          }
+          onChangeText={inputData.type === "number" ? handleNumber : handleNormal}
+          secureTextEntry={inputData.type === "password" ? !showPassword : false}
           style={[styles.input, systemFonts.H4]}
           onSubmitEditing={inputData.type === "search" && inputData.onSubmit}
         />
 
         {inputData.type === "password" && (
           <Pressable onPress={handlePassword}>
-            <Image
-              source={
-                showPassword
-                  ? require("@assets/images/see.png")
-                  : require("@assets/images/unsee.png")
-              }
-            />
+            <Image source={showPassword ? require("@assets/images/see.png") : require("@assets/images/unsee.png")} />
           </Pressable>
         )}
       </View>
 
-      {validationError && (
-        <Text style={[styles.error, systemFonts.P]}>
-          {validationError.message}
-        </Text>
-      )}
+      {validationError && <Text style={[styles.error, systemFonts.P]}>{validationError.message}</Text>}
     </View>
   );
 };

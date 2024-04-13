@@ -70,7 +70,7 @@ export const addDrugForm = {
     {
       type: "number",
       name: "composition",
-      placeholder: "Komposisi",
+      placeholder: "Komposisi (Angka)",
     },
     {
       type: "dropdown",
@@ -79,8 +79,8 @@ export const addDrugForm = {
       items: [],
     },
     {
-      type: "text",
-      name: "shelve",
+      type: "number",
+      name: "shelve (Angka)",
       placeholder: "Rak",
     },
     {
