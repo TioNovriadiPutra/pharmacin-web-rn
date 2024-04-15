@@ -16,6 +16,8 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
 
   return (
     <View style={styles.container}>
+      {inputData.outside && <Text style={[systemFonts.H3, styles.outside]}>{inputData.placeholder}</Text>}
+
       <View
         style={[
           styles.inputBox,
@@ -23,19 +25,20 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
             paddingVertical: inputData.type === "password" ? 3 : 10,
             borderColor: validationError ? colors.Danger : colors.LightBorder,
           },
-          inputData.type === "search" ? styles.inputBoxSearch : styles.inputBoxElse,
+          inputData.type === "search" ? styles.inputBoxSearch : inputData.readOnly ? styles.inputBoxInactive : styles.inputBoxElse,
         ]}
       >
         {inputData.type === "search" && <Image source={require("@assets/images/search.png")} />}
 
         <TextInput
           value={field.value}
-          placeholder={inputData.type === "search" ? "Cari disini..." : inputData.placeholder}
+          placeholder={inputData.type === "search" ? "Cari disini..." : inputData.outside ? "" : inputData.placeholder}
           placeholderTextColor={colors.Placeholder}
           onChangeText={inputData.type === "number" ? handleNumber : handleNormal}
           secureTextEntry={inputData.type === "password" ? !showPassword : false}
           style={[styles.input, systemFonts.H4]}
           onSubmitEditing={inputData.type === "search" && inputData.onSubmit}
+          editable={inputData.readOnly ? !inputData.readOnly : true}
         />
 
         {inputData.type === "password" && (
@@ -61,6 +64,7 @@ PharmacinTextInput.propTypes = {
 const styles = StyleSheet.create({
   container: {
     zIndex: 1,
+    gap: 6,
   },
   inputBox: {
     paddingHorizontal: 14,
@@ -68,6 +72,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
+  },
+  inputBoxInactive: {
+    backgroundColor: colors.Default,
   },
   inputBoxSearch: {
     backgroundColor: colors.Inactive,
@@ -87,5 +94,8 @@ const styles = StyleSheet.create({
     top: "100%",
     left: 14,
     color: colors.Danger,
+  },
+  outside: {
+    color: colors.SubTitle,
   },
 });

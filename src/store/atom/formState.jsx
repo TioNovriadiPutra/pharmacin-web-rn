@@ -9,3 +9,8 @@ export const formDataState = atom({
   key: "formDataState",
   default: null,
 });
+
+export const purchaseTransactionCartsState = atom({
+  key: "purchaseTransactionCartsState",
+  default: [],
+});

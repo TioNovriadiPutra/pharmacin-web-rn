@@ -14,9 +14,12 @@ const PharmacinCurrencyInput = ({ control, inputData, validationError }) => {
 
   return (
     <View style={styles.container}>
+      {inputData.outside && <Text style={[systemFonts.H3, styles.outside]}>{inputData.placeholder}</Text>}
+
       <View
         style={[
           styles.inputBox,
+          inputData.readOnly ? styles.inputBoxInactive : styles.inputBoxElse,
           {
             borderColor: validationError ? colors.Danger : colors.LightBorder,
           },
@@ -30,6 +33,7 @@ const PharmacinCurrencyInput = ({ control, inputData, validationError }) => {
           placeholder={inputData.placeholder}
           placeholderTextColor={colors.Placeholder}
           precision={0}
+          editable={inputData.readOnly ? !inputData.readOnly : true}
         />
       </View>
 
@@ -49,14 +53,20 @@ PharmacinCurrencyInput.propTypes = {
 const styles = StyleSheet.create({
   container: {
     zIndex: 1,
+    gap: 6,
   },
   inputBox: {
     paddingHorizontal: 14,
+    paddingVertical: 10,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",
     gap: 14,
-    paddingVertical: 10,
+  },
+  inputBoxInactive: {
+    backgroundColor: colors.Default,
+  },
+  inputBoxElse: {
     backgroundColor: colors.White,
     borderWidth: 1,
   },
@@ -70,5 +80,8 @@ const styles = StyleSheet.create({
     top: "100%",
     left: 14,
     color: colors.Danger,
+  },
+  outside: {
+    color: colors.SubTitle,
   },
 });

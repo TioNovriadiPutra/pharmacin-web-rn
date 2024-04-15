@@ -1,11 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
+import MainContainer from "@containers/MainContainer";
+import PageHeader from "@components/layout/PageHeader";
+import { obatRacikanHeader } from "@utils/constant/pageHeader";
 
 const ObatRacikan = () => {
   return (
-    <View>
-      <Text>ObatRacikan</Text>
-    </View>
+    <MainContainer>
+      <PageHeader headerData={obatRacikanHeader} />
+    </MainContainer>
   );
 };
 

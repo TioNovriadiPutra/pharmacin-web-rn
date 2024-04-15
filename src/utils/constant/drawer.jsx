@@ -74,4 +74,20 @@ export const drawerAdmin = [
     label: "Pabrikan",
     destination: "PabrikanStack",
   },
+  {
+    active: require("@assets/images/pembelianActive.png"),
+    inactive: require("@assets/images/pembelianInactive.png"),
+    label: "Pembelian",
+    destination: "PembelianStack",
+    subMenu: [
+      {
+        label: "Tambah Pembelian",
+        destination: "PembelianTambah",
+      },
+      {
+        label: "Kelola Pembelian",
+        destination: "PembelianKelola",
+      },
+    ],
+  },
 ];

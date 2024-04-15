@@ -15,7 +15,9 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
   });
 
   return (
-    <View style={{ zIndex: showDropdown ? 2 : 1 }}>
+    <View style={[styles.container, { zIndex: showDropdown ? 2 : 1 }]}>
+      {inputData.outside && <Text style={[systemFonts.H3, styles.outside]}>{inputData.placeholder}</Text>}
+
       <Pressable
         style={[
           styles.inputBox,
@@ -25,7 +27,9 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
         ]}
         onPress={handleDropdown}
       >
-        <Text style={[styles.input, systemFonts.H4, { color: field.value ? colors.Black : colors.Placeholder }]}>{field.value ? field.value.label : inputData.placeholder}</Text>
+        <Text style={[styles.input, systemFonts.H4, { color: field.value ? colors.Black : colors.Placeholder }]}>
+          {field.value ? field.value.label : inputData.outside ? "" : inputData.placeholder}
+        </Text>
 
         <Animated.Image source={require("@assets/images/dropdown.png")} style={dropdownIconAnimatedStyle} />
       </Pressable>
@@ -59,6 +63,9 @@ PharmacinDropdown.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    gap: 6,
+  },
   inputBox: {
     borderWidth: 1,
     paddingHorizontal: 14,
@@ -103,5 +110,8 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.Black,
+  },
+  outside: {
+    color: colors.SubTitle,
   },
 });

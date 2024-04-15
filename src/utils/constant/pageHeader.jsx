@@ -78,3 +78,43 @@ export const obatHeader = {
     ],
   },
 };
+
+export const obatRacikanHeader = {
+  headerTitle: {
+    title: "Obat",
+    subTitle: "/ Racikan",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Resep",
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchResep",
+      },
+    ],
+  },
+};
+
+export const pembelianTambahHeader = {
+  headerTitle: {
+    title: "Pembelian",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Batalkan Pembelian",
+        color: colors.Danger,
+      },
+      {
+        type: "button",
+        label: "Tambah Pembelian",
+        color: colors.Primary,
+      },
+    ],
+  },
+};

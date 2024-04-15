@@ -1,4 +1,7 @@
+import { purchaseTransactionCartsState } from "@store/atom/formState";
 import { colors } from "@themes/colors";
+import moment from "moment";
+import { getRecoil, setRecoil } from "recoil-nexus";
 
 export const addDrugFactoryForm = {
   title: "Tambah Pabrik",
@@ -114,5 +117,112 @@ export const addDrugForm = {
   submitButton: {
     label: "Tambah Obat",
     color: colors.Primary,
+  },
+};
+
+export const addPurchaseTransactionForm = {
+  inputs1: [
+    {
+      type: "dropdown",
+      name: "factoryId",
+      placeholder: "Nama Pabrik",
+      items: [],
+      outside: true,
+    },
+    {
+      type: "text",
+      name: "createdAt",
+      placeholder: "Tanggal",
+      outside: true,
+      readOnly: true,
+    },
+  ],
+  inputs2: [
+    {
+      type: "currency",
+      name: "totalPrice",
+      placeholder: "Total",
+      outside: true,
+      readOnly: true,
+    },
+  ],
+  carts: {
+    headers: [
+      { title: "Nama Obat", type: "text" },
+      { title: "Kadaluarsa", type: "date" },
+      { title: "QTY", type: "number" },
+      { title: "Harga", type: "currency" },
+      { title: "Total", type: "currency" },
+      { title: "Tindakan", type: "action" },
+    ],
+    name: "purchaseItems",
+    template: [
+      {
+        type: "dropdown",
+        name: "drugId",
+        placeholder: "Pilih Obat",
+        items: [],
+      },
+      {
+        type: "date",
+        name: "expired",
+        placeholder: "DD-MM-YYYY",
+      },
+      {
+        type: "number",
+        name: "quantity",
+        placeholder: "Hanya Angka",
+      },
+      {
+        type: "currency",
+        name: "purchasePrice",
+        placeholder: "",
+        readOnly: true,
+      },
+      {
+        type: "currency",
+        name: "totalPrice",
+        placeholder: "",
+        readOnly: true,
+      },
+    ],
+    defaultValues: {
+      drugId: null,
+      expired: null,
+      quantity: "",
+      purchasePrice: 0,
+      totalPrice: 0,
+    },
+    actions: [
+      {
+        type: "delete",
+      },
+    ],
+    onAdd: (append, parentName, templateForm, template) => {
+      const data = JSON.parse(JSON.stringify(template));
+
+      const inputData = JSON.parse(JSON.stringify(getRecoil(purchaseTransactionCartsState)));
+
+      const newData = data.map((tmp) => {
+        Object.assign(tmp, {
+          ...tmp,
+          name: `${parentName}.${inputData.length}.${tmp.name}`,
+        });
+
+        return tmp;
+      });
+
+      inputData.push(newData);
+
+      setRecoil(purchaseTransactionCartsState, inputData);
+
+      append(templateForm);
+    },
+  },
+  defaultValues: {
+    factoryId: null,
+    createdAt: moment().format("DD-MM-YYYY"),
+    totalPrice: 0,
+    purchaseItems: [],
   },
 };

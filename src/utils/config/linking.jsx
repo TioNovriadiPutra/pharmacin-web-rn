@@ -33,6 +33,12 @@ const config = {
         PabrikanDetail: "pabrikan/:id",
       },
     },
+    PembelianStack: {
+      screens: {
+        PembelianTambah: "pembelian/tambah",
+        PembelianKelola: "pembelian",
+      },
+    },
   },
 };
 
