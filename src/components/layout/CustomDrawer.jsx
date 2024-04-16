@@ -14,16 +14,19 @@ import DrawerList from "@components/fragment/DrawerList";
 import DrawerNotification from "@components/fragment/DrawerNotification";
 import Bar from "@components/element/Bar";
 import { drawerAdmin } from "@utils/constant/drawer";
+import DrawerProfile from "@components/fragment/DrawerProfile";
+import DrawerProfileSkeleton from "@components/skeleton/DrawerProfileSkeleton";
 
 const CustomDrawer = (prop) => {
   const {
     drawerStatus,
-    roleId,
     drawerAnimatedStyle,
     handleDrawer,
     handleNavigation,
     handleSubMenu,
     closeDrawer,
+    isLoading,
+    openSetting,
   } = useDrawer(prop);
 
   return (
@@ -45,6 +48,14 @@ const CustomDrawer = (prop) => {
           onSubMenu={handleSubMenu}
           drawerData={drawerAdmin}
         />
+
+        <Bar containerStyle={styles.bar} />
+
+        {isLoading ? (
+          <DrawerProfileSkeleton />
+        ) : (
+          <DrawerProfile openSetting={openSetting} />
+        )}
       </Animated.View>
     </View>
   );
@@ -59,7 +70,6 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     paddingVertical: 24,
-    overflow: "hidden",
     backgroundColor: colors.White,
     zIndex: 2,
   },

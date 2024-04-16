@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 19,
     marginBottom: 46,
+    overflow: "hidden",
   },
   title: {
     color: colors.Primary,

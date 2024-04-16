@@ -5,6 +5,12 @@ import {
   roleIdState,
   tokenState,
 } from "@store/atom/authState";
+import {
+  drawerIndexState,
+  drawerStatusState,
+  drawerSubMenuIndexState,
+  showDrawerProfileMenuState,
+} from "@store/atom/drawerState";
 import { validationErrorState } from "@store/atom/formState";
 import { isLoadingState } from "@store/atom/pageState";
 import { handleToast } from "@utils/helper/toast";
@@ -82,6 +88,11 @@ const useAuthController = (nav) => {
       AsyncStorage.removeItem("@token");
       AsyncStorage.removeItem("@roleId");
       AsyncStorage.removeItem("@paymentStatus");
+
+      setRecoil(showDrawerProfileMenuState, false);
+      setRecoil(drawerStatusState, false);
+      setRecoil(drawerIndexState, null);
+      setRecoil(drawerSubMenuIndexState, null);
 
       handleToast("success", response.message);
     },

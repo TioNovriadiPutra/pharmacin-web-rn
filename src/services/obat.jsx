@@ -31,9 +31,31 @@ export const getDrugDetail = async (id) => {
   }
 };
 
+export const getDrugsByDrugFactory = async (id) => {
+  try {
+    const response = await axiosInstance.get(
+      `${endpoints.getDrugsByDrugFactory}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getRecoil(tokenState)}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const addDrug = async (data) => {
   try {
-    const finalData = { ...data, unitId: data.unitId ? data.unitId.value : null, categoryId: data.categoryId ? data.categoryId.value : null, factoryId: data.factoryId ? data.factoryId.value : null };
+    const finalData = {
+      ...data,
+      unitId: data.unitId ? data.unitId.value : null,
+      categoryId: data.categoryId ? data.categoryId.value : null,
+      factoryId: data.factoryId ? data.factoryId.value : null,
+    };
 
     const response = await axiosInstance.post(endpoints.getDrugs, finalData, {
       headers: {
@@ -56,11 +78,15 @@ export const updateDrug = async (data) => {
       factoryId: data.data.factoryId ? data.data.factoryId.value : null,
     };
 
-    const response = await axiosInstance.put(`${endpoints.getDrugs}/${data.id}`, finalData, {
-      headers: {
-        Authorization: `Bearer ${getRecoil(tokenState)}`,
-      },
-    });
+    const response = await axiosInstance.put(
+      `${endpoints.getDrugs}/${data.id}`,
+      finalData,
+      {
+        headers: {
+          Authorization: `Bearer ${getRecoil(tokenState)}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {

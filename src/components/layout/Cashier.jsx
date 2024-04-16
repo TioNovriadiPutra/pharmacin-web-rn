@@ -10,35 +10,44 @@ import useCashier from "@hooks/useCashier";
 import CashierFirstRowSkeleton from "@components/skeleton/CashierFirstRowSkeleton";
 
 const Cashier = ({ control }) => {
-  const { shoppingCartInputs, append, watchFactory, isLoading } = useCashier(addPurchaseTransactionForm.carts.name, control);
+  const { fields, watchFactory, isLoadingFactories, onAdd } =
+    useCashier(control);
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
+      {isLoadingFactories ? (
         <CashierFirstRowSkeleton />
       ) : (
         <View style={styles.firstRow}>
           <View style={[styles.box, styles.boxNormal, styles.firstBox]}>
-            <Form control={control} inputListData={addPurchaseTransactionForm.inputs1} />
+            <Form
+              control={control}
+              inputListData={addPurchaseTransactionForm.inputs1}
+            />
           </View>
 
           <View style={[styles.box, styles.boxNormal, styles.secondBox]}>
-            <Form control={control} inputListData={addPurchaseTransactionForm.inputs2} />
+            <Form
+              control={control}
+              inputListData={addPurchaseTransactionForm.inputs2}
+            />
           </View>
         </View>
       )}
 
       <View style={[styles.box, styles.boxCart]}>
-        <ShoppingCart control={control} cartInputData={shoppingCartInputs} cartHeaderData={addPurchaseTransactionForm.carts.headers} cartActionData={addPurchaseTransactionForm.carts.actions} />
+        <ShoppingCart
+          control={control}
+          cartData={addPurchaseTransactionForm.carts}
+          listData={fields}
+        />
 
         {watchFactory && (
           <SubmitButton
             label="Tambah Obat"
             color={colors.Secondary}
             buttonStyle={styles.button}
-            onPress={() =>
-              addPurchaseTransactionForm.carts.onAdd(append, addPurchaseTransactionForm.carts.name, addPurchaseTransactionForm.carts.defaultValues, addPurchaseTransactionForm.carts.template)
-            }
+            onPress={onAdd}
           />
         )}
       </View>

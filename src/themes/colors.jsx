@@ -22,4 +22,7 @@ export const colors = {
   SubTitle: "#969696",
   TableBorder: "#F2F2F3",
   Title: "#2D3257",
+  Profile: "#EDEDED",
+  Name: "#636363",
+  Role: "#989898",
 };

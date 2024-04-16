@@ -91,3 +91,14 @@ export const drawerAdmin = [
     ],
   },
 ];
+
+export const settingMenu = [
+  {
+    label: "Pengaturan",
+    icon: require("@assets/images/setting.png"),
+  },
+  {
+    label: "Keluar",
+    icon: require("@assets/images/logout.png"),
+  },
+];

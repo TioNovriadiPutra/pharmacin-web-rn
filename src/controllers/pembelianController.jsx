@@ -1,10 +1,17 @@
+import useObatModel from "@models/obatModel";
 import usePembelianModel from "@models/pembelianModel";
+import { getDrugsByDrugFactory } from "@services/obat";
+import { isLoadingState } from "@store/atom/pageState";
 import { addPurchaseTransactionForm } from "@utils/constant/form";
+import { handleToast } from "@utils/helper/toast";
+import { useMutation } from "react-query";
+import { setRecoil } from "recoil-nexus";
 
 const usePembelianController = () => {
   const { getPurchaseDrugFactoriesDropdown } = usePembelianModel();
+  const { useGetDrugsByDrugFactory } = useObatModel();
 
-  const getPurchaseDrugFactoriesDropdownQuery = () => {
+  const useGetPurchaseDrugFactoriesDropdownQuery = () => {
     const { data, isLoading, isError } = getPurchaseDrugFactoriesDropdown();
 
     if (!isLoading) {
@@ -29,12 +36,44 @@ const usePembelianController = () => {
     }
 
     return {
-      isLoading,
+      isLoadingFactories: isLoading,
     };
   };
 
+  const getPurchaseDrugsDropdownMutation = useMutation(getDrugsByDrugFactory, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+    },
+    onSuccess: (response) => {
+      Object.assign(addPurchaseTransactionForm.carts, {
+        template: addPurchaseTransactionForm.carts.template.map((tmp) => {
+          if (tmp.name === "drugId") {
+            Object.assign(tmp, {
+              items: response.data.map((item) => {
+                return {
+                  label: item.drug,
+                  value: item.id,
+                };
+              }),
+            });
+          }
+
+          return tmp;
+        }),
+      });
+    },
+    onError: (error) => {
+      handleToast("failed", error.error.message);
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   return {
-    getPurchaseDrugFactoriesDropdownQuery,
+    useGetPurchaseDrugFactoriesDropdownQuery,
+    getPurchaseDrugsDropdown: (id) =>
+      getPurchaseDrugsDropdownMutation.mutate(id),
   };
 };
 

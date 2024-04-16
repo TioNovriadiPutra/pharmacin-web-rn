@@ -1,36 +1,79 @@
 import { FlatList, Image, Pressable, StyleSheet, View } from "react-native";
 import React from "react";
-import { any, array } from "prop-types";
+import { any, array, string } from "prop-types";
 import PharmacinDropdown from "./PharmacinDropdown";
 import PharmacinCurrencyInput from "./PharmacinCurrencyInput";
 import PharmacinTextInput from "./PharmacinTextInput";
 import { colors } from "@themes/colors";
+import PharmacinDatePicker from "./PharmacinDatePicker";
 
-const ShoppingCartList = ({ listData, control, actions }) => {
+const ShoppingCartList = ({
+  listData,
+  control,
+  actions,
+  template,
+  listName,
+}) => {
   return (
     <FlatList
       data={listData}
-      keyExtractor={(_, index) => index.toString()}
-      extraData={listData}
-      renderItem={({ item }) => (
+      keyExtractor={(item) => item.id}
+      renderItem={({ _, index }) => (
         <View style={styles.container}>
-          {item.map((tmp, index) => (
-            <View key={index.toString()} style={styles.input}>
+          {template.map((tmp, indexTmp) => (
+            <View key={indexTmp.toString()} style={styles.input}>
               {tmp.type === "dropdown" ? (
-                <PharmacinDropdown control={control} inputData={tmp} />
+                <PharmacinDropdown
+                  control={control}
+                  inputData={{
+                    ...tmp,
+                    name: `${listName}.${index}.${tmp.name}`,
+                  }}
+                />
               ) : tmp.type === "currency" ? (
-                <PharmacinCurrencyInput control={control} inputData={tmp} />
+                <PharmacinCurrencyInput
+                  control={control}
+                  inputData={{
+                    ...tmp,
+                    name: `${listName}.${index}.${tmp.name}`,
+                  }}
+                />
+              ) : tmp.type === "date" ? (
+                <PharmacinDatePicker
+                  control={control}
+                  inputData={{
+                    ...tmp,
+                    name: `${listName}.${index}.${tmp.name}`,
+                  }}
+                />
               ) : (
-                <PharmacinTextInput control={control} inputData={tmp} />
+                <PharmacinTextInput
+                  control={control}
+                  inputData={{
+                    ...tmp,
+                    name: `${listName}.${index}.${tmp.name}`,
+                  }}
+                />
               )}
             </View>
           ))}
 
           {actions && (
             <View style={styles.actionContainer}>
-              {actions.map((action, index) => (
-                <Pressable key={index.toString()} onPress={action.onPress}>
-                  <Image source={action.type === "delete" ? require("@assets/images/delete.png") : action.type === "edit" ? require("@assets/images/edit.png") : require("@assets/images/info.png")} />
+              {actions.map((action, indexAction) => (
+                <Pressable
+                  key={indexAction.toString()}
+                  onPress={() => action.onPress(index)}
+                >
+                  <Image
+                    source={
+                      action.type === "delete"
+                        ? require("@assets/images/delete.png")
+                        : action.type === "edit"
+                        ? require("@assets/images/edit.png")
+                        : require("@assets/images/info.png")
+                    }
+                  />
                 </Pressable>
               ))}
             </View>
@@ -47,6 +90,8 @@ ShoppingCartList.propTypes = {
   listData: array.isRequired,
   control: any.isRequired,
   actions: array,
+  template: array.isRequired,
+  name: string.isRequired,
 };
 
 const styles = StyleSheet.create({

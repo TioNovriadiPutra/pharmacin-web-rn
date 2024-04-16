@@ -1,19 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { any, array, string } from "prop-types";
+import { any, array, object } from "prop-types";
 import ShoppingCartHeader from "@components/element/ShoppingCartHeader";
 import { colors } from "@themes/colors";
 import { fonts } from "@themes/fonts";
 import ShoppingCartList from "@components/element/ShoppingCartList";
 
-const ShoppingCart = ({ control, cartInputData, cartPlaceholder, cartHeaderData, cartActionData }) => {
+const ShoppingCart = ({ control, cartData, listData }) => {
   return (
     <View style={styles.container}>
-      {cartPlaceholder && <Text style={styles.placeholder}>{cartPlaceholder}</Text>}
+      {cartData.placeholder && (
+        <Text style={styles.placeholder}>{cartData.placeholder}</Text>
+      )}
 
-      <ShoppingCartHeader headerData={cartHeaderData} />
+      <ShoppingCartHeader headerData={cartData.headers} />
 
-      <ShoppingCartList control={control} listData={cartInputData} actions={cartActionData} />
+      <ShoppingCartList
+        control={control}
+        listData={listData}
+        actions={cartData.actions}
+        template={cartData.template}
+        listName={cartData.name}
+      />
     </View>
   );
 };
@@ -22,10 +30,8 @@ export default ShoppingCart;
 
 ShoppingCart.propTypes = {
   control: any.isRequired,
-  cartInputData: array.isRequired,
-  cartPlaceholder: string,
-  cartHeaderData: array.isRequired,
-  cartActionData: array,
+  cartData: object.isRequired,
+  listData: array.isRequired,
 };
 
 const styles = StyleSheet.create({

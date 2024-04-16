@@ -1,8 +1,8 @@
-import { roleIdState } from "@store/atom/authState";
 import {
   drawerIndexState,
   drawerStatusState,
   drawerSubMenuIndexState,
+  showDrawerProfileMenuState,
 } from "@store/atom/drawerState";
 import { useEffect } from "react";
 import {
@@ -11,13 +11,20 @@ import {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import useUserController from "src/controllers/userController";
 
 const useDrawer = (prop) => {
   const [drawerStatus, setDrawerStatus] = useRecoilState(drawerStatusState);
   const setDrawerIndex = useSetRecoilState(drawerIndexState);
   const setDrawerSubMenuIndex = useSetRecoilState(drawerSubMenuIndexState);
-  const roleId = useRecoilValue(roleIdState);
+  const [showSetting, setShowSetting] = useRecoilState(
+    showDrawerProfileMenuState
+  );
+
+  const { useGetUserProfileQuery } = useUserController();
+
+  const { isLoading } = useGetUserProfileQuery();
 
   const drawerAnim = useSharedValue(0);
 
@@ -62,15 +69,29 @@ const useDrawer = (prop) => {
     if (!drawerStatus) {
       openDrawer();
     }
+
+    if (showSetting) {
+      closeSetting();
+    }
   };
 
   const closeDrawer = () => {
     setDrawerStatus(false);
     setDrawerSubMenuIndex(null);
+    closeSetting();
   };
 
   const openDrawer = () => {
     setDrawerStatus(true);
+  };
+
+  const openSetting = () => {
+    setShowSetting(true);
+    setDrawerSubMenuIndex(null);
+  };
+
+  const closeSetting = () => {
+    setShowSetting(false);
   };
 
   useEffect(() => {
@@ -87,13 +108,13 @@ const useDrawer = (prop) => {
 
   return {
     drawerStatus,
-    roleId,
     drawerAnimatedStyle,
     handleDrawer,
     handleNavigation,
     handleSubMenu,
-    openDrawer,
     closeDrawer,
+    isLoading,
+    openSetting,
   };
 };
 

@@ -3,7 +3,10 @@ import React from "react";
 import ScrollContainer from "@containers/ScrollContainer";
 import DrawerItem from "@components/element/DrawerItem";
 import { useRecoilValue } from "recoil";
-import { drawerIndexState, drawerSubMenuIndexState } from "@store/atom/drawerState";
+import {
+  drawerIndexState,
+  drawerSubMenuIndexState,
+} from "@store/atom/drawerState";
 import { array, func } from "prop-types";
 
 const DrawerList = ({ onNavigate, onSubMenu, drawerData }) => {
@@ -11,7 +14,10 @@ const DrawerList = ({ onNavigate, onSubMenu, drawerData }) => {
   const drawerSubMenuIndex = useRecoilValue(drawerSubMenuIndexState);
 
   return (
-    <ScrollContainer containerStyle={styles.container} scrollContainerStyle={styles.scrollContainer}>
+    <ScrollContainer
+      containerStyle={styles.container}
+      scrollContainerStyle={styles.scrollContainer}
+    >
       {drawerData.map((drawer, index) => (
         <DrawerItem
           key={index.toString()}
@@ -37,6 +43,7 @@ DrawerList.propTypes = {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 18,
+    flex: 1,
   },
   scrollContainer: {
     gap: 24,

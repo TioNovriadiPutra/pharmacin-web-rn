@@ -9,7 +9,10 @@ const ScrollContainer = ({
 }) => {
   return (
     <View style={[styles.container, containerStyle]}>
-      <ScrollView contentContainerStyle={scrollContainerStyle}>
+      <ScrollView
+        contentContainerStyle={scrollContainerStyle}
+        showsVerticalScrollIndicator={false}
+      >
         {children}
       </ScrollView>
     </View>

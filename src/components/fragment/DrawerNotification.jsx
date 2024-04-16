@@ -11,7 +11,12 @@ const DrawerNotification = ({ onNavigate }) => {
 
   return (
     <View style={styles.container}>
-      <DrawerItem drawerItemData={notifDrawer} onNavigate={onNavigate} status={drawerIndex === 0} subMenuStatus={false} />
+      <DrawerItem
+        drawerItemData={notifDrawer}
+        onNavigate={onNavigate}
+        status={drawerIndex === 0}
+        subMenuStatus={false}
+      />
     </View>
   );
 };
@@ -27,5 +32,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 18,
+    overflow: "hidden",
   },
 });

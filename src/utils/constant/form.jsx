@@ -198,26 +198,6 @@ export const addPurchaseTransactionForm = {
         type: "delete",
       },
     ],
-    onAdd: (append, parentName, templateForm, template) => {
-      const data = JSON.parse(JSON.stringify(template));
-
-      const inputData = JSON.parse(JSON.stringify(getRecoil(purchaseTransactionCartsState)));
-
-      const newData = data.map((tmp) => {
-        Object.assign(tmp, {
-          ...tmp,
-          name: `${parentName}.${inputData.length}.${tmp.name}`,
-        });
-
-        return tmp;
-      });
-
-      inputData.push(newData);
-
-      setRecoil(purchaseTransactionCartsState, inputData);
-
-      append(templateForm);
-    },
   },
   defaultValues: {
     factoryId: null,

@@ -14,3 +14,8 @@ export const drawerSubMenuIndexState = atom({
   key: "drawerSubMenuIndexState",
   default: null,
 });
+
+export const showDrawerProfileMenuState = atom({
+  key: "showDrawerProfileMenuState",
+  default: false,
+});
