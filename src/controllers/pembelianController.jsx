@@ -53,6 +53,7 @@ const usePembelianController = () => {
                 return {
                   label: item.drug,
                   value: item.id,
+                  extra: item.purchase_price,
                 };
               }),
             });

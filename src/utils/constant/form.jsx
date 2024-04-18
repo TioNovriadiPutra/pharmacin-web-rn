@@ -172,6 +172,8 @@ export const addPurchaseTransactionForm = {
         type: "number",
         name: "quantity",
         placeholder: "Hanya Angka",
+        center: true,
+        readOnly: true,
       },
       {
         type: "currency",
@@ -189,7 +191,7 @@ export const addPurchaseTransactionForm = {
     defaultValues: {
       drugId: null,
       expired: null,
-      quantity: "",
+      quantity: null,
       purchasePrice: 0,
       totalPrice: 0,
     },

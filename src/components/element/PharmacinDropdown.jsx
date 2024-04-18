@@ -8,7 +8,12 @@ import useDropdown from "@hooks/useDropdown";
 import Animated from "react-native-reanimated";
 
 const PharmacinDropdown = ({ control, inputData, validationError }) => {
-  const { showDropdown, handleDropdown, handleItem, dropdownIconAnimatedStyle } = useDropdown();
+  const {
+    showDropdown,
+    handleDropdown,
+    handleItem,
+    dropdownIconAnimatedStyle,
+  } = useDropdown();
   const { field } = useController({
     name: inputData.name,
     control,
@@ -16,7 +21,11 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
 
   return (
     <View style={[styles.container, { zIndex: showDropdown ? 2 : 1 }]}>
-      {inputData.outside && <Text style={[systemFonts.H3, styles.outside]}>{inputData.placeholder}</Text>}
+      {inputData.outside && (
+        <Text style={[systemFonts.H3, styles.outside]}>
+          {inputData.placeholder}
+        </Text>
+      )}
 
       <Pressable
         style={[
@@ -27,14 +36,33 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
         ]}
         onPress={handleDropdown}
       >
-        <Text style={[styles.input, systemFonts.H4, { color: field.value ? colors.Black : colors.Placeholder }]}>
-          {field.value ? field.value.label : inputData.outside ? "" : inputData.placeholder}
+        <Text
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          style={[
+            styles.input,
+            systemFonts.H4,
+            { color: field.value ? colors.Black : colors.Placeholder },
+          ]}
+        >
+          {field.value
+            ? field.value.label
+            : inputData.outside
+            ? ""
+            : inputData.placeholder}
         </Text>
 
-        <Animated.Image source={require("@assets/images/dropdown.png")} style={dropdownIconAnimatedStyle} />
+        <Animated.Image
+          source={require("@assets/images/dropdown.png")}
+          style={dropdownIconAnimatedStyle}
+        />
       </Pressable>
 
-      {validationError && <Text style={[styles.error, systemFonts.P]}>{validationError.message}</Text>}
+      {validationError && (
+        <Text style={[styles.error, systemFonts.P]}>
+          {validationError.message}
+        </Text>
+      )}
 
       {showDropdown && (
         <FlatList
@@ -42,7 +70,10 @@ const PharmacinDropdown = ({ control, inputData, validationError }) => {
           keyExtractor={(_, index) => index.toString()}
           style={styles.dropdown}
           renderItem={({ item }) => (
-            <Pressable style={styles.dropdownItem} onPress={() => handleItem(field, item)}>
+            <Pressable
+              style={styles.dropdownItem}
+              onPress={() => handleItem(field, item)}
+            >
               <View style={styles.itemBackdrop}>
                 <Text style={[systemFonts.P, styles.label]}>{item.label}</Text>
               </View>

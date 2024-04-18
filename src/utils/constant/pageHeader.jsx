@@ -103,18 +103,4 @@ export const pembelianTambahHeader = {
   headerTitle: {
     title: "Pembelian",
   },
-  headerFunction: {
-    function: [
-      {
-        type: "button",
-        label: "Batalkan Pembelian",
-        color: colors.Danger,
-      },
-      {
-        type: "button",
-        label: "Tambah Pembelian",
-        color: colors.Primary,
-      },
-    ],
-  },
 };

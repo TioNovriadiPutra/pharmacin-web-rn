@@ -1,4 +1,11 @@
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 import { any, object } from "prop-types";
 import { colors } from "@themes/colors";
@@ -12,11 +19,16 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
     control,
   });
 
-  const { showPassword, handlePassword, handleNormal, handleNumber } = useTextInput(field);
+  const { showPassword, handlePassword, handleNormal, handleNumber } =
+    useTextInput(field);
 
   return (
     <View style={styles.container}>
-      {inputData.outside && <Text style={[systemFonts.H3, styles.outside]}>{inputData.placeholder}</Text>}
+      {inputData.outside && (
+        <Text style={[systemFonts.H3, styles.outside]}>
+          {inputData.placeholder}
+        </Text>
+      )}
 
       <View
         style={[
@@ -25,30 +37,60 @@ const PharmacinTextInput = ({ control, inputData, validationError }) => {
             paddingVertical: inputData.type === "password" ? 3 : 10,
             borderColor: validationError ? colors.Danger : colors.LightBorder,
           },
-          inputData.type === "search" ? styles.inputBoxSearch : inputData.readOnly ? styles.inputBoxInactive : styles.inputBoxElse,
+          inputData.type === "search"
+            ? styles.inputBoxSearch
+            : inputData.readOnly
+            ? styles.inputBoxInactive
+            : styles.inputBoxElse,
         ]}
       >
-        {inputData.type === "search" && <Image source={require("@assets/images/search.png")} />}
+        {inputData.type === "search" && (
+          <Image source={require("@assets/images/search.png")} />
+        )}
 
         <TextInput
           value={field.value}
-          placeholder={inputData.type === "search" ? "Cari disini..." : inputData.outside ? "" : inputData.placeholder}
+          placeholder={
+            inputData.type === "search"
+              ? "Cari disini..."
+              : inputData.outside
+              ? ""
+              : inputData.placeholder
+          }
           placeholderTextColor={colors.Placeholder}
-          onChangeText={inputData.type === "number" ? handleNumber : handleNormal}
-          secureTextEntry={inputData.type === "password" ? !showPassword : false}
-          style={[styles.input, systemFonts.H4]}
+          onChangeText={
+            inputData.type === "number" ? handleNumber : handleNormal
+          }
+          secureTextEntry={
+            inputData.type === "password" ? !showPassword : false
+          }
+          style={[
+            styles.input,
+            systemFonts.H4,
+            { textAlign: inputData.center ? "center" : "auto" },
+          ]}
           onSubmitEditing={inputData.type === "search" && inputData.onSubmit}
           editable={inputData.readOnly ? !inputData.readOnly : true}
         />
 
         {inputData.type === "password" && (
           <Pressable onPress={handlePassword}>
-            <Image source={showPassword ? require("@assets/images/see.png") : require("@assets/images/unsee.png")} />
+            <Image
+              source={
+                showPassword
+                  ? require("@assets/images/see.png")
+                  : require("@assets/images/unsee.png")
+              }
+            />
           </Pressable>
         )}
       </View>
 
-      {validationError && <Text style={[styles.error, systemFonts.P]}>{validationError.message}</Text>}
+      {validationError && (
+        <Text style={[styles.error, systemFonts.P]}>
+          {validationError.message}
+        </Text>
+      )}
     </View>
   );
 };
@@ -88,6 +130,7 @@ const styles = StyleSheet.create({
     color: colors.Black,
     outlineStyle: "none",
     flex: 1,
+    overflow: "hidden",
   },
   error: {
     position: "absolute",

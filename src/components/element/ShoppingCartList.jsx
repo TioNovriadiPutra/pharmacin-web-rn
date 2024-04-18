@@ -91,7 +91,7 @@ ShoppingCartList.propTypes = {
   control: any.isRequired,
   actions: array,
   template: array.isRequired,
-  name: string.isRequired,
+  name: string,
 };
 
 const styles = StyleSheet.create({

@@ -1,6 +1,5 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { any } from "prop-types";
 import { colors } from "@themes/colors";
 import Form from "@components/fragment/Form";
 import { addPurchaseTransactionForm } from "@utils/constant/form";
@@ -9,9 +8,9 @@ import SubmitButton from "@components/element/SubmitButton";
 import useCashier from "@hooks/useCashier";
 import CashierFirstRowSkeleton from "@components/skeleton/CashierFirstRowSkeleton";
 
-const Cashier = ({ control }) => {
-  const { fields, watchFactory, isLoadingFactories, onAdd } =
-    useCashier(control);
+const Cashier = () => {
+  const { control, setValue, fields, watchFactory, isLoadingFactories, onAdd } =
+    useCashier(control, setValue);
 
   return (
     <View style={styles.container}>
@@ -56,10 +55,6 @@ const Cashier = ({ control }) => {
 };
 
 export default Cashier;
-
-Cashier.propTypes = {
-  control: any.isRequired,
-};
 
 const styles = StyleSheet.create({
   container: {

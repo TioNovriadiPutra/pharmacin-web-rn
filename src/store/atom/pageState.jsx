@@ -19,3 +19,8 @@ export const rowIdState = atom({
   key: "rowIdState",
   default: null,
 });
+
+export const pembelianHeaderState = atom({
+  key: "pembelianHeaderState",
+  default: null,
+});
