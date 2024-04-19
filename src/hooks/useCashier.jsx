@@ -18,8 +18,11 @@ const useCashier = () => {
     control,
   });
 
-  const { useGetPurchaseDrugFactoriesDropdownQuery, getPurchaseDrugsDropdown } =
-    usePembelianController();
+  const {
+    useGetPurchaseDrugFactoriesDropdownQuery,
+    getPurchaseDrugsDropdown,
+    addPurchaseTransaction,
+  } = usePembelianController();
 
   const { isLoadingFactories } = useGetPurchaseDrugFactoriesDropdownQuery();
 
@@ -100,7 +103,15 @@ const useCashier = () => {
               type: "button",
               label: "Tambah Pembelian",
               color: colors.Primary,
-              onPress: handleSubmit((data) => console.log(data)),
+              onPress: handleSubmit((data) =>
+                addPurchaseTransaction({
+                  data,
+                  onRefresh: () => {
+                    reset(addPurchaseTransactionForm.defaultValues);
+                    setPembelianHeader(null);
+                  },
+                })
+              ),
             },
           ],
         },

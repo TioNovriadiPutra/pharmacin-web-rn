@@ -4,6 +4,8 @@ const drugPrefix = "/drug";
 const drugCategoryPrefix = drugPrefix + "/category";
 const unitPrefix = "/unit";
 const userPrefix = "/user";
+const transactionPrefix = "/transaction";
+const purchaseTransactionPrefix = transactionPrefix + "/purchase";
 
 export const endpoints = {
   login: authPrefix + "/login/desktop",
@@ -16,4 +18,5 @@ export const endpoints = {
   getDrugsByDrugFactory: drugPrefix + "/factory",
   getUnits: unitPrefix,
   getUserProfile: userPrefix + "/profile",
+  getPurchaseTransactions: purchaseTransactionPrefix,
 };

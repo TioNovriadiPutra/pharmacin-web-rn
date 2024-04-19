@@ -11,6 +11,7 @@ import PabrikanDetail from "@views/app/Pabrikan/PabrikanDetail";
 import Pasien from "@views/app/Pasien/Pasien";
 import PasienRecord from "@views/app/Pasien/PasienRecord";
 import PasienRecordDetail from "@views/app/Pasien/PasienRecordDetail";
+import PembelianInvoice from "@views/app/Pembelian/PembelianInvoice";
 import PembelianKelola from "@views/app/Pembelian/PembelianKelola";
 import PembelianTambah from "@views/app/Pembelian/PembelianTambah";
 import Pendaftaran from "@views/app/Pendaftaran";
@@ -35,16 +36,48 @@ const AppStack = () => {
       })}
       drawerContent={(prop) => <CustomDrawer {...prop} />}
     >
-      <Drawer.Screen name="Notifikasi" component={Notifikasi} options={{ headerShown: false }} />
-      <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
+      <Drawer.Screen
+        name="Notifikasi"
+        component={Notifikasi}
+        options={{ headerShown: false }}
+      />
+      <Drawer.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{ headerShown: false }}
+      />
       {roleId === 1 || roleId === 5 ? (
         <>
-          <Drawer.Screen name="Pendaftaran" component={Pendaftaran} options={{ headerShown: false }} />
-          <Drawer.Screen name="PasienStack" component={PasienStack} options={{ headerShown: false }} />
-          <Drawer.Screen name="StokStack" component={StokStack} options={{ headerShown: false }} />
-          <Drawer.Screen name="ObatStack" component={ObatStack} options={{ headerShown: false }} />
-          <Drawer.Screen name="PabrikanStack" component={PabrikanStack} options={{ headerShown: false }} />
-          <Drawer.Screen name="PembelianStack" component={PembelianStack} options={{ headerShown: false }} />
+          <Drawer.Screen
+            name="Pendaftaran"
+            component={Pendaftaran}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="PasienStack"
+            component={PasienStack}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="StokStack"
+            component={StokStack}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="ObatStack"
+            component={ObatStack}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="PabrikanStack"
+            component={PabrikanStack}
+            options={{ headerShown: false }}
+          />
+          <Drawer.Screen
+            name="PembelianStack"
+            component={PembelianStack}
+            options={{ headerShown: false }}
+          />
         </>
       ) : null}
     </Drawer.Navigator>
@@ -54,9 +87,21 @@ const AppStack = () => {
 const PasienStack = () => {
   return (
     <Stack.Navigator initialRouteName="Pasien">
-      <Stack.Screen name="Pasien" component={Pasien} options={{ headerShown: false }} />
-      <Stack.Screen name="PasienRecord" component={PasienRecord} options={{ headerShown: false }} />
-      <Stack.Screen name="PasienRecordDetail" component={PasienRecordDetail} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Pasien"
+        component={Pasien}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PasienRecord"
+        component={PasienRecord}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PasienRecordDetail"
+        component={PasienRecordDetail}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -64,10 +109,26 @@ const PasienStack = () => {
 const StokStack = () => {
   return (
     <Stack.Navigator initialRouteName="Stok">
-      <Stack.Screen name="Stok" component={Stok} options={{ headerShown: false }} />
-      <Stack.Screen name="StokOpname" component={StokOpname} options={{ headerShown: false }} />
-      <Stack.Screen name="StokOpnameDetail" component={StokOpnameDetail} options={{ headerShown: false }} />
-      <Stack.Screen name="StokRiwayatOpname" component={StokRiwayatOpname} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Stok"
+        component={Stok}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StokOpname"
+        component={StokOpname}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StokOpnameDetail"
+        component={StokOpnameDetail}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="StokRiwayatOpname"
+        component={StokRiwayatOpname}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -75,9 +136,21 @@ const StokStack = () => {
 const ObatStack = () => {
   return (
     <Stack.Navigator initialRouteName="ObatKategori">
-      <Stack.Screen name="ObatKategori" component={ObatKategori} options={{ headerShown: false }} />
-      <Stack.Screen name="ObatKelola" component={ObatKelola} options={{ headerShown: false }} />
-      <Stack.Screen name="ObatRacikan" component={ObatRacikan} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="ObatKategori"
+        component={ObatKategori}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ObatKelola"
+        component={ObatKelola}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ObatRacikan"
+        component={ObatRacikan}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -85,8 +158,16 @@ const ObatStack = () => {
 const PabrikanStack = () => {
   return (
     <Stack.Navigator initialRouteName="Pabrikan">
-      <Stack.Screen name="Pabrikan" component={Pabrikan} options={{ headerShown: false }} />
-      <Stack.Screen name="PabrikanDetail" component={PabrikanDetail} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="Pabrikan"
+        component={Pabrikan}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PabrikanDetail"
+        component={PabrikanDetail}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
@@ -94,8 +175,21 @@ const PabrikanStack = () => {
 const PembelianStack = () => {
   return (
     <Stack.Navigator initialRouteName="PembelianTambah">
-      <Stack.Screen name="PembelianTambah" component={PembelianTambah} options={{ headerShown: false }} />
-      <Stack.Screen name="PembelianKelola" component={PembelianKelola} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="PembelianTambah"
+        component={PembelianTambah}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PembelianKelola"
+        component={PembelianKelola}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PembelianInvoice"
+        component={PembelianInvoice}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

@@ -9,6 +9,25 @@ export const obatKategoriData = {
 };
 
 export const obatData = {
-  headerData: ["Nama Obat", "Nama Generik", "Kategori", "Rak", "Harga Jual", "Komposisi", "Tindakan"],
+  headerData: [
+    "Nama Obat",
+    "Nama Generik",
+    "Kategori",
+    "Rak",
+    "Harga Jual",
+    "Komposisi",
+    "Tindakan",
+  ],
+  tableData: [],
+};
+
+export const pembelianData = {
+  headerData: [
+    "No Invoice",
+    "Nama Pabrik",
+    "Tanggal",
+    "Total Pembelian",
+    "Tindakan",
+  ],
   tableData: [],
 };

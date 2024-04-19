@@ -1,18 +1,80 @@
-import useObatModel from "@models/obatModel";
 import usePembelianModel from "@models/pembelianModel";
+import { useNavigation } from "@react-navigation/native";
 import { getDrugsByDrugFactory } from "@services/obat";
+import { addPurchaseTransaction } from "@services/pembelian";
+import { validationErrorState } from "@store/atom/formState";
 import { isLoadingState } from "@store/atom/pageState";
 import { addPurchaseTransactionForm } from "@utils/constant/form";
+import { pembelianData } from "@utils/constant/pageTable";
+import { currencyFormatter } from "@utils/helper/currency";
+import { hashId } from "@utils/helper/hash";
 import { handleToast } from "@utils/helper/toast";
+import moment from "moment";
 import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
 
 const usePembelianController = () => {
-  const { getPurchaseDrugFactoriesDropdown } = usePembelianModel();
-  const { useGetDrugsByDrugFactory } = useObatModel();
+  const {
+    useGetPurchaseDrugFactoriesDropdown,
+    useGetPurchaseTransactions,
+    useGetPurchaseTransactionDetail,
+  } = usePembelianModel();
+
+  const useGetPurchaseTransactionsQuery = () => {
+    const { data, isLoading, isError, error } = useGetPurchaseTransactions();
+
+    const nav = useNavigation();
+
+    if (!isLoading) {
+      if (!isError) {
+        Object.assign(pembelianData, {
+          tableData: data.data.map((item) => {
+            const arr = [
+              item.invoice_number,
+              item.factory_name,
+              moment(item.created_at).format("DD-MM-YYYY"),
+              currencyFormatter(item.total_price),
+            ];
+
+            return {
+              tables: arr,
+              actions: [
+                {
+                  type: "invoice",
+                  onPress: () =>
+                    nav.navigate("PembelianStack", {
+                      screen: "PembelianInvoice",
+                      params: {
+                        id: hashId(item.id),
+                      },
+                    }),
+                },
+              ],
+            };
+          }),
+        });
+      } else {
+        handleToast("failed", error.error.message);
+      }
+    }
+
+    return {
+      isLoading,
+    };
+  };
+
+  const useGetPurchaseTransactionDetailQuery = () => {
+    const { data, isLoading, isError, error } =
+      useGetPurchaseTransactionDetail();
+
+    if (!isLoading) {
+      if (!isError) {
+      }
+    }
+  };
 
   const useGetPurchaseDrugFactoriesDropdownQuery = () => {
-    const { data, isLoading, isError } = getPurchaseDrugFactoriesDropdown();
+    const { data, isLoading, isError } = useGetPurchaseDrugFactoriesDropdown();
 
     if (!isLoading) {
       if (!isError) {
@@ -71,10 +133,33 @@ const usePembelianController = () => {
     },
   });
 
+  const addPurchaseTransactionMutation = useMutation(addPurchaseTransaction, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   return {
+    useGetPurchaseTransactionsQuery,
     useGetPurchaseDrugFactoriesDropdownQuery,
     getPurchaseDrugsDropdown: (id) =>
       getPurchaseDrugsDropdownMutation.mutate(id),
+    addPurchaseTransaction: (data) =>
+      addPurchaseTransactionMutation.mutate(data),
   };
 };
 

@@ -37,6 +37,7 @@ const config = {
       screens: {
         PembelianTambah: "pembelian/tambah",
         PembelianKelola: "pembelian",
+        PembelianInvoice: "pembelian/:id",
       },
     },
   },

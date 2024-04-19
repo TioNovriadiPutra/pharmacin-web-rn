@@ -104,3 +104,23 @@ export const pembelianTambahHeader = {
     title: "Pembelian",
   },
 };
+
+export const pembelianKelolaHeader = {
+  headerTitle: {
+    title: "Pembelian",
+    subTitle: "/ Kelola Pembelian",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Pembelian",
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchPembelian",
+      },
+    ],
+  },
+};
