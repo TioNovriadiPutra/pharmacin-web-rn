@@ -6,6 +6,9 @@ const unitPrefix = "/unit";
 const userPrefix = "/user";
 const transactionPrefix = "/transaction";
 const purchaseTransactionPrefix = transactionPrefix + "/purchase";
+const stockPrefix = "/stock";
+const patientPrefix = "/patient";
+const occupationPrefix = "/occupation";
 
 export const endpoints = {
   login: authPrefix + "/login/desktop",
@@ -19,4 +22,7 @@ export const endpoints = {
   getUnits: unitPrefix,
   getUserProfile: userPrefix + "/profile",
   getPurchaseTransactions: purchaseTransactionPrefix,
+  getStocks: stockPrefix,
+  getPatients: patientPrefix,
+  getOccupations: occupationPrefix,
 };

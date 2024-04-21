@@ -10,10 +10,7 @@ const PageTableBodyRow = ({ bodyData }) => {
 
   return (
     <Pressable
-      style={[
-        styles.container,
-        { paddingVertical: bodyData.actions ? 11 : 18 },
-      ]}
+      style={[styles.container, { paddingVertical: bodyData.actions ? 11 : 18 }]}
       onPress={() => {
         if (bodyData.rowPress) {
           bodyData.rowPress(nav);
@@ -29,18 +26,22 @@ const PageTableBodyRow = ({ bodyData }) => {
       {bodyData.actions && (
         <View style={styles.actionContainer}>
           {bodyData.actions.map((action, index) => (
-            <Pressable key={index.toString()} onPress={action.onPress}>
-              <Image
-                source={
-                  action.type === "delete"
-                    ? require("@assets/images/delete.png")
-                    : action.type === "edit"
-                    ? require("@assets/images/edit.png")
-                    : action.type === "invoice"
-                    ? require("@assets/images/invoice.png")
-                    : require("@assets/images/info.png")
-                }
-              />
+            <Pressable key={index.toString()} onPress={action.onPress} style={action.type === "button" && [styles.button, { backgroundColor: action.active ? action.color : colors.Placeholder }]}>
+              {action.type === "button" ? (
+                <Text style={[systemFonts.H2, styles.labelButton]}>{action.label}</Text>
+              ) : (
+                <Image
+                  source={
+                    action.type === "delete"
+                      ? require("@assets/images/delete.png")
+                      : action.type === "edit"
+                      ? require("@assets/images/edit.png")
+                      : action.type === "invoice"
+                      ? require("@assets/images/invoice.png")
+                      : require("@assets/images/info.png")
+                  }
+                />
+              )}
             </Pressable>
           ))}
         </View>
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     gap: 24,
     borderBottomWidth: 1,
     borderBottomColor: colors.TableBorder,
+    paddingHorizontal: 10,
   },
   label: {
     color: colors.Black,
@@ -73,5 +75,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 1,
     gap: 10,
+  },
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  labelButton: {
+    color: colors.White,
   },
 });

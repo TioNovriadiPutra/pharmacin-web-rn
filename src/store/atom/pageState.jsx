@@ -24,3 +24,8 @@ export const pembelianHeaderState = atom({
   key: "pembelianHeaderState",
   default: null,
 });
+
+export const switchIndexState = atom({
+  key: "stockSwitchIndexState",
+  default: 0,
+});

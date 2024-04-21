@@ -208,3 +208,80 @@ export const addPurchaseTransactionForm = {
     purchaseItems: [],
   },
 };
+
+export const addPatientForm = {
+  title: "Tambah Pasien",
+  inputs: [
+    {
+      type: "text",
+      name: "fullName",
+      placeholder: "Nama Pasien",
+    },
+    {
+      type: "number",
+      name: "nik",
+      placeholder: "Nomor Induk KTP (NIK)",
+    },
+    {
+      type: "text",
+      name: "address",
+      placeholder: "Alamat",
+    },
+    {
+      type: "dropdown",
+      name: "gender",
+      placeholder: "Jenis Kelamin",
+      items: [
+        {
+          label: "Laki-laki",
+          value: "male",
+        },
+        {
+          label: "Perempuan",
+          value: "female",
+        },
+      ],
+    },
+    {
+      type: "dropdown",
+      name: "occupationId",
+      placeholder: "Jenis Pekerjaan",
+      items: [],
+    },
+    {
+      type: "text",
+      name: "pob",
+      placeholder: "Tempat Lahir",
+    },
+    {
+      type: "date",
+      name: "dob",
+      placeholder: "Tanggal Lahir",
+    },
+    {
+      type: "number",
+      name: "phone",
+      placeholder: "No. Handphone",
+    },
+    {
+      type: "text",
+      name: "allergy",
+      placeholder: "Alergi Obat",
+    },
+  ],
+  defaultValues: {
+    fullName: "",
+    nik: "",
+    address: "",
+    gender: null,
+    occupationId: null,
+    pob: "",
+    dob: null,
+    phone: "",
+    allergy: "",
+  },
+  submitButton: {
+    label: "Tambah Pasien",
+    color: colors.Primary,
+  },
+};

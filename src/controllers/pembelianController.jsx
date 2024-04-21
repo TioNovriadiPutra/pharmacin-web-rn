@@ -5,6 +5,8 @@ import { addPurchaseTransaction } from "@services/pembelian";
 import { validationErrorState } from "@store/atom/formState";
 import { isLoadingState } from "@store/atom/pageState";
 import { addPurchaseTransactionForm } from "@utils/constant/form";
+import { pembelianDetail } from "@utils/constant/pageDetail";
+import { pembelianKelolaHeader } from "@utils/constant/pageHeader";
 import { pembelianData } from "@utils/constant/pageTable";
 import { currencyFormatter } from "@utils/helper/currency";
 import { hashId } from "@utils/helper/hash";
@@ -14,11 +16,7 @@ import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
 
 const usePembelianController = () => {
-  const {
-    useGetPurchaseDrugFactoriesDropdown,
-    useGetPurchaseTransactions,
-    useGetPurchaseTransactionDetail,
-  } = usePembelianModel();
+  const { useGetPurchaseDrugFactoriesDropdown, useGetPurchaseTransactions, useGetPurchaseTransactionDetail } = usePembelianModel();
 
   const useGetPurchaseTransactionsQuery = () => {
     const { data, isLoading, isError, error } = useGetPurchaseTransactions();
@@ -29,12 +27,7 @@ const usePembelianController = () => {
       if (!isError) {
         Object.assign(pembelianData, {
           tableData: data.data.map((item) => {
-            const arr = [
-              item.invoice_number,
-              item.factory_name,
-              moment(item.created_at).format("DD-MM-YYYY"),
-              currencyFormatter(item.total_price),
-            ];
+            const arr = [item.invoice_number, item.factory_name, moment(item.created_at).format("DD-MM-YYYY"), currencyFormatter(item.total_price)];
 
             return {
               tables: arr,
@@ -53,6 +46,13 @@ const usePembelianController = () => {
             };
           }),
         });
+
+        Object.assign(pembelianKelolaHeader.headerFunction.function[0], {
+          onPress: () =>
+            nav.navigate("PembelianStack", {
+              screen: "PembelianTambah",
+            }),
+        });
       } else {
         handleToast("failed", error.error.message);
       }
@@ -63,14 +63,50 @@ const usePembelianController = () => {
     };
   };
 
-  const useGetPurchaseTransactionDetailQuery = () => {
-    const { data, isLoading, isError, error } =
-      useGetPurchaseTransactionDetail();
+  const useGetPurchaseTransactionDetailQuery = (id) => {
+    const { data, isLoading, isError, error } = useGetPurchaseTransactionDetail(id);
 
     if (!isLoading) {
       if (!isError) {
+        Object.assign(pembelianDetail, {
+          detailBlock: [
+            [
+              {
+                ...pembelianDetail.detailBlock[0][0],
+                value: data.data.invoice_number,
+              },
+              {
+                ...pembelianDetail.detailBlock[0][1],
+                value: data.data.factory_name,
+              },
+              {
+                ...pembelianDetail.detailBlock[0][2],
+                value: moment(data.data.created_at).format("DD-MM-YYYY, H:m"),
+              },
+            ],
+          ],
+          detailData: [
+            {
+              ...pembelianDetail.detailData[0],
+              cartData: data.data.purchaseShoppingCarts.map((cart) => {
+                const arr = [cart.drug_name, moment(cart.expired).format("DD-MM-YYYY"), cart.quantity, currencyFormatter(cart.purchase_price), currencyFormatter(cart.total_price)];
+
+                return {
+                  tables: arr,
+                };
+              }),
+              total: currencyFormatter(data.data.purchaseShoppingCarts.reduce((total, num) => total + num.total_price, 0)),
+            },
+          ],
+        });
+      } else {
+        handleToast("failed", error.error.message);
       }
     }
+
+    return {
+      isLoading,
+    };
   };
 
   const useGetPurchaseDrugFactoriesDropdownQuery = () => {
@@ -155,11 +191,10 @@ const usePembelianController = () => {
 
   return {
     useGetPurchaseTransactionsQuery,
+    useGetPurchaseTransactionDetailQuery,
     useGetPurchaseDrugFactoriesDropdownQuery,
-    getPurchaseDrugsDropdown: (id) =>
-      getPurchaseDrugsDropdownMutation.mutate(id),
-    addPurchaseTransaction: (data) =>
-      addPurchaseTransactionMutation.mutate(data),
+    getPurchaseDrugsDropdown: (id) => getPurchaseDrugsDropdownMutation.mutate(id),
+    addPurchaseTransaction: (data) => addPurchaseTransactionMutation.mutate(data),
   };
 };
 

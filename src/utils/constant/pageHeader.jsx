@@ -2,7 +2,7 @@ import { formDataState } from "@store/atom/formState";
 import { showFormModalState } from "@store/atom/pageState";
 import { colors } from "@themes/colors";
 import { setRecoil } from "recoil-nexus";
-import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm } from "./form";
+import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm, addPatientForm } from "./form";
 
 export const pabrikanHeader = {
   headerTitle: {
@@ -52,6 +52,9 @@ export const obatKategoriHeader = {
         name: "searchKategori",
       },
     ],
+    defaultValues: {
+      searchKategori: "",
+    },
   },
 };
 
@@ -76,6 +79,9 @@ export const obatHeader = {
         name: "searchObat",
       },
     ],
+    defaultValues: {
+      searchObat: "",
+    },
   },
 };
 
@@ -96,6 +102,9 @@ export const obatRacikanHeader = {
         name: "searchResep",
       },
     ],
+    defaultValues: {
+      searchResep: "",
+    },
   },
 };
 
@@ -122,5 +131,81 @@ export const pembelianKelolaHeader = {
         name: "searchPembelian",
       },
     ],
+    defaultValues: {
+      searchPembelian: "",
+    },
+  },
+};
+
+export const stokHeader = {
+  headerTitle: {
+    title: "Stok",
+    subTitle: "/ Stok",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "switch",
+        switchData: [
+          {
+            label: "Per Item",
+          },
+          {
+            label: "Per Batch",
+          },
+        ],
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchStock",
+      },
+    ],
+    defaultValues: {
+      searchStock: "",
+    },
+  },
+};
+
+export const pendaftaranHeader = {
+  headerTitle: {
+    title: "Pendaftaran",
+    subTitle: "/ Daftar Pasien",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Daftar Pasien Baru",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addPatientForm);
+        },
+      },
+    ],
+  },
+  headerFunction2: {
+    function: [
+      {
+        type: "switch",
+        switchData: [
+          {
+            label: "Daftar Antrian",
+          },
+          {
+            label: "Daftar Pasien Terdaftar",
+          },
+        ],
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchPasien",
+      },
+    ],
+    defaultValues: {
+      searchPasien: "",
+    },
   },
 };

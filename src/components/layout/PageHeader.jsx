@@ -6,12 +6,14 @@ import PageHeaderFunction from "@components/fragment/PageHeaderFunction";
 
 const PageHeader = ({ headerData }) => {
   return (
-    <View style={styles.container}>
-      <PageHeaderTitle headerTitleData={headerData.headerTitle} />
+    <View style={styles.mainContainer}>
+      <View style={styles.container}>
+        <PageHeaderTitle headerTitleData={headerData.headerTitle} />
 
-      {headerData.headerFunction && (
-        <PageHeaderFunction headerFunctionData={headerData.headerFunction} />
-      )}
+        {headerData.headerFunction && <PageHeaderFunction headerFunctionData={headerData.headerFunction} />}
+      </View>
+
+      {headerData.headerFunction2 && <PageHeaderFunction headerFunctionData={headerData.headerFunction2} secondary />}
     </View>
   );
 };
@@ -23,6 +25,9 @@ PageHeader.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    gap: 14,
+  },
   container: {
     flexDirection: "row",
     alignItems: "center",

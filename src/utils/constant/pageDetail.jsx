@@ -23,15 +23,7 @@ export const pabrikanDetail = {
       },
     ],
   },
-  headerData: [
-    "Nama Obat",
-    "Nama Generik",
-    "Kategori",
-    "Harga Beli",
-    "Harga Jual",
-    "Takaran",
-    "Stock",
-  ],
+  headerData: ["Nama Obat", "Nama Generik", "Kategori", "Harga Beli", "Harga Jual", "Takaran", "Stock"],
   tableData: [],
 };
 
@@ -100,17 +92,31 @@ export const obatDetail = {
 export const pembelianDetail = {
   title: "Invoice Pembelian",
   detailBlock: [
+    [
+      {
+        title: "No. Invoice",
+        value: "",
+      },
+      {
+        title: "Nama Pabrik",
+        value: "",
+      },
+      {
+        title: "Tanggal",
+        value: "",
+      },
+    ],
+  ],
+  detailData: [
     {
-      title: "No. Invoice",
-      value: "",
-    },
-    {
-      title: "Nama Pabrik",
-      value: "",
-    },
-    {
-      title: "Tanggal",
-      value: "",
+      headerData: [
+        { title: "Nama Obat", type: "text" },
+        { title: "Kadaluarsa", type: "text" },
+        { title: "QTY", type: "text" },
+        { title: "Harga", type: "text" },
+        { title: "Total", type: "text" },
+      ],
+      cartData: [],
     },
   ],
 };
