@@ -9,6 +9,8 @@ const purchaseTransactionPrefix = transactionPrefix + "/purchase";
 const stockPrefix = "/stock";
 const patientPrefix = "/patient";
 const occupationPrefix = "/occupation";
+const doctorPrefix = "/doctor";
+const queuePrefix = "/queue";
 
 export const endpoints = {
   login: authPrefix + "/login/desktop",
@@ -24,5 +26,9 @@ export const endpoints = {
   getPurchaseTransactions: purchaseTransactionPrefix,
   getStocks: stockPrefix,
   getPatients: patientPrefix,
+  addPatientQueue: patientPrefix + "/queue",
   getOccupations: occupationPrefix,
+  getDoctors: doctorPrefix,
+  getConsultingQueues: queuePrefix,
+  cancelQueue: queuePrefix + "/cancel",
 };

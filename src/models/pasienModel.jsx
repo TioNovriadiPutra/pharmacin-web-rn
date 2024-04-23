@@ -1,3 +1,4 @@
+import { getDoctors } from "@services/dokter";
 import { getPatients } from "@services/pasien";
 import { getOccupations } from "@services/pekerjaan";
 import { useQueries } from "react-query";
@@ -12,6 +13,10 @@ const usePasienModel = () => {
       {
         queryKey: ["getOccupationsDropdown"],
         queryFn: () => getOccupations(),
+      },
+      {
+        queryKey: ["getDoctorsDropdown"],
+        queryFn: () => getDoctors(),
       },
     ]);
   };

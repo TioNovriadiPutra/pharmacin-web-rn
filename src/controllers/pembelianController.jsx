@@ -16,7 +16,11 @@ import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
 
 const usePembelianController = () => {
-  const { useGetPurchaseDrugFactoriesDropdown, useGetPurchaseTransactions, useGetPurchaseTransactionDetail } = usePembelianModel();
+  const {
+    useGetPurchaseDrugFactoriesDropdown,
+    useGetPurchaseTransactions,
+    useGetPurchaseTransactionDetail,
+  } = usePembelianModel();
 
   const useGetPurchaseTransactionsQuery = () => {
     const { data, isLoading, isError, error } = useGetPurchaseTransactions();
@@ -27,7 +31,12 @@ const usePembelianController = () => {
       if (!isError) {
         Object.assign(pembelianData, {
           tableData: data.data.map((item) => {
-            const arr = [item.invoice_number, item.factory_name, moment(item.created_at).format("DD-MM-YYYY"), currencyFormatter(item.total_price)];
+            const arr = [
+              { type: "text", value: item.invoice_number },
+              { type: "text", value: item.factory_name },
+              { type: "text", value: item.created_at },
+              { type: "currency", value: item.total_price },
+            ];
 
             return {
               tables: arr,
@@ -64,7 +73,8 @@ const usePembelianController = () => {
   };
 
   const useGetPurchaseTransactionDetailQuery = (id) => {
-    const { data, isLoading, isError, error } = useGetPurchaseTransactionDetail(id);
+    const { data, isLoading, isError, error } =
+      useGetPurchaseTransactionDetail(id);
 
     if (!isLoading) {
       if (!isError) {
@@ -81,21 +91,32 @@ const usePembelianController = () => {
               },
               {
                 ...pembelianDetail.detailBlock[0][2],
-                value: moment(data.data.created_at).format("DD-MM-YYYY, H:m"),
+                value: data.data.created_at,
               },
             ],
           ],
           detailData: [
             {
               ...pembelianDetail.detailData[0],
-              cartData: data.data.purchaseShoppingCarts.map((cart) => {
-                const arr = [cart.drug_name, moment(cart.expired).format("DD-MM-YYYY"), cart.quantity, currencyFormatter(cart.purchase_price), currencyFormatter(cart.total_price)];
+              cartData: data.data.shopping_carts.map((cart) => {
+                const arr = [
+                  { type: "text", value: cart.drug_name },
+                  { type: "text", value: cart.expired },
+                  { type: "text", value: cart.quantity },
+                  { type: "currency", value: cart.purchase_price },
+                  { type: "currency", value: cart.total_price },
+                ];
 
                 return {
                   tables: arr,
                 };
               }),
-              total: currencyFormatter(data.data.purchaseShoppingCarts.reduce((total, num) => total + num.total_price, 0)),
+              total: currencyFormatter(
+                data.data.shopping_carts.reduce(
+                  (total, num) => total + num.total_price,
+                  0
+                )
+              ),
             },
           ],
         });
@@ -193,8 +214,10 @@ const usePembelianController = () => {
     useGetPurchaseTransactionsQuery,
     useGetPurchaseTransactionDetailQuery,
     useGetPurchaseDrugFactoriesDropdownQuery,
-    getPurchaseDrugsDropdown: (id) => getPurchaseDrugsDropdownMutation.mutate(id),
-    addPurchaseTransaction: (data) => addPurchaseTransactionMutation.mutate(data),
+    getPurchaseDrugsDropdown: (id) =>
+      getPurchaseDrugsDropdownMutation.mutate(id),
+    addPurchaseTransaction: (data) =>
+      addPurchaseTransactionMutation.mutate(data),
   };
 };
 

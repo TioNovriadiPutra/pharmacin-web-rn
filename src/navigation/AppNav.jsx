@@ -14,6 +14,7 @@ import AppStack from "@routes/AppStack";
 import FormModal from "@components/modal/FormModal";
 import DetailModal from "@components/modal/DetailModal";
 import ValidationModal from "@components/modal/ValidationModal";
+import PendaftaranConfirmationModal from "@components/modal/PendaftaranConfirmationModal";
 
 const AppNav = () => {
   const [appReady, setAppReady] = useState(false);
@@ -46,7 +47,16 @@ const AppNav = () => {
       <FormModal />
       <DetailModal />
       <ValidationModal />
-      <NavigationContainer linking={linking}>{!appReady ? <SplashStack /> : checkLogin ? <AppStack /> : <AuthStack />}</NavigationContainer>
+      <PendaftaranConfirmationModal />
+      <NavigationContainer linking={linking}>
+        {!appReady ? (
+          <SplashStack />
+        ) : checkLogin ? (
+          <AppStack />
+        ) : (
+          <AuthStack />
+        )}
+      </NavigationContainer>
     </View>
   );
 };

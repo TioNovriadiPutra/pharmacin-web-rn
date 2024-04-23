@@ -285,3 +285,17 @@ export const addPatientForm = {
     color: colors.Primary,
   },
 };
+
+export const addPatientQueueForm = {
+  inputs: [
+    {
+      type: "dropdown",
+      name: "doctorId",
+      placeholder: "Pilih Dokter",
+      items: [],
+    },
+  ],
+  defaultValues: {
+    doctorId: null,
+  },
+};

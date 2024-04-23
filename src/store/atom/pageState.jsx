@@ -15,6 +15,18 @@ export const showValidationModalState = atom({
   default: false,
 });
 
+export const showPendaftaranModalState = atom({
+  key: "showPendaftaranModalState",
+  default: false,
+});
+
+export const pendaftaranModalData = atom({
+  key: "pendaftaranModalData",
+  default: {
+    fullName: "",
+  },
+});
+
 export const rowIdState = atom({
   key: "rowIdState",
   default: null,

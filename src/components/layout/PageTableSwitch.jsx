@@ -10,9 +10,17 @@ const PageTableSwitch = ({ tableSwitchData }) => {
 
   const pageRef = useRef(null);
 
+  const getItemLayout = (data, index) => ({
+    length: Dimensions.get("window").width - 96,
+    offset: (Dimensions.get("window").width - 96) * index,
+    index,
+  });
+
   useEffect(() => {
-    pageRef.current.scrollToIndex({ animated: false, index: swithIndex });
-  }, [swithIndex]);
+    if (pageRef) {
+      pageRef.current.scrollToIndex({ animated: false, index: swithIndex });
+    }
+  }, [pageRef, swithIndex]);
 
   return (
     <FlatList
@@ -21,7 +29,10 @@ const PageTableSwitch = ({ tableSwitchData }) => {
       keyExtractor={(_, index) => index.toString()}
       horizontal
       showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => <PageTable pageData={item} tableStyle={styles.table} />}
+      getItemLayout={getItemLayout}
+      renderItem={({ item }) => (
+        <PageTable pageData={item} tableStyle={styles.table} />
+      )}
     />
   );
 };

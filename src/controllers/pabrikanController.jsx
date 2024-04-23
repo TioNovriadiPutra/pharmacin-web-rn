@@ -1,12 +1,16 @@
 import usePabrikanModel from "@models/pabrikanModel";
 import { addDrugFactory, deleteDrugFactory } from "@services/pabrikan";
 import { formDataState, validationErrorState } from "@store/atom/formState";
-import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
+import {
+  isLoadingState,
+  rowIdState,
+  showFormModalState,
+  showValidationModalState,
+} from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
 import { addDrugFactoryForm } from "@utils/constant/form";
 import { pabrikanDetail } from "@utils/constant/pageDetail";
 import { pabrikanData } from "@utils/constant/pageTable";
-import { currencyFormatter } from "@utils/helper/currency";
 import { hashId } from "@utils/helper/hash";
 import { handleToast } from "@utils/helper/toast";
 import { useMutation } from "react-query";
@@ -22,7 +26,12 @@ const usePabrikanController = () => {
       if (!isError) {
         Object.assign(pabrikanData, {
           tableData: data.data.map((tmp) => {
-            const arr = [tmp.id, tmp.factory_name, tmp.factory_email, tmp.factory_phone];
+            const arr = [
+              { type: "text", value: tmp.id },
+              { type: "text", value: tmp.factory_name },
+              { type: "text", value: tmp.factory_email },
+              { type: "text", value: tmp.factory_phone },
+            ];
 
             return {
               tables: arr,
@@ -69,13 +78,13 @@ const usePabrikanController = () => {
           title: data.data.factory_name,
           tableData: data.data.drugs.map((drug) => {
             const arr = [
-              drug.drug,
-              drug.drug_generic_name || "-",
-              drug.drugCategory.category_name,
-              currencyFormatter(drug.purchase_price),
-              currencyFormatter(drug.selling_price),
-              drug.composition,
-              drug.total_stock,
+              { type: "text", value: drug.drug },
+              { type: "text", value: drug.drug_generic_name || "-" },
+              { type: "text", value: drug.drugCategory.category_name },
+              { type: "currency", value: drug.purchase_price },
+              { type: "currency", value: drug.selling_price },
+              { type: "text", value: drug.composition },
+              { type: "text", value: drug.total_stock },
             ];
 
             return {

@@ -13,7 +13,12 @@ const PageTableHeader = ({ tableHeaderData }) => {
           style={[
             systemFonts.H3,
             styles.label,
-            { textAlign: header === "Tindakan" ? "center" : "auto" },
+            {
+              textAlign:
+                header === "Tindakan" || header === "Status"
+                  ? "center"
+                  : "auto",
+            },
           ]}
         >
           {header}

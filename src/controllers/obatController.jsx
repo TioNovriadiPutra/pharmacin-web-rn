@@ -2,7 +2,12 @@ import useObatModel from "@models/obatModel";
 import { addDrug, deleteDrug, getDrugDetail, updateDrug } from "@services/obat";
 import { detailDataState, showDetailModalState } from "@store/atom/detailState";
 import { formDataState, validationErrorState } from "@store/atom/formState";
-import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
+import {
+  isLoadingState,
+  rowIdState,
+  showFormModalState,
+  showValidationModalState,
+} from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
 import { addDrugForm } from "@utils/constant/form";
 import { obatDetail } from "@utils/constant/pageDetail";
@@ -25,7 +30,14 @@ const useObatController = () => {
       if (!isError) {
         Object.assign(obatData, {
           tableData: results[0].data.data.map((item) => {
-            const arr = [item.drug, item.drug_generic_name || "-", item.category_name, item.shelve || "-", currencyFormatter(item.selling_price), item.composition + " mg"];
+            const arr = [
+              { type: "text", value: item.drug },
+              { type: "text", value: item.drug_generic_name || "-" },
+              { type: "text", value: item.category_name },
+              { type: "text", value: item.shelve || "-" },
+              { type: "currency", value: item.selling_price },
+              { type: "text", value: item.composition + " mg" },
+            ];
 
             return {
               tables: arr,
@@ -208,7 +220,8 @@ const useObatController = () => {
           ...formData.submitButton,
           label: "Edit Obat",
         },
-        onSubmit: (data) => updateDrugMutation.mutate({ data, id: response.data.id }),
+        onSubmit: (data) =>
+          updateDrugMutation.mutate({ data, id: response.data.id }),
       });
 
       setRecoil(showFormModalState, true);

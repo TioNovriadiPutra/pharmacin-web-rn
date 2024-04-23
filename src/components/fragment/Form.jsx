@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { validationErrorState } from "@store/atom/formState";
 import PharmacinDropdown from "@components/element/PharmacinDropdown";
 import PharmacinCurrencyInput from "@components/element/PharmacinCurrencyInput";
+import PharmacinCalendar from "@components/element/PharmacinCalendar";
 
 const Form = ({ control, inputListData }) => {
   const validationError = useRecoilValue(validationErrorState);
@@ -14,11 +15,53 @@ const Form = ({ control, inputListData }) => {
     <ScrollView contentContainerStyle={styles.list}>
       {inputListData.map((input, index) => {
         if (input.type === "dropdown") {
-          return <PharmacinDropdown key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
+          return (
+            <PharmacinDropdown
+              key={index.toString()}
+              control={control}
+              inputData={input}
+              validationError={
+                validationError &&
+                validationError.find((error) => error.field === input.name)
+              }
+            />
+          );
         } else if (input.type === "currency") {
-          return <PharmacinCurrencyInput key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
+          return (
+            <PharmacinCurrencyInput
+              key={index.toString()}
+              control={control}
+              inputData={input}
+              validationError={
+                validationError &&
+                validationError.find((error) => error.field === input.name)
+              }
+            />
+          );
+        } else if (input.type === "date") {
+          return (
+            <PharmacinCalendar
+              key={index.toString()}
+              control={control}
+              inputData={input}
+              validationError={
+                validationError &&
+                validationError.find((error) => error.field === input.name)
+              }
+            />
+          );
         } else {
-          return <PharmacinTextInput key={index.toString()} control={control} inputData={input} validationError={validationError && validationError.find((error) => error.field === input.name)} />;
+          return (
+            <PharmacinTextInput
+              key={index.toString()}
+              control={control}
+              inputData={input}
+              validationError={
+                validationError &&
+                validationError.find((error) => error.field === input.name)
+              }
+            />
+          );
         }
       })}
     </ScrollView>
