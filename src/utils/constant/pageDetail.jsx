@@ -1,3 +1,5 @@
+import { colors } from "@themes/colors";
+
 export const pabrikanDetail = {
   title: "",
   detailData: {
@@ -23,7 +25,15 @@ export const pabrikanDetail = {
       },
     ],
   },
-  headerData: ["Nama Obat", "Nama Generik", "Kategori", "Harga Beli", "Harga Jual", "Takaran", "Stock"],
+  headerData: [
+    "Nama Obat",
+    "Nama Generik",
+    "Kategori",
+    "Harga Beli",
+    "Harga Jual",
+    "Takaran",
+    "Stock",
+  ],
   tableData: [],
 };
 
@@ -119,4 +129,88 @@ export const pembelianDetail = {
       cartData: [],
     },
   ],
+};
+
+export const manajemenKlinikDetail = {
+  detailData: {
+    list: [
+      {
+        placeholder: "Nama Klinik",
+        data: "",
+      },
+      {
+        placeholder: "Alamat",
+        data: "",
+      },
+      {
+        placeholder: "Email",
+        data: "",
+      },
+      {
+        placeholder: "Telepon",
+        data: "",
+      },
+    ],
+  },
+};
+
+export const dokterPerawatanDetail = {
+  title: "Form Perawatan",
+  detailBlock: [
+    [
+      {
+        title: "No. Registrasi",
+        value: "",
+      },
+      {
+        title: "No. RM",
+        value: "",
+      },
+      {
+        title: "Nama",
+        value: "",
+      },
+      {
+        title: "TTL",
+        value: "",
+      },
+      {
+        title: "Alamat",
+        value: "",
+      },
+    ],
+    [
+      {
+        title: "Tgl. Periksa",
+        value: "",
+      },
+      {
+        title: "Dokter",
+        value: "",
+      },
+      {
+        title: "Alergi",
+        value: "",
+      },
+    ],
+  ],
+  headerFunction: {
+    function: [
+      {
+        type: "switchAss",
+        switchData: [
+          {
+            label: "Assessment",
+          },
+          {
+            label: "Pengajuan Obat",
+          },
+          {
+            label: "Tindakan",
+          },
+        ],
+        color: colors.Primary,
+      },
+    ],
+  },
 };

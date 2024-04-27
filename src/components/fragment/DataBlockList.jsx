@@ -22,6 +22,6 @@ DataBlockList.propTypes = {
 const styles = StyleSheet.create({
   container: {
     gap: 12,
-    width: "100%",
+    width: "50%",
   },
 });

@@ -40,6 +40,24 @@ const config = {
         PembelianInvoice: "pembelian/:id",
       },
     },
+    ManajemenStack: {
+      screens: {
+        ManajemenKlinik: "manajemen/klinik",
+        ManajemenKaryawan: "manajemen/karyawan",
+        ManajemenDokter: "manajemen/dokter",
+        ManajemenAsistenDokter: "manajemen/asisten-dokter",
+        ManajemenKasir: "manajemen/riwayat-kasir",
+        ManajemenDiagnosis: "manajemen/diagnosis",
+        ManajemenLaborat: "manajemen/laborat",
+        ManajemenTindakan: "manajemen/tindakan",
+      },
+    },
+    DokterStack: {
+      screens: {
+        DokterPasien: "dokter/pasien",
+        DokterPerawatan: "dokter/perawatan/:id",
+      },
+    },
   },
 };
 

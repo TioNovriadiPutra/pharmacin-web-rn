@@ -7,9 +7,9 @@ import {
   drawerIndexState,
   drawerSubMenuIndexState,
 } from "@store/atom/drawerState";
-import { array, func } from "prop-types";
+import { array, bool, func } from "prop-types";
 
-const DrawerList = ({ onNavigate, onSubMenu, drawerData }) => {
+const DrawerList = ({ onNavigate, onSubMenu, drawerData, drawerStatus }) => {
   const drawerIndex = useRecoilValue(drawerIndexState);
   const drawerSubMenuIndex = useRecoilValue(drawerSubMenuIndexState);
 
@@ -17,6 +17,7 @@ const DrawerList = ({ onNavigate, onSubMenu, drawerData }) => {
     <ScrollContainer
       containerStyle={styles.container}
       scrollContainerStyle={styles.scrollContainer}
+      showIndicator={drawerStatus}
     >
       {drawerData.map((drawer, index) => (
         <DrawerItem
@@ -38,6 +39,7 @@ DrawerList.propTypes = {
   onNavigate: func.isRequired,
   onSubMenu: func.isRequired,
   drawerData: array.isRequired,
+  drawerStatus: bool.isRequired,
 };
 
 const styles = StyleSheet.create({

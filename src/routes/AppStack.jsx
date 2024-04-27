@@ -2,6 +2,16 @@ import CustomDrawer from "@components/layout/CustomDrawer";
 import { roleIdState } from "@store/atom/authState";
 import { Drawer, Stack } from "@utils/config/navigation";
 import Dashboard from "@views/app/Dashboard";
+import DokterPasien from "@views/app/Dokter/DokterPasien";
+import DokterPerawatan from "@views/app/Dokter/DokterPerawatan";
+import ManajemenAsistenDokter from "@views/app/Manajemen/ManajemenAsistenDokter";
+import ManajemenDiagnosis from "@views/app/Manajemen/ManajemenDiagnosis";
+import ManajemenDokter from "@views/app/Manajemen/ManajemenDokter";
+import ManajemenKaryawan from "@views/app/Manajemen/ManajemenKaryawan";
+import ManajemenKasir from "@views/app/Manajemen/ManajemenKasir";
+import ManajemenKlinik from "@views/app/Manajemen/ManajemenKlinik";
+import ManajemenLaborat from "@views/app/Manajemen/ManajemenLaborat";
+import ManajemenTindakan from "@views/app/Manajemen/ManajemenTindakan";
 import Notifikasi from "@views/app/Notifikasi";
 import ObatKategori from "@views/app/Obat/ObatKategori";
 import ObatKelola from "@views/app/Obat/ObatKelola";
@@ -78,8 +88,25 @@ const AppStack = () => {
             component={PembelianStack}
             options={{ headerShown: false }}
           />
+          {roleId === 1 && (
+            <>
+              <Drawer.Screen
+                name="ManajemenStack"
+                component={ManajemenStack}
+                options={{ headerShown: false }}
+              />
+            </>
+          )}
         </>
-      ) : null}
+      ) : (
+        <>
+          <Drawer.Screen
+            name="DokterStack"
+            component={DokterStack}
+            options={{ headerShown: false }}
+          />
+        </>
+      )}
     </Drawer.Navigator>
   );
 };
@@ -188,6 +215,70 @@ const PembelianStack = () => {
       <Stack.Screen
         name="PembelianInvoice"
         component={PembelianInvoice}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ManajemenStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="ManajemenKlinik">
+      <Stack.Screen
+        name="ManajemenKlinik"
+        component={ManajemenKlinik}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenKaryawan"
+        component={ManajemenKaryawan}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenDokter"
+        component={ManajemenDokter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenAsistenDokter"
+        component={ManajemenAsistenDokter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenKasir"
+        component={ManajemenKasir}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenDiagnosis"
+        component={ManajemenDiagnosis}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenLaborat"
+        component={ManajemenLaborat}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenTindakan"
+        component={ManajemenTindakan}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const DokterStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="DokterPasien">
+      <Stack.Screen
+        name="DokterPasien"
+        component={DokterPasien}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="DokterPerawatan"
+        component={DokterPerawatan}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

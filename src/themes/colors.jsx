@@ -25,4 +25,5 @@ export const colors = {
   Profile: "#EDEDED",
   Name: "#636363",
   Role: "#989898",
+  Scroll: "#D9D9D9",
 };

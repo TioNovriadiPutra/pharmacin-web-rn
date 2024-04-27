@@ -7,6 +7,7 @@ import AuthForm from "@components/fragment/AuthForm";
 import AuthContentFooter from "@components/fragment/AuthContentFooter";
 import useAuthController from "src/controllers/authController";
 import { useNavigation } from "@react-navigation/native";
+import ScrollContainer from "@containers/ScrollContainer";
 
 const AuthContent = ({ type, contentData }) => {
   const nav = useNavigation();
@@ -17,8 +18,8 @@ const AuthContent = ({ type, contentData }) => {
     <View style={styles.container}>
       <Image source={require("@assets/images/logoFull.png")} />
 
-      <ScrollView
-        contentContainerStyle={[
+      <ScrollContainer
+        containerStyle={[
           styles.box,
           type === "login" ? styles.boxLogin : styles.boxRegister,
         ]}
@@ -38,7 +39,9 @@ const AuthContent = ({ type, contentData }) => {
         </View>
 
         {type === "login" && <AuthContentFooter />}
-      </ScrollView>
+      </ScrollContainer>
+
+      {/* <ScrollView contentContainerStyle={[styles.box]}></ScrollView> */}
     </View>
   );
 };
@@ -63,6 +66,7 @@ const styles = StyleSheet.create({
     paddingVertical: 42,
     borderRadius: 10,
     gap: 18,
+    flex: 1,
   },
   boxLogin: {
     width: 484,

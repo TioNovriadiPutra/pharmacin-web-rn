@@ -9,33 +9,89 @@ export const obatKategoriData = {
 };
 
 export const obatData = {
-  headerData: ["Nama Obat", "Nama Generik", "Kategori", "Rak", "Harga Jual", "Komposisi", "Tindakan"],
+  headerData: [
+    "Nama Obat",
+    "Nama Generik",
+    "Kategori",
+    "Rak",
+    "Harga Jual",
+    "Komposisi",
+    "Tindakan",
+  ],
   tableData: [],
 };
 
 export const pembelianData = {
-  headerData: ["No Invoice", "Nama Pabrik", "Tanggal", "Total Pembelian", "Tindakan"],
+  headerData: [
+    "No Invoice",
+    "Nama Pabrik",
+    "Tanggal",
+    "Total Pembelian",
+    "Tindakan",
+  ],
   tableData: [],
 };
 
 export const stokData = [
   {
-    headerData: ["Nama Obat", "Nama Pabrik", "Kategori", "Harga Beli", "Harga Jual", "Stock"],
+    headerData: [
+      "Nama Obat",
+      "Nama Pabrik",
+      "Kategori",
+      "Harga Beli",
+      "Harga Jual",
+      "Stock",
+    ],
     tableData: [],
   },
   {
-    headerData: ["Nama Obat", "Nama Pabrik", "Batch ID", "Kadaluarsa", "Stok Beli", "Terjual", "Stock"],
+    headerData: [
+      "Nama Obat",
+      "Nama Pabrik",
+      "Batch ID",
+      "Kadaluarsa",
+      "Stok Beli",
+      "Terjual",
+      "Stock",
+    ],
     tableData: [],
   },
 ];
 
 export const pasienData = [
   {
-    headerData: ["No Registrasi", "Nama Pasien", "No. RM", "J. Kelamin", "Tgl. Daftar", "Status", "Tindakan"],
+    headerData: [
+      "No Registrasi",
+      "Nama Pasien",
+      "No. RM",
+      "J. Kelamin",
+      "Tgl. Daftar",
+      "Status",
+      "Tindakan",
+    ],
     tableData: [],
   },
   {
-    headerData: ["Nama Pasien", "No. RM", "No. Handphone", "Alamat", "J. Kelamin", "Tgl. Lahir", "Tindakan"],
+    headerData: [
+      "Nama Pasien",
+      "No. RM",
+      "No. Handphone",
+      "Alamat",
+      "J. Kelamin",
+      "Tgl. Lahir",
+      "Tindakan",
+    ],
     tableData: [],
   },
 ];
+
+export const dokterPasienData = {
+  headerData: [
+    "Nama Pasien",
+    "No. Registrasi",
+    "No. RM",
+    "Tgl. Periksa",
+    "Tindakan",
+  ],
+  tableData: [],
+};

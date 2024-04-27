@@ -48,6 +48,20 @@ export const getDrugsByDrugFactory = async (id) => {
   }
 };
 
+export const getDrugsAssessment = async () => {
+  try {
+    const response = await axiosInstance.get(endpoints.getDrugsAssessment, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const addDrug = async (data) => {
   try {
     const finalData = {

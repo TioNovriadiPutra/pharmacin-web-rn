@@ -14,7 +14,7 @@ export const drawerAll = [
   },
 ];
 
-export const drawerAdmin = [
+export const drawerAdministrator = [
   ...drawerAll,
   {
     active: require("@assets/images/pendaftaranActive.png"),
@@ -89,6 +89,60 @@ export const drawerAdmin = [
         destination: "PembelianKelola",
       },
     ],
+  },
+];
+
+export const drawerAdmin = [
+  ...drawerAdministrator,
+  {
+    active: require("@assets/images/manajemenActive.png"),
+    inactive: require("@assets/images/manajemenInactive.png"),
+    label: "Manajemen",
+    destination: "ManajemenStack",
+    subMenu: [
+      {
+        label: "Klinik",
+        destination: "ManajemenKlinik",
+      },
+      {
+        label: "Karyawan",
+        destination: "ManajemenKaryawan",
+      },
+      {
+        label: "Dokter",
+        destination: "ManajemenDokter",
+      },
+      {
+        label: "Asisten Dokter",
+        destination: "ManajemenAsistenDokter",
+      },
+      {
+        label: "Riwayat Kasir",
+        destination: "ManajemenKasir",
+      },
+      {
+        label: "Diagnosis ICD-10",
+        destination: "ManajemenDiagnosis",
+      },
+      {
+        label: "Laborat",
+        destination: "ManajemenLaborat",
+      },
+      {
+        label: "Tindakan",
+        destination: "ManajemenTindakan",
+      },
+    ],
+  },
+];
+
+export const drawerDoctor = [
+  ...drawerAll,
+  {
+    active: require("@assets/images/dokterActive.png"),
+    inactive: require("@assets/images/dokterInactive.png"),
+    label: "Dokter",
+    destination: "DokterStack",
   },
 ];
 

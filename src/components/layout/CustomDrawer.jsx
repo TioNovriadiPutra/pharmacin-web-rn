@@ -13,7 +13,11 @@ import { colors } from "@themes/colors";
 import DrawerList from "@components/fragment/DrawerList";
 import DrawerNotification from "@components/fragment/DrawerNotification";
 import Bar from "@components/element/Bar";
-import { drawerAdmin } from "@utils/constant/drawer";
+import {
+  drawerAdmin,
+  drawerAdministrator,
+  drawerDoctor,
+} from "@utils/constant/drawer";
 import DrawerProfile from "@components/fragment/DrawerProfile";
 import DrawerProfileSkeleton from "@components/skeleton/DrawerProfileSkeleton";
 
@@ -27,6 +31,7 @@ const CustomDrawer = (prop) => {
     closeDrawer,
     isLoading,
     openSetting,
+    roleId,
   } = useDrawer(prop);
 
   return (
@@ -46,7 +51,14 @@ const CustomDrawer = (prop) => {
         <DrawerList
           onNavigate={handleNavigation}
           onSubMenu={handleSubMenu}
-          drawerData={drawerAdmin}
+          drawerData={
+            roleId === 1
+              ? drawerAdmin
+              : roleId === 5
+              ? drawerAdministrator
+              : drawerDoctor
+          }
+          drawerStatus={drawerStatus}
         />
 
         <Bar containerStyle={styles.bar} />

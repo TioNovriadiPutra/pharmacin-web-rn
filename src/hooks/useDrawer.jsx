@@ -1,3 +1,4 @@
+import { roleIdState } from "@store/atom/authState";
 import {
   drawerIndexState,
   drawerStatusState,
@@ -11,7 +12,7 @@ import {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import useUserController from "src/controllers/userController";
 
 const useDrawer = (prop) => {
@@ -21,6 +22,7 @@ const useDrawer = (prop) => {
   const [showSetting, setShowSetting] = useRecoilState(
     showDrawerProfileMenuState
   );
+  const roleId = useRecoilValue(roleIdState);
 
   const { useGetUserProfileQuery } = useUserController();
 
@@ -115,6 +117,7 @@ const useDrawer = (prop) => {
     closeDrawer,
     isLoading,
     openSetting,
+    roleId,
   };
 };
 

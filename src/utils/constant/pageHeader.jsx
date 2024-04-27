@@ -2,7 +2,13 @@ import { formDataState } from "@store/atom/formState";
 import { showFormModalState } from "@store/atom/pageState";
 import { colors } from "@themes/colors";
 import { setRecoil } from "recoil-nexus";
-import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm, addPatientForm } from "./form";
+import {
+  addDrugCategoryForm,
+  addDrugFactoryForm,
+  addDrugForm,
+  addPatientForm,
+  updateClinicForm,
+} from "./form";
 
 export const pabrikanHeader = {
   headerTitle: {
@@ -207,5 +213,32 @@ export const pendaftaranHeader = {
     defaultValues: {
       searchPasien: "",
     },
+  },
+};
+
+export const manajemenKlinikHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Klinik",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Ubah Informasi",
+        color: colors.Info,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, updateClinicForm);
+        },
+      },
+    ],
+  },
+};
+
+export const dokterPasienHeader = {
+  headerTitle: {
+    title: "Dokter",
+    subTitle: "/ Pemeriksaan Pasien",
   },
 };

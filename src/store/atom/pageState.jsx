@@ -41,3 +41,8 @@ export const switchIndexState = atom({
   key: "stockSwitchIndexState",
   default: 0,
 });
+
+export const switchAssessmentIndex = atom({
+  key: "switchAssessmentIndex",
+  default: 0,
+});

@@ -15,12 +15,33 @@ const PageHeaderFunction = ({ headerFunctionData, secondary = false }) => {
     <View style={styles.container}>
       {headerFunctionData.function.map((func, index) => {
         if (func.type === "button") {
-          return <SubmitButton key={index.toString()} label={func.label} color={func.color} buttonStyle={secondary ? styles.buttonSecondary : styles.button} onPress={func.onPress} />;
-        } else if (func.type === "search") {
-          return <PharmacinTextInput key={index.toString()} control={control} inputData={func} />;
-        } else if (func.type === "switch") {
           return (
-            <PageSwitch key={index.toString()} switchData={func.switchData} color={func.color} buttonStyle={secondary && styles.buttonSecondary} containerStyle={secondary && styles.buttonSecondary} />
+            <SubmitButton
+              key={index.toString()}
+              label={func.label}
+              color={func.color}
+              buttonStyle={secondary ? styles.buttonSecondary : styles.button}
+              onPress={func.onPress}
+            />
+          );
+        } else if (func.type === "search") {
+          return (
+            <PharmacinTextInput
+              key={index.toString()}
+              control={control}
+              inputData={func}
+            />
+          );
+        } else if (func.type === "switch" || func.type === "switchAss") {
+          return (
+            <PageSwitch
+              key={index.toString()}
+              switchData={func.switchData}
+              color={func.color}
+              buttonStyle={secondary && styles.buttonSecondary}
+              containerStyle={secondary && styles.buttonSecondary}
+              ass={func.type === "switchAss"}
+            />
           );
         }
       })}

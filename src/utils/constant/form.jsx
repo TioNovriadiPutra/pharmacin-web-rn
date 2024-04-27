@@ -299,3 +299,242 @@ export const addPatientQueueForm = {
     doctorId: null,
   },
 };
+
+export const updateClinicForm = {
+  title: "Ubah Informasi",
+  inputs: [
+    {
+      type: "text",
+      name: "clinicName",
+      placeholder: "Nama Klinik",
+    },
+    {
+      type: "text",
+      name: "address",
+      placeholder: "Alamat",
+    },
+    {
+      type: "number",
+      name: "clinicPhone",
+      placeholder: "Telepon",
+    },
+  ],
+  defaultValues: {
+    clinicName: "",
+    address: "",
+    clinicPhone: "",
+  },
+  submitButton: {
+    label: "Konfirmasi",
+    color: colors.Primary,
+  },
+};
+
+export const perawatanForm = {
+  inputs: [
+    {
+      firstSection: [
+        {
+          type: "calculation",
+          name: "weight",
+          placeholder: "BB",
+          unit: "Kg",
+        },
+        {
+          type: "calculation",
+          name: "height",
+          placeholder: "TB",
+          unit: "Cm",
+        },
+        {
+          type: "calculation",
+          name: "temperature",
+          placeholder: "Suhu",
+          unit: "°C",
+        },
+        {
+          type: "calculation",
+          name: "bloodPressure",
+          placeholder: "T.Darah",
+          unit: "MmHg",
+        },
+        {
+          type: "calculation",
+          name: "pulse",
+          placeholder: "Nadi",
+          unit: "/Menit",
+        },
+      ],
+      secondSection: [
+        [
+          {
+            type: "textarea",
+            name: "subjective",
+            placeholder: "Subjective",
+          },
+          {
+            type: "textarea",
+            name: "objective",
+            placeholder: "Objective",
+          },
+        ],
+        [
+          {
+            type: "textarea",
+            name: "assessment",
+            placeholder: "Assessment",
+          },
+          {
+            type: "textarea",
+            name: "plan",
+            placeholder: "Plan",
+          },
+        ],
+      ],
+    },
+    {
+      pengajuanObatSection: [
+        {
+          name: "drugCarts",
+          buttonLabel: "Tambah Obat",
+          headers: [
+            { title: "Nama Obat", type: "text" },
+            { title: "QTY", type: "number" },
+            { title: "Takaran", type: "text" },
+            { title: "Aturan Pakai", type: "text" },
+            { title: "Subtotal", type: "currency" },
+            { title: "Tindakan", type: "action" },
+          ],
+          template: [
+            {
+              type: "dropdown",
+              name: "drugId",
+              placeholder: "Pilih Obat",
+              items: [],
+            },
+            {
+              type: "number",
+              name: "quantity",
+              placeholder: "Hanya Angka",
+              center: true,
+            },
+            {
+              type: "text",
+              name: "unit",
+              placeholder: "",
+              readOnly: true,
+            },
+            {
+              type: "text",
+              name: "instruction",
+              placeholder: "",
+            },
+            {
+              type: "currency",
+              name: "totalPrice",
+              placeholder: "Rp. 0",
+              readOnly: true,
+            },
+          ],
+          defaultValues: {
+            drugId: null,
+            quantity: null,
+            unit: "",
+            instruction: "",
+            totalPrice: 0,
+          },
+          actions: [
+            {
+              type: "delete",
+            },
+          ],
+          checkRow: (watchCart, cartData, setValue) => {
+            watchCart.forEach((item, index) => {
+              if (item.drugId) {
+                if (item.unit !== item.drugId.unit) {
+                  setValue(`${cartData.name}.${index}.unit`, item.drugId.unit);
+                }
+
+                if (item.quantity) {
+                  if (
+                    item.totalPrice !==
+                    item.quantity * item.drugId.sellingPrice
+                  ) {
+                    setValue(
+                      `${cartData.name}.${index}.totalPrice`,
+                      item.drugId.sellingPrice * item.quantity
+                    );
+                  }
+                } else {
+                  if (item.totalPrice !== 0) {
+                    setValue(`${cartData.name}.${index}.totalPrice`, 0);
+                  }
+                }
+              }
+            });
+          },
+        },
+      ],
+    },
+    {
+      tindakanSection: {
+        name: "actions",
+        buttonLabel: "Tambah Tindakan",
+        headers: [
+          { title: "Nama Tindakan", type: "text" },
+          { title: "Biaya", type: "currency" },
+          { title: "Tindakan", type: "action" },
+        ],
+        template: [
+          {
+            type: "dropdown",
+            name: "actionId",
+            placeholder: "Pilih Tindakan",
+            items: [],
+          },
+          {
+            type: "currency",
+            name: "actionPrice",
+            placeholder: "Rp. 0",
+            center: true,
+            readOnly: true,
+          },
+        ],
+        defaultValues: {
+          actionId: null,
+          actionPrice: 0,
+        },
+        actions: [
+          {
+            type: "delete",
+          },
+        ],
+        checkRow: (watchCart, cartData, setValue) => {
+          watchCart.forEach((item, index) => {
+            if (item.actionId) {
+              if (item.actionPrice === 0) {
+                setValue(
+                  `${cartData.name}.${index}.actionPrice`,
+                  item.actionPrice
+                );
+              }
+            }
+          });
+        },
+      },
+    },
+  ],
+  defaultValues: {
+    weight: "",
+    height: "",
+    temperature: "",
+    bloodPressure: "",
+    pulse: "",
+    subjective: "",
+    objective: "",
+    assessment: "",
+    plan: "",
+    drugCarts: [],
+    actions: [],
+  },
+};

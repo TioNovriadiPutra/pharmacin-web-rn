@@ -31,8 +31,6 @@ const usePasienController = () => {
 
     if (!isLoading) {
       if (!isError) {
-        console.log(results[0].data);
-
         Object.assign(pasienData[0], {
           tableData: results[0].data.data.queueData.map((item) => {
             const arr = [

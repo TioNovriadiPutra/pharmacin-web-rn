@@ -7,7 +7,10 @@ import PageTableBodyRow from "@components/element/PageTableBodyRow";
 
 const PageTableBody = ({ tableBodyData }) => {
   return (
-    <ScrollContainer containerStyle={styles.container} scrollContainerStyle={styles.scrollContainer}>
+    <ScrollContainer
+      containerStyle={styles.container}
+      scrollContainerStyle={styles.scrollContainer}
+    >
       {tableBodyData.map((body, index) => (
         <PageTableBodyRow key={index.toString()} bodyData={body} />
       ))}
@@ -28,6 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContainer: {
-    paddingHorizontal: 10,
+    paddingLeft: 10,
+    paddingRight: 5,
   },
 });

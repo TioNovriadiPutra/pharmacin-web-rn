@@ -1,13 +1,14 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Skeleton } from "@rneui/themed";
+import TableSkeleton from "./TableSkeleton";
 
 const PageTableSkeleton = () => {
   return (
     <View style={styles.container}>
       <Skeleton height={54} animation="pulse" style={styles.box} />
 
-      <Skeleton animation="pulse" style={[styles.box, styles.table]} />
+      <TableSkeleton />
     </View>
   );
 };
@@ -21,8 +22,5 @@ const styles = StyleSheet.create({
   },
   box: {
     borderRadius: 10,
-  },
-  table: {
-    flex: 1,
   },
 });

@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 13,
     gap: 13,
+    overflow: "hidden",
   },
   description: {
     flex: 1,

@@ -11,6 +11,7 @@ const patientPrefix = "/patient";
 const occupationPrefix = "/occupation";
 const doctorPrefix = "/doctor";
 const queuePrefix = "/queue";
+const clinicPrefix = "/clinic";
 
 export const endpoints = {
   login: authPrefix + "/login/desktop",
@@ -21,6 +22,7 @@ export const endpoints = {
   getDrugCategories: drugCategoryPrefix,
   getDrugs: drugPrefix,
   getDrugsByDrugFactory: drugPrefix + "/factory",
+  getDrugsAssessment: drugPrefix + "/assessment",
   getUnits: unitPrefix,
   getUserProfile: userPrefix + "/profile",
   getPurchaseTransactions: purchaseTransactionPrefix,
@@ -30,5 +32,7 @@ export const endpoints = {
   getOccupations: occupationPrefix,
   getDoctors: doctorPrefix,
   getConsultingQueues: queuePrefix,
+  getDoctorConsultingQueues: queuePrefix + doctorPrefix + "/consulting",
   cancelQueue: queuePrefix + "/cancel",
+  getClinicDetail: clinicPrefix,
 };
