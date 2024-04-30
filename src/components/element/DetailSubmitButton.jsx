@@ -16,4 +16,9 @@ DetailSubmitButton.propType = {
   onSubmit: func.isRequired,
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    position: "absolute",
+    right: 14,
+  },
+});

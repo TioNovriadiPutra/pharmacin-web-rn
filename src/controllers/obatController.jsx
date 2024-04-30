@@ -54,6 +54,7 @@ const useObatController = () => {
                   type: "delete",
                   onPress: () => {
                     setRecoil(rowIdState, {
+                      type: "delete",
                       onDelete: () => deleteDrugMutation.mutate(item.id),
                     });
                     setRecoil(showValidationModalState, true);

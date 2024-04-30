@@ -40,6 +40,7 @@ const usePabrikanController = () => {
                   type: "delete",
                   onPress: () => {
                     setRecoil(rowIdState, {
+                      type: "delete",
                       onDelete: () => deleteDrugFactoryMutation.mutate(tmp.id),
                     });
                     setRecoil(showValidationModalState, true);

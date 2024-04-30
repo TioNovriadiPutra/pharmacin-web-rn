@@ -46,6 +46,7 @@ const useObatKategoriController = () => {
                   type: "delete",
                   onPress: () => {
                     setRecoil(rowIdState, {
+                      type: "delete",
                       onDelete: () =>
                         deleteDrugCategoryMutation.mutate(item.id),
                     });

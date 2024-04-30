@@ -3,6 +3,7 @@ import {
   getDoctorConsultingQueues,
 } from "@services/antrian";
 import { getDrugsAssessment } from "@services/obat";
+import { getActions } from "@services/tindakan";
 import { useQueries, useQuery } from "react-query";
 
 const useAntrianModel = () => {
@@ -22,6 +23,10 @@ const useAntrianModel = () => {
       {
         queryKey: ["getDrugsAssessment"],
         queryFn: () => getDrugsAssessment(),
+      },
+      {
+        queryKey: ["getActionsDropdown"],
+        queryFn: () => getActions(),
       },
     ]);
   };

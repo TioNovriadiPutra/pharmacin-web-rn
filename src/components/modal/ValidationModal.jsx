@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ModalContainer from "@containers/ModalContainer";
 import useValidationModal from "@hooks/useValidationModal";
@@ -8,25 +8,59 @@ import Bar from "@components/element/Bar";
 import SubmitButton from "@components/element/SubmitButton";
 
 const ValidationModal = () => {
-  const { showModal, closeModal, agree } = useValidationModal();
+  const { showModal, closeModal, agree, rowId } = useValidationModal();
 
   return (
     <ModalContainer visible={showModal} modalStyle={styles.modal}>
-      <View style={styles.box}>
-        <Text style={[systemFonts.H1, styles.title]}>Hapus Data?</Text>
+      {rowId && (
+        <View style={[styles.box, { height: rowId === "delete" ? 336 : 422 }]}>
+          {rowId.type === "confirm" && (
+            <Image
+              source={require("@assets/images/confirmation.png")}
+              style={styles.vector}
+            />
+          )}
 
-        <View style={styles.descContainer}>
-          <Text style={[systemFonts.H3, styles.desc]}>Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus data pada aplikasi?</Text>
+          <Text style={[systemFonts.H1, styles.title]}>
+            {rowId.type === "delete" ? "Hapus Data?" : rowId.title}
+          </Text>
+
+          <View style={styles.descContainer}>
+            <Text
+              style={[
+                systemFonts.H3,
+                styles.desc,
+                {
+                  color:
+                    rowId.type === "delete" ? colors.SubTitle : colors.Black,
+                },
+              ]}
+            >
+              {rowId.type === "delete"
+                ? "Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin ingin menghapus data pada aplikasi?"
+                : rowId.description}
+            </Text>
+          </View>
+
+          <Bar containerStyle={styles.bar} />
+
+          <View style={styles.buttonContainer}>
+            <SubmitButton
+              label="Batalkan"
+              color={colors.Placeholder}
+              buttonStyle={styles.button}
+              onPress={closeModal}
+            />
+
+            <SubmitButton
+              label={rowId.type === "delete" ? "Hapus" : "Lanjutkan"}
+              color={rowId.type === "delete" ? colors.Danger : colors.Primary}
+              buttonStyle={styles.button}
+              onPress={agree}
+            />
+          </View>
         </View>
-
-        <Bar containerStyle={styles.bar} />
-
-        <View style={styles.buttonContainer}>
-          <SubmitButton label="Batalkan" color={colors.Placeholder} buttonStyle={styles.button} onPress={closeModal} />
-
-          <SubmitButton label="Hapus" color={colors.Danger} buttonStyle={styles.button} onPress={agree} />
-        </View>
-      </View>
+      )}
     </ModalContainer>
   );
 };
@@ -45,7 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.White,
     borderRadius: 10,
     width: 542,
-    height: 336,
   },
   title: {
     color: colors.Black,
@@ -58,7 +91,6 @@ const styles = StyleSheet.create({
   },
   desc: {
     textAlign: "center",
-    color: colors.SubTitle,
   },
   bar: {
     marginVertical: 24,
@@ -71,5 +103,9 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     alignItems: "center",
+  },
+  vector: {
+    alignSelf: "center",
+    marginBottom: 24,
   },
 });

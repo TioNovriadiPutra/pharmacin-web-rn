@@ -150,6 +150,26 @@ const useAntrianController = () => {
               }
             ),
         });
+
+        Object.assign(perawatanForm.inputs[2].tindakanSection, {
+          template: perawatanForm.inputs[2].tindakanSection.template.map(
+            (tmp) => {
+              if (tmp.name === "actionId") {
+                Object.assign(tmp, {
+                  items: results[2].data.data.map((tmp2) => {
+                    return {
+                      label: tmp2.action_name,
+                      value: tmp2.id,
+                      actionPrice: tmp2.action_price,
+                    };
+                  }),
+                });
+              }
+
+              return tmp;
+            }
+          ),
+        });
       } else {
         handleToast("failed", error.error.message);
       }

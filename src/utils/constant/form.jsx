@@ -515,7 +515,7 @@ export const perawatanForm = {
               if (item.actionPrice === 0) {
                 setValue(
                   `${cartData.name}.${index}.actionPrice`,
-                  item.actionPrice
+                  item.actionId.actionPrice
                 );
               }
             }

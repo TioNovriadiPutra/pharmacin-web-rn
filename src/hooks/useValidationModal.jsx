@@ -11,13 +11,18 @@ const useValidationModal = () => {
   };
 
   const agree = () => {
-    rowId.onDelete();
+    if (rowId === "delete") {
+      rowId.onDelete();
+    } else {
+      rowId.onSubmit();
+    }
   };
 
   return {
     showModal,
     closeModal,
     agree,
+    rowId,
   };
 };
 

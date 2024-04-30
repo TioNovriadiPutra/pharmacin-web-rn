@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import DetailHeader from "@components/layout/DetailHeader";
 import { dokterPerawatanDetail } from "@utils/constant/pageDetail";
@@ -12,15 +12,22 @@ import { colors } from "@themes/colors";
 import { useForm } from "react-hook-form";
 import { perawatanForm } from "@utils/constant/form";
 import AssessmentFormSwitch from "@components/layout/AssessmentFormSwitch";
+import useDokterController from "@controllers/dokterController";
+import { useSetRecoilState } from "recoil";
+import { rowIdState, showValidationModalState } from "@store/atom/pageState";
 
 const DokterPerawatan = ({ route }) => {
   const { id } = route.params;
 
+  const setShowModal = useSetRecoilState(showValidationModalState);
+  const setRowId = useSetRecoilState(rowIdState);
+
   const { useGetDoctorConsultingQueueDetailQuery } = useAntrianController();
+  const { addAssessment } = useDokterController();
 
   const { isLoading } = useGetDoctorConsultingQueueDetailQuery(unhashId(id));
 
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit, setValue, reset } = useForm({
     defaultValues: perawatanForm.defaultValues,
   });
 
@@ -29,7 +36,24 @@ const DokterPerawatan = ({ route }) => {
       containerStyle={styles.container}
       scrollContainerStyle={styles.scrollContainer}
     >
-      <DetailHeader headerTitle={dokterPerawatanDetail.title} />
+      <DetailHeader
+        headerTitle={dokterPerawatanDetail.title}
+        submitData={() => {
+          setShowModal(true);
+          setRowId({
+            type: "confirm",
+            title: "Simpan Form",
+            description: `Simpan form perawatan ${dokterPerawatanDetail.detailBlock[0][0].value} dan proses administrasi dengan nama ${dokterPerawatanDetail.detailBlock[0][2].value}`,
+            onSubmit: handleSubmit((data) =>
+              addAssessment({
+                data,
+                id: unhashId(id),
+                reset: () => reset(perawatanForm.defaultValues),
+              })
+            ),
+          });
+        }}
+      />
 
       {isLoading ? (
         <InvoiceSkeleton />
