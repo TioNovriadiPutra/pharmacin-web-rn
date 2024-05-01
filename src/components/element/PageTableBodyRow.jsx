@@ -26,7 +26,11 @@ const PageTableBodyRow = ({ bodyData }) => {
           return (
             <View style={styles.statusContainer}>
               <View style={[styles.status, { backgroundColor: table.color }]}>
-                <Text style={[systemFonts.P, { color: table.textColor }]}>
+                <Text
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                  style={[systemFonts.P, { color: table.textColor }]}
+                >
                   {table.value}
                 </Text>
               </View>
@@ -35,7 +39,12 @@ const PageTableBodyRow = ({ bodyData }) => {
         }
 
         return (
-          <Text key={index.toString()} style={[systemFonts.P, styles.label]}>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            key={index.toString()}
+            style={[systemFonts.P, styles.label]}
+          >
             {table.type === "currency"
               ? currencyFormatter(table.value)
               : table.value}

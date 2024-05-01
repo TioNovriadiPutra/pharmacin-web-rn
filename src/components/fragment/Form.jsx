@@ -1,18 +1,23 @@
 import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
-import { any, array } from "prop-types";
+import { any, array, bool } from "prop-types";
 import PharmacinTextInput from "@components/element/PharmacinTextInput";
 import { useRecoilValue } from "recoil";
 import { validationErrorState } from "@store/atom/formState";
 import PharmacinDropdown from "@components/element/PharmacinDropdown";
 import PharmacinCurrencyInput from "@components/element/PharmacinCurrencyInput";
 import PharmacinCalendar from "@components/element/PharmacinCalendar";
+import ScrollContainer from "@containers/ScrollContainer";
 
-const Form = ({ control, inputListData }) => {
+const Form = ({ control, inputListData, showIndicator = true }) => {
   const validationError = useRecoilValue(validationErrorState);
 
   return (
-    <ScrollView contentContainerStyle={styles.list}>
+    <ScrollContainer
+      containerStyle={styles.container}
+      scrollContainerStyle={styles.list}
+      showIndicator={showIndicator}
+    >
       {inputListData.map((input, index) => {
         if (input.type === "dropdown") {
           return (
@@ -64,7 +69,7 @@ const Form = ({ control, inputListData }) => {
           );
         }
       })}
-    </ScrollView>
+    </ScrollContainer>
   );
 };
 
@@ -73,9 +78,13 @@ export default Form;
 Form.propTypes = {
   control: any.isRequired,
   inputListData: array.isRequired,
+  showIndicator: bool,
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   list: {
     gap: 24,
   },

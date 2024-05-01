@@ -1,4 +1,4 @@
-import { getUserProfile } from "@services/user";
+import { getAdministrators, getUserProfile } from "@services/user";
 import { useQuery } from "react-query";
 
 const useUserModel = () => {
@@ -9,8 +9,16 @@ const useUserModel = () => {
     });
   };
 
+  const useGetAdministrators = () => {
+    return useQuery({
+      queryKey: ["getAdministrators"],
+      queryFn: () => getAdministrators(),
+    });
+  };
+
   return {
     useGetUserProfile,
+    useGetAdministrators,
   };
 };
 

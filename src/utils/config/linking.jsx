@@ -43,6 +43,7 @@ const config = {
     ManajemenStack: {
       screens: {
         ManajemenKlinik: "manajemen/klinik",
+        ManajemenAdministrator: "manajemen/administrator",
         ManajemenKaryawan: "manajemen/karyawan",
         ManajemenDokter: "manajemen/dokter",
         ManajemenAsistenDokter: "manajemen/asisten-dokter",

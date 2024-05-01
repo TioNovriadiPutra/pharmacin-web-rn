@@ -538,3 +538,67 @@ export const perawatanForm = {
     actions: [],
   },
 };
+
+export const manajemenAdministratorForm = {
+  title: "Tambah Administrator",
+  inputs: [
+    {
+      type: "text",
+      name: "fullName",
+      placeholder: "Nama Lengkap",
+    },
+    {
+      type: "dropdown",
+      name: "gender",
+      placeholder: "Jenis Kelamin",
+      items: [
+        {
+          label: "Laki-laki",
+          value: "male",
+        },
+        {
+          label: "Perempuan",
+          value: "female",
+        },
+      ],
+    },
+    {
+      type: "text",
+      name: "phone",
+      placeholder: "Handphone",
+    },
+    {
+      type: "text",
+      name: "address",
+      placeholder: "Alamat",
+    },
+    {
+      type: "text",
+      name: "email",
+      placeholder: "Email",
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+    },
+    {
+      type: "password",
+      name: "password_confirmation",
+      placeholder: "Konfirmasi Password",
+    },
+  ],
+  defaultValues: {
+    fullName: "",
+    gender: null,
+    phone: "",
+    address: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  },
+  submitButton: {
+    label: "Tambah Akun",
+    color: colors.Primary,
+  },
+};

@@ -4,6 +4,7 @@ import { Drawer, Stack } from "@utils/config/navigation";
 import Dashboard from "@views/app/Dashboard";
 import DokterPasien from "@views/app/Dokter/DokterPasien";
 import DokterPerawatan from "@views/app/Dokter/DokterPerawatan";
+import ManajemenAdministrator from "@views/app/Manajemen/ManajemenAdministrator";
 import ManajemenAsistenDokter from "@views/app/Manajemen/ManajemenAsistenDokter";
 import ManajemenDiagnosis from "@views/app/Manajemen/ManajemenDiagnosis";
 import ManajemenDokter from "@views/app/Manajemen/ManajemenDokter";
@@ -227,6 +228,11 @@ const ManajemenStack = () => {
       <Stack.Screen
         name="ManajemenKlinik"
         component={ManajemenKlinik}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ManajemenAdministrator"
+        component={ManajemenAdministrator}
         options={{ headerShown: false }}
       />
       <Stack.Screen

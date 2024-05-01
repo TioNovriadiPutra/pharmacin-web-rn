@@ -95,3 +95,15 @@ export const dokterPasienData = {
   ],
   tableData: [],
 };
+
+export const manajemenAdministratorData = {
+  headerData: [
+    "Email",
+    "Nama",
+    "Jenis Kelamin",
+    "Handphone",
+    "Alamat",
+    "Tindakan",
+  ],
+  tableData: [],
+};

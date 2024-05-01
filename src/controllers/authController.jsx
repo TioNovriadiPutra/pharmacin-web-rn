@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { login, logout, register } from "@services/auth";
+import { login, logout, register, registerAdministrator } from "@services/auth";
 import {
   paymentStatusState,
   roleIdState,
@@ -11,8 +11,9 @@ import {
   drawerSubMenuIndexState,
   showDrawerProfileMenuState,
 } from "@store/atom/drawerState";
-import { validationErrorState } from "@store/atom/formState";
-import { isLoadingState } from "@store/atom/pageState";
+import { formDataState, validationErrorState } from "@store/atom/formState";
+import { isLoadingState, showFormModalState } from "@store/atom/pageState";
+import { queryClient } from "@utils/config/client";
 import { handleToast } from "@utils/helper/toast";
 import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
@@ -77,6 +78,31 @@ const useAuthController = (nav) => {
     },
   });
 
+  const registerAdministratorMutation = useMutation(registerAdministrator, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(showFormModalState, false);
+      setRecoil(formDataState, null);
+      queryClient.invalidateQueries(["getAdministrators"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+        setRecoil(showFormModalState, false);
+        setRecoil(validationErrorState, null);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   const logoutMutation = useMutation(logout, {
     onMutate: () => {
       setRecoil(isLoadingState, true);
@@ -111,6 +137,7 @@ const useAuthController = (nav) => {
         ...data,
         gender: data.gender ? data.gender.value : null,
       }),
+    registerAdministrator: (data) => registerAdministratorMutation.mutate(data),
     isLoggedIn,
     logout: () => logoutMutation.mutate(),
   };

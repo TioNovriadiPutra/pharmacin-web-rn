@@ -11,7 +11,7 @@ const useValidationModal = () => {
   };
 
   const agree = () => {
-    if (rowId === "delete") {
+    if (rowId.type === "delete") {
       rowId.onDelete();
     } else {
       rowId.onSubmit();

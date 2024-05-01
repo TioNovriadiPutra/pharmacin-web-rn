@@ -105,6 +105,10 @@ export const drawerAdmin = [
         destination: "ManajemenKlinik",
       },
       {
+        label: "Administrator",
+        destination: "ManajemenAdministrator",
+      },
+      {
         label: "Karyawan",
         destination: "ManajemenKaryawan",
       },

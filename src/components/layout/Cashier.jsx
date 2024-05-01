@@ -22,6 +22,7 @@ const Cashier = () => {
             <Form
               control={control}
               inputListData={addPurchaseTransactionForm.inputs1}
+              showIndicator={false}
             />
           </View>
 
@@ -29,6 +30,7 @@ const Cashier = () => {
             <Form
               control={control}
               inputListData={addPurchaseTransactionForm.inputs2}
+              showIndicator={false}
             />
           </View>
         </View>

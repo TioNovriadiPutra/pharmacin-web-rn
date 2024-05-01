@@ -7,6 +7,7 @@ import {
   addDrugFactoryForm,
   addDrugForm,
   addPatientForm,
+  manajemenAdministratorForm,
   updateClinicForm,
 } from "./form";
 
@@ -230,6 +231,26 @@ export const manajemenKlinikHeader = {
         onPress: () => {
           setRecoil(showFormModalState, true);
           setRecoil(formDataState, updateClinicForm);
+        },
+      },
+    ],
+  },
+};
+
+export const manajemenAdministratorHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Administrator",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Akun",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenAdministratorForm);
         },
       },
     ],

@@ -4,6 +4,7 @@ const drugPrefix = "/drug";
 const drugCategoryPrefix = drugPrefix + "/category";
 const unitPrefix = "/unit";
 const userPrefix = "/user";
+const administratorPrefix = userPrefix + "/administrator";
 const transactionPrefix = "/transaction";
 const purchaseTransactionPrefix = transactionPrefix + "/purchase";
 const stockPrefix = "/stock";
@@ -17,6 +18,7 @@ const actionPrefix = "/action";
 export const endpoints = {
   login: authPrefix + "/login/desktop",
   registerAdmin: authPrefix + "/register/admin",
+  registerAdministrator: authPrefix + "/register/administrator",
   logout: authPrefix + "/logout",
   getDrugFactories: pabrikanPrefix,
   getDrugFactoryDetail: pabrikanPrefix + "/partnership",
@@ -26,6 +28,7 @@ export const endpoints = {
   getDrugsAssessment: drugPrefix + "/assessment",
   getUnits: unitPrefix,
   getUserProfile: userPrefix + "/profile",
+  getAdministrators: administratorPrefix,
   getPurchaseTransactions: purchaseTransactionPrefix,
   getStocks: stockPrefix,
   getPatients: patientPrefix,

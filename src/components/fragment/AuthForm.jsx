@@ -15,7 +15,11 @@ const AuthForm = ({ formData, onSubmit }) => {
       <View style={styles.layoutContainer}>
         {formData.layouts.map((layout, index) => (
           <View key={index.toString()} style={styles.layout}>
-            <Form control={control} inputListData={layout.inputs} />
+            <Form
+              control={control}
+              inputListData={layout.inputs}
+              showIndicator={false}
+            />
           </View>
         ))}
       </View>
