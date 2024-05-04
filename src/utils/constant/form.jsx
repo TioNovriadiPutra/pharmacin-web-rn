@@ -737,3 +737,27 @@ export const manajemenDokterForm = {
     color: colors.Primary,
   },
 };
+
+export const addManajemenLaboratForm = {
+  title: "Tambah Laborat",
+  inputs: [
+    {
+      type: "text",
+      name: "laboratName",
+      placeholder: "Nama Laborat",
+    },
+    {
+      type: "currency",
+      name: "sellingPrice",
+      placeholder: "Harga",
+    },
+  ],
+  defaultValues: {
+    laboratName: "",
+    sellingPrice: "",
+  },
+  submitButton: {
+    label: "Tambah Laboratorium",
+    color: colors.Primary,
+  },
+};

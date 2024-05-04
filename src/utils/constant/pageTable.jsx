@@ -132,3 +132,15 @@ export const manajemenDokterData = {
   ],
   tableData: [],
 };
+
+export const manajemenLaboratData = {
+  headerData: [
+    "ID",
+    "Nama Laborat",
+    "Harga",
+    "Nilai Normal",
+    "Satuan",
+    "Tindakan",
+  ],
+  tableData: [],
+};

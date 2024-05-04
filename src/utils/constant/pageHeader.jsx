@@ -308,3 +308,23 @@ export const dokterPasienHeader = {
     subTitle: "/ Pemeriksaan Pasien",
   },
 };
+
+export const manajemenLaboratHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Laborat",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Laborat",
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchLaborat",
+      },
+    ],
+  },
+};

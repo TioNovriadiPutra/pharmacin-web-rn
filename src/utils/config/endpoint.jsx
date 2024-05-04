@@ -15,6 +15,7 @@ const doctorPrefix = "/doctor";
 const queuePrefix = "/queue";
 const clinicPrefix = "/clinic";
 const actionPrefix = "/action";
+const laboratPrefix = "/laborat";
 
 export const endpoints = {
   login: authPrefix + "/login/desktop",
@@ -45,4 +46,5 @@ export const endpoints = {
   cancelQueue: queuePrefix + "/cancel",
   getClinicDetail: clinicPrefix,
   getActions: actionPrefix,
+  getLaborat: laboratPrefix,
 };
