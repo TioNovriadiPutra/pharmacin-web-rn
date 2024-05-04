@@ -5,7 +5,6 @@ import { isLoadingState, showFormModalState } from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
 import { updateClinicForm } from "@utils/constant/form";
 import { manajemenKlinikDetail } from "@utils/constant/pageDetail";
-import { manajemenKlinikHeader } from "@utils/constant/pageHeader";
 import { handleToast } from "@utils/helper/toast";
 import { useMutation } from "react-query";
 import { setRecoil } from "recoil-nexus";
@@ -32,6 +31,14 @@ const useKlinikController = () => {
               ...manajemenKlinikDetail.detailData.list[2],
               data: data.data.clinic_phone,
             },
+            {
+              ...manajemenKlinikDetail.detailData.list[3],
+              data: data.data.outpatient_fee,
+            },
+            {
+              ...manajemenKlinikDetail.detailData.list[4],
+              data: data.data.selling_fee,
+            },
           ],
         });
 
@@ -40,6 +47,8 @@ const useKlinikController = () => {
             clinicName: data.data.clinic_name,
             address: data.data.address,
             clinicPhone: data.data.clinic_phone,
+            outpatientFee: data.data.outpatient_fee,
+            sellingFee: data.data.selling_fee,
           },
           onSubmit: (data) => updateClinicDetailMutation.mutate(data),
         });

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { login, logout, register, registerAdministrator, registerDoctor, registerEmployee } from "@services/auth";
+import { login, logout, register, registerAdministrator, registerDoctor, registerDoctorAssistant, registerEmployee } from "@services/auth";
 import { paymentStatusState, roleIdState, tokenState } from "@store/atom/authState";
 import { drawerIndexState, drawerStatusState, drawerSubMenuIndexState, showDrawerProfileMenuState } from "@store/atom/drawerState";
 import { formDataState, validationErrorState } from "@store/atom/formState";
@@ -141,6 +141,31 @@ const useAuthController = (nav) => {
     },
   });
 
+  const registerDoctorAssistantMutation = useMutation(registerDoctorAssistant, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(showFormModalState, false);
+      setRecoil(formDataState, null);
+      queryClient.invalidateQueries(["getDoctorAssistants"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+        setRecoil(showFormModalState, false);
+        setRecoil(validationErrorState, null);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   const logoutMutation = useMutation(logout, {
     onMutate: () => {
       setRecoil(isLoadingState, true);
@@ -152,6 +177,8 @@ const useAuthController = (nav) => {
       AsyncStorage.removeItem("@token");
       AsyncStorage.removeItem("@roleId");
       AsyncStorage.removeItem("@paymentStatus");
+
+      nav.navigate("Dashboard");
 
       setRecoil(showDrawerProfileMenuState, false);
       setRecoil(drawerStatusState, false);
@@ -179,6 +206,7 @@ const useAuthController = (nav) => {
     registerEmployee: (data) => registerEmployeeMutation.mutate(data),
     isLoggedIn,
     registerDoctor: (data) => registerDoctorMutation.mutate(data),
+    registerDoctorAssistant: (data) => registerDoctorAssistantMutation.mutate(data),
     logout: () => logoutMutation.mutate(),
   };
 };

@@ -2,7 +2,18 @@ import { formDataState } from "@store/atom/formState";
 import { showFormModalState } from "@store/atom/pageState";
 import { colors } from "@themes/colors";
 import { setRecoil } from "recoil-nexus";
-import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm, addPatientForm, manajemenAdministratorForm, manajemenDokterForm, manajemenKaryawanForm, updateClinicForm } from "./form";
+import {
+  addDrugCategoryForm,
+  addDrugFactoryForm,
+  addDrugForm,
+  addPatientForm,
+  manajemenAdministratorForm,
+  manajemenAsistenDokterForm,
+  manajemenDokterForm,
+  manajemenKaryawanForm,
+  manajemenTindakanForm,
+  updateClinicForm,
+} from "./form";
 
 export const pabrikanHeader = {
   headerTitle: {
@@ -293,6 +304,74 @@ export const manajemenDokterHeader = {
       {
         type: "search",
         name: "searchDoctor",
+      },
+    ],
+  },
+};
+
+export const manajemenAsistenDokterHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Asisten Dokter",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Akun",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenAsistenDokterForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchDoctorAssistant",
+      },
+    ],
+  },
+};
+
+export const manajemenTindakanHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Tindakan",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Tindakan",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenTindakanForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchAction",
+      },
+    ],
+  },
+};
+
+export const manajemenBiayaAdmin = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Biaya Admin",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Ubah Biaya",
+        color: colors.Info,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenTindakanForm);
+        },
       },
     ],
   },

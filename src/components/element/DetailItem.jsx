@@ -3,6 +3,7 @@ import React from "react";
 import { object } from "prop-types";
 import { systemFonts } from "@themes/fonts";
 import { colors } from "@themes/colors";
+import { currencyFormatter } from "@utils/helper/currency";
 
 const DetailItem = ({ itemData }) => {
   return (
@@ -13,7 +14,7 @@ const DetailItem = ({ itemData }) => {
 
       <View style={styles.box}>
         <Text numberOfLines={1} style={[systemFonts.P, styles.value]}>
-          {itemData.data}
+          {itemData.type === "currency" ? currencyFormatter(itemData.data) : itemData.data}
         </Text>
       </View>
     </View>

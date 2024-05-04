@@ -10,47 +10,29 @@ import Bar from "@components/element/Bar";
 import SubmitButton from "@components/element/SubmitButton";
 
 const PendaftaranConfirmationModal = () => {
-  const { showModal, modalData, control, onClose, onSubmit } =
-    usePendaftaranModal();
+  const { showModal, modalData, control, onClose, onSubmit } = usePendaftaranModal();
 
   return (
     <ModalContainer visible={showModal} modalStyle={styles.modal}>
       <View style={styles.container}>
-        <Image
-          source={require("@assets/images/confirmation.png")}
-          style={styles.vector}
-        />
+        <Image source={require("@assets/images/confirmation.png")} style={styles.vector} />
 
-        <Text style={[systemFonts.H1, styles.text, styles.title]}>
-          Konfirmasi Perawatan
-        </Text>
+        <Text style={[systemFonts.H1, styles.text, styles.title]}>Konfirmasi Perawatan</Text>
 
         <Text style={[systemFonts.P, styles.text, styles.subTitle]}>
-          Lanjutkan proses perawatan dengan nama{" "}
-          <Text style={systemFonts.H2}>{modalData.fullName}</Text> menuju
-          doktor:
+          Lanjutkan proses perawatan dengan nama <Text style={systemFonts.H2}>{modalData.fullName}</Text> menuju doktor:
         </Text>
 
         <View style={styles.form}>
-          <Form control={control} inputListData={addPatientQueueForm.inputs} />
+          <Form control={control} inputListData={addPatientQueueForm.inputs} showIndicator={false} />
         </View>
 
         <Bar containerStyle={styles.bar} />
 
         <View style={styles.footer}>
-          <SubmitButton
-            label="Batalkan"
-            color={colors.Placeholder}
-            buttonStyle={styles.button}
-            onPress={onClose}
-          />
+          <SubmitButton label="Batalkan" color={colors.Placeholder} buttonStyle={styles.button} onPress={onClose} />
 
-          <SubmitButton
-            label="Lanjutkan"
-            color={colors.Primary}
-            buttonStyle={styles.button}
-            onPress={onSubmit}
-          />
+          <SubmitButton label="Lanjutkan" color={colors.Primary} buttonStyle={styles.button} onPress={onSubmit} />
         </View>
       </View>
     </ModalContainer>

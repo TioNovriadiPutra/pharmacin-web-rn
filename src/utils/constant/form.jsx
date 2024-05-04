@@ -318,11 +318,23 @@ export const updateClinicForm = {
       name: "clinicPhone",
       placeholder: "Telepon",
     },
+    {
+      type: "currency",
+      name: "outpatientFee",
+      placeholder: "Pajak Rawat Jalan",
+    },
+    {
+      type: "currency",
+      name: "sellingFee",
+      placeholder: "Pajak Pembelian Obat",
+    },
   ],
   defaultValues: {
     clinicName: "",
     address: "",
     clinicPhone: "",
+    outpatientFee: "",
+    sellingFee: "",
   },
   submitButton: {
     label: "Konfirmasi",
@@ -456,14 +468,8 @@ export const perawatanForm = {
                 }
 
                 if (item.quantity) {
-                  if (
-                    item.totalPrice !==
-                    item.quantity * item.drugId.sellingPrice
-                  ) {
-                    setValue(
-                      `${cartData.name}.${index}.totalPrice`,
-                      item.drugId.sellingPrice * item.quantity
-                    );
+                  if (item.totalPrice !== item.quantity * item.drugId.sellingPrice) {
+                    setValue(`${cartData.name}.${index}.totalPrice`, item.drugId.sellingPrice * item.quantity);
                   }
                 } else {
                   if (item.totalPrice !== 0) {
@@ -513,10 +519,7 @@ export const perawatanForm = {
           watchCart.forEach((item, index) => {
             if (item.actionId) {
               if (item.actionPrice === 0) {
-                setValue(
-                  `${cartData.name}.${index}.actionPrice`,
-                  item.actionId.actionPrice
-                );
+                setValue(`${cartData.name}.${index}.actionPrice`, item.actionId.actionPrice);
               }
             }
           });
@@ -734,6 +737,101 @@ export const manajemenDokterForm = {
   },
   submitButton: {
     label: "Tambah Akun",
+    color: colors.Primary,
+  },
+};
+
+export const manajemenAsistenDokterForm = {
+  title: "Tambah Asisten Dokter",
+  inputs: [
+    {
+      type: "text",
+      name: "fullName",
+      placeholder: "Nama Lengkap",
+    },
+    {
+      type: "dropdown",
+      name: "gender",
+      placeholder: "Jenis Kelamin",
+      items: [
+        {
+          label: "Laki-laki",
+          value: "male",
+        },
+        {
+          label: "Perempuan",
+          value: "female",
+        },
+      ],
+    },
+    {
+      type: "text",
+      name: "phone",
+      placeholder: "Handphone",
+    },
+    {
+      type: "dropdown",
+      name: "doctorId",
+      placeholder: "Dokter",
+      items: [],
+    },
+    {
+      type: "text",
+      name: "address",
+      placeholder: "Alamat",
+    },
+    {
+      type: "text",
+      name: "email",
+      placeholder: "Email",
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+    },
+    {
+      type: "password",
+      name: "password_confirmation",
+      placeholder: "Konfirmasi Password",
+    },
+  ],
+  defaultValues: {
+    fullName: "",
+    gender: null,
+    phone: "",
+    doctorId: null,
+    address: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  },
+  submitButton: {
+    label: "Tambah Akun",
+    color: colors.Primary,
+  },
+};
+
+export const manajemenTindakanForm = {
+  title: "Tambah Tindakan",
+  inputs: [
+    {
+      type: "text",
+      name: "actionName",
+      placeholder: "Nama Tindakan",
+    },
+    {
+      type: "currency",
+      name: "actionPrice",
+      placeholder: "Harga",
+    },
+  ],
+  defaultValues: {
+    actionName: "",
+    actionPrice: "",
+  },
+  submitButton: {
+    label: "Tambah Tindakan",
     color: colors.Primary,
   },
 };

@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import React from "react";
 import { colors } from "@themes/colors";
 import { object, oneOf } from "prop-types";
@@ -18,30 +18,15 @@ const AuthContent = ({ type, contentData }) => {
     <View style={styles.container}>
       <Image source={require("@assets/images/logoFull.png")} />
 
-      <ScrollContainer
-        containerStyle={[
-          styles.box,
-          type === "login" ? styles.boxLogin : styles.boxRegister,
-        ]}
-      >
-        <View
-          style={[
-            styles.form,
-            type === "login" ? styles.formLogin : styles.formRegister,
-          ]}
-        >
+      <ScrollContainer containerStyle={[styles.box, type === "login" ? styles.boxLogin : styles.boxRegister]}>
+        <View style={[styles.form, type === "login" ? styles.formLogin : styles.formRegister]}>
           <AuthContentHeader headerData={contentData.header} />
 
-          <AuthForm
-            formData={contentData.form}
-            onSubmit={type === "login" ? login : register}
-          />
+          <AuthForm formData={contentData.form} onSubmit={type === "login" ? login : register} />
         </View>
 
         {type === "login" && <AuthContentFooter />}
       </ScrollContainer>
-
-      {/* <ScrollView contentContainerStyle={[styles.box]}></ScrollView> */}
     </View>
   );
 };
@@ -77,6 +62,7 @@ const styles = StyleSheet.create({
   form: {
     paddingHorizontal: 37,
     borderBottomColor: colors.Border,
+    marginBottom: 18,
   },
   formLogin: {
     borderBottomWidth: 1,

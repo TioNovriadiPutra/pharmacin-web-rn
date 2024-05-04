@@ -25,15 +25,7 @@ export const pabrikanDetail = {
       },
     ],
   },
-  headerData: [
-    "Nama Obat",
-    "Nama Generik",
-    "Kategori",
-    "Harga Beli",
-    "Harga Jual",
-    "Takaran",
-    "Stock",
-  ],
+  headerData: ["Nama Obat", "Nama Generik", "Kategori", "Harga Beli", "Harga Jual", "Takaran", "Stock"],
   tableData: [],
 };
 
@@ -135,19 +127,28 @@ export const manajemenKlinikDetail = {
   detailData: {
     list: [
       {
+        type: "text",
         placeholder: "Nama Klinik",
         data: "",
       },
       {
+        type: "text",
         placeholder: "Alamat",
         data: "",
       },
       {
-        placeholder: "Email",
+        type: "text",
+        placeholder: "Telepon",
         data: "",
       },
       {
-        placeholder: "Telepon",
+        type: "currency",
+        placeholder: "Pajak Rawat Jalan",
+        data: "",
+      },
+      {
+        type: "currency",
+        placeholder: "Pajak Pembelian Obat",
         data: "",
       },
     ],

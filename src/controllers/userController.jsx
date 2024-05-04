@@ -11,10 +11,13 @@ import { deleteAdministrator, deleteEmployee, getUserDetail, updateAdministrator
 import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
 import { formDataState, validationErrorState } from "@store/atom/formState";
+import { useNavigation } from "@react-navigation/native";
 
 const useUserController = () => {
+  const nav = useNavigation();
+
   const { useGetUserProfile, useGetAdministrators, useGetEmployees } = useUserModel();
-  const { logout, registerAdministrator, registerEmployee } = useAuthController();
+  const { logout, registerAdministrator, registerEmployee } = useAuthController(nav);
 
   const useGetUserProfileQuery = () => {
     const { data, isLoading, isError } = useGetUserProfile();

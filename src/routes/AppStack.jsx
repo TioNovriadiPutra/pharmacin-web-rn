@@ -38,7 +38,7 @@ const AppStack = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Dashboard"
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         drawerType: "permanent",
         drawerStyle: {
           width: 68,
@@ -47,65 +47,25 @@ const AppStack = () => {
       })}
       drawerContent={(prop) => <CustomDrawer {...prop} />}
     >
-      <Drawer.Screen
-        name="Notifikasi"
-        component={Notifikasi}
-        options={{ headerShown: false }}
-      />
-      <Drawer.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{ headerShown: false }}
-      />
+      <Drawer.Screen name="Notifikasi" component={Notifikasi} options={{ headerShown: false }} />
+      <Drawer.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
       {roleId === 1 || roleId === 5 ? (
         <>
-          <Drawer.Screen
-            name="Pendaftaran"
-            component={Pendaftaran}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="PasienStack"
-            component={PasienStack}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="StokStack"
-            component={StokStack}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="ObatStack"
-            component={ObatStack}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="PabrikanStack"
-            component={PabrikanStack}
-            options={{ headerShown: false }}
-          />
-          <Drawer.Screen
-            name="PembelianStack"
-            component={PembelianStack}
-            options={{ headerShown: false }}
-          />
+          <Drawer.Screen name="Pendaftaran" component={Pendaftaran} options={{ headerShown: false }} />
+          <Drawer.Screen name="PasienStack" component={PasienStack} options={{ headerShown: false }} />
+          <Drawer.Screen name="StokStack" component={StokStack} options={{ headerShown: false }} />
+          <Drawer.Screen name="ObatStack" component={ObatStack} options={{ headerShown: false }} />
+          <Drawer.Screen name="PabrikanStack" component={PabrikanStack} options={{ headerShown: false }} />
+          <Drawer.Screen name="PembelianStack" component={PembelianStack} options={{ headerShown: false }} />
           {roleId === 1 && (
             <>
-              <Drawer.Screen
-                name="ManajemenStack"
-                component={ManajemenStack}
-                options={{ headerShown: false }}
-              />
+              <Drawer.Screen name="ManajemenStack" component={ManajemenStack} options={{ headerShown: false }} />
             </>
           )}
         </>
       ) : (
         <>
-          <Drawer.Screen
-            name="DokterStack"
-            component={DokterStack}
-            options={{ headerShown: false }}
-          />
+          <Drawer.Screen name="DokterStack" component={DokterStack} options={{ headerShown: false }} />
         </>
       )}
     </Drawer.Navigator>
@@ -115,21 +75,9 @@ const AppStack = () => {
 const PasienStack = () => {
   return (
     <Stack.Navigator initialRouteName="Pasien">
-      <Stack.Screen
-        name="Pasien"
-        component={Pasien}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PasienRecord"
-        component={PasienRecord}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PasienRecordDetail"
-        component={PasienRecordDetail}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Pasien" component={Pasien} options={{ headerShown: false }} />
+      <Stack.Screen name="PasienRecord" component={PasienRecord} options={{ headerShown: false }} />
+      <Stack.Screen name="PasienRecordDetail" component={PasienRecordDetail} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -137,26 +85,10 @@ const PasienStack = () => {
 const StokStack = () => {
   return (
     <Stack.Navigator initialRouteName="Stok">
-      <Stack.Screen
-        name="Stok"
-        component={Stok}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="StokOpname"
-        component={StokOpname}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="StokOpnameDetail"
-        component={StokOpnameDetail}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="StokRiwayatOpname"
-        component={StokRiwayatOpname}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Stok" component={Stok} options={{ headerShown: false }} />
+      <Stack.Screen name="StokOpname" component={StokOpname} options={{ headerShown: false }} />
+      <Stack.Screen name="StokOpnameDetail" component={StokOpnameDetail} options={{ headerShown: false }} />
+      <Stack.Screen name="StokRiwayatOpname" component={StokRiwayatOpname} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -164,21 +96,9 @@ const StokStack = () => {
 const ObatStack = () => {
   return (
     <Stack.Navigator initialRouteName="ObatKategori">
-      <Stack.Screen
-        name="ObatKategori"
-        component={ObatKategori}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ObatKelola"
-        component={ObatKelola}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ObatRacikan"
-        component={ObatRacikan}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="ObatKategori" component={ObatKategori} options={{ headerShown: false }} />
+      <Stack.Screen name="ObatKelola" component={ObatKelola} options={{ headerShown: false }} />
+      <Stack.Screen name="ObatRacikan" component={ObatRacikan} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -186,16 +106,8 @@ const ObatStack = () => {
 const PabrikanStack = () => {
   return (
     <Stack.Navigator initialRouteName="Pabrikan">
-      <Stack.Screen
-        name="Pabrikan"
-        component={Pabrikan}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PabrikanDetail"
-        component={PabrikanDetail}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="Pabrikan" component={Pabrikan} options={{ headerShown: false }} />
+      <Stack.Screen name="PabrikanDetail" component={PabrikanDetail} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -203,21 +115,9 @@ const PabrikanStack = () => {
 const PembelianStack = () => {
   return (
     <Stack.Navigator initialRouteName="PembelianTambah">
-      <Stack.Screen
-        name="PembelianTambah"
-        component={PembelianTambah}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PembelianKelola"
-        component={PembelianKelola}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PembelianInvoice"
-        component={PembelianInvoice}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="PembelianTambah" component={PembelianTambah} options={{ headerShown: false }} />
+      <Stack.Screen name="PembelianKelola" component={PembelianKelola} options={{ headerShown: false }} />
+      <Stack.Screen name="PembelianInvoice" component={PembelianInvoice} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -225,51 +125,15 @@ const PembelianStack = () => {
 const ManajemenStack = () => {
   return (
     <Stack.Navigator initialRouteName="ManajemenKlinik">
-      <Stack.Screen
-        name="ManajemenKlinik"
-        component={ManajemenKlinik}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenAdministrator"
-        component={ManajemenAdministrator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenKaryawan"
-        component={ManajemenKaryawan}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenDokter"
-        component={ManajemenDokter}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenAsistenDokter"
-        component={ManajemenAsistenDokter}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenKasir"
-        component={ManajemenKasir}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenDiagnosis"
-        component={ManajemenDiagnosis}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenLaborat"
-        component={ManajemenLaborat}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="ManajemenTindakan"
-        component={ManajemenTindakan}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="ManajemenKlinik" component={ManajemenKlinik} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenAdministrator" component={ManajemenAdministrator} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenKaryawan" component={ManajemenKaryawan} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenDokter" component={ManajemenDokter} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenAsistenDokter" component={ManajemenAsistenDokter} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenKasir" component={ManajemenKasir} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenDiagnosis" component={ManajemenDiagnosis} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenLaborat" component={ManajemenLaborat} options={{ headerShown: false }} />
+      <Stack.Screen name="ManajemenTindakan" component={ManajemenTindakan} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };
@@ -277,16 +141,8 @@ const ManajemenStack = () => {
 const DokterStack = () => {
   return (
     <Stack.Navigator initialRouteName="DokterPasien">
-      <Stack.Screen
-        name="DokterPasien"
-        component={DokterPasien}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="DokterPerawatan"
-        component={DokterPerawatan}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name="DokterPasien" component={DokterPasien} options={{ headerShown: false }} />
+      <Stack.Screen name="DokterPerawatan" component={DokterPerawatan} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

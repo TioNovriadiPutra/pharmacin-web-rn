@@ -27,15 +27,11 @@ export const addPatient = async (data) => {
       dob: data.dob ? moment(data.dob).format("YYYY-MM-DD") : null,
     };
 
-    const response = await axiosInstance.post(
-      endpoints.getPatients,
-      finalData,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.post(endpoints.getPatients, finalData, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -45,6 +41,7 @@ export const addPatient = async (data) => {
 
 export const addPatientQueue = async (data) => {
   try {
+    console.log(data);
     const response = await axiosInstance.post(
       `${endpoints.addPatientQueue}/${data.id}`,
       { doctorId: data.data.doctorId ? data.data.doctorId.value : null },

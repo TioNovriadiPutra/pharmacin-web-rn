@@ -6,6 +6,7 @@ const unitPrefix = "/unit";
 const userPrefix = "/user";
 const administratorPrefix = userPrefix + "/administrator";
 const employeePrefix = userPrefix + "/employee";
+const doctorAssistantPrefix = userPrefix + "/assistant";
 const transactionPrefix = "/transaction";
 const purchaseTransactionPrefix = transactionPrefix + "/purchase";
 const stockPrefix = "/stock";
@@ -23,6 +24,7 @@ export const endpoints = {
   registerAdministrator: authPrefix + "/register/administrator",
   registerEmployee: authPrefix + "/register/employee",
   registerDoctor: authPrefix + "/register/doctor",
+  registerDoctorAssistant: authPrefix + "/register/assistant",
   logout: authPrefix + "/logout",
   getDrugFactories: pabrikanPrefix,
   getDrugFactoryDetail: pabrikanPrefix + "/partnership",
@@ -35,6 +37,7 @@ export const endpoints = {
   getUserDetail: userPrefix,
   getAdministrators: administratorPrefix,
   getEmployees: employeePrefix,
+  getDoctorAssistants: doctorAssistantPrefix,
   getPurchaseTransactions: purchaseTransactionPrefix,
   getStocks: stockPrefix,
   getPatients: patientPrefix,

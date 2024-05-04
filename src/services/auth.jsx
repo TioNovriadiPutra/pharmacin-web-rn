@@ -81,6 +81,26 @@ export const registerDoctor = async (data) => {
   }
 };
 
+export const registerDoctorAssistant = async (data) => {
+  try {
+    const reqBody = {
+      ...data,
+      gender: data.gender ? data.gender.value : null,
+      doctorId: data.doctorId ? data.doctorId.value : null,
+    };
+
+    const response = await axiosInstance.post(endpoints.registerDoctorAssistant, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const logout = async () => {
   try {
     const response = await axiosInstance.get(endpoints.logout, {

@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import MainContainer from "@containers/MainContainer";
 import PageHeader from "@components/layout/PageHeader";
@@ -17,15 +16,9 @@ const ManajemenAdministrator = () => {
     <MainContainer>
       <PageHeader headerData={manajemenAdministratorHeader} />
 
-      {isLoading ? (
-        <PageTableSkeleton />
-      ) : (
-        <PageTable pageData={manajemenAdministratorData} />
-      )}
+      {isLoading ? <PageTableSkeleton /> : <PageTable pageData={manajemenAdministratorData} />}
     </MainContainer>
   );
 };
 
 export default ManajemenAdministrator;
-
-const styles = StyleSheet.create({});

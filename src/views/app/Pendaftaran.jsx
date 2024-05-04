@@ -13,17 +13,11 @@ const Pendaftaran = () => {
 
   const { isLoading } = useGetPatientsQuery();
 
-  console.log(pasienData);
-
   return (
     <MainContainer>
       <PageHeader headerData={pendaftaranHeader} />
 
-      {isLoading ? (
-        <PageTableSkeleton />
-      ) : (
-        <PageTableSwitch tableSwitchData={pasienData} />
-      )}
+      {isLoading ? <PageTableSkeleton /> : <PageTableSwitch tableSwitchData={pasienData} />}
     </MainContainer>
   );
 };
