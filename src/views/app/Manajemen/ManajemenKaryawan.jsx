@@ -1,11 +1,28 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
+import MainContainer from "@containers/MainContainer";
+import PageHeader from "@components/layout/PageHeader";
+import { manajemenKaryawanHeader } from "@utils/constant/pageHeader";
+import useUserController from "@controllers/userController";
+import PageTableSkeleton from "@components/skeleton/PageTableSkeleton";
+import PageTable from "@components/layout/PageTable";
+import { manajemenKaryawanData } from "@utils/constant/pageTable";
 
 const ManajemenKaryawan = () => {
+  const { useGetEmployeesQuery } = useUserController();
+
+  const { isLoading } = useGetEmployeesQuery();
+
   return (
-    <View>
-      <Text>ManajemenKaryawan</Text>
-    </View>
+    <MainContainer>
+      <PageHeader headerData={manajemenKaryawanHeader} />
+
+      {isLoading ? (
+        <PageTableSkeleton />
+      ) : (
+        <PageTable pageData={manajemenKaryawanData} />
+      )}
+    </MainContainer>
   );
 };
 

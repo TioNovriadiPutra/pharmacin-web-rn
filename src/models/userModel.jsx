@@ -1,4 +1,10 @@
-import { getAdministrators, getUserProfile } from "@services/user";
+import { getDoctors } from "@services/dokter";
+import {
+  getAdministrators,
+  getDoctorDetail,
+  getEmployees,
+  getUserProfile,
+} from "@services/user";
 import { useQuery } from "react-query";
 
 const useUserModel = () => {
@@ -16,9 +22,33 @@ const useUserModel = () => {
     });
   };
 
+  const useGetEmployees = () => {
+    return useQuery({
+      queryKey: ["getEmployees"],
+      queryFn: () => getEmployees(),
+    });
+  };
+
+  const useGetDoctors = () => {
+    return useQuery({
+      queryKey: ["getDoctors"],
+      queryFn: () => getDoctors(),
+    });
+  };
+
+  const useGetDoctorDetail = (id) => {
+    return useQuery({
+      queryKey: ["getDoctorDetail"],
+      queryFn: () => getDoctorDetail(id),
+    });
+  };
+
   return {
     useGetUserProfile,
     useGetAdministrators,
+    useGetEmployees,
+    useGetDoctors,
+    useGetDoctorDetail,
   };
 };
 

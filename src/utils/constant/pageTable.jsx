@@ -107,3 +107,28 @@ export const manajemenAdministratorData = {
   ],
   tableData: [],
 };
+
+export const manajemenKaryawanData = {
+  headerData: [
+    "Email",
+    "Nama",
+    "Jenis Kelamin",
+    "Handphone",
+    "Alamat",
+    "Tindakan",
+  ],
+  tableData: [],
+};
+
+export const manajemenDokterData = {
+  headerData: [
+    "Email",
+    "Nama Dokter",
+    "Jenis Kelamin",
+    "Handphone",
+    "Spesialisasi",
+    "Alamat",
+    "Tindakan",
+  ],
+  tableData: [],
+};

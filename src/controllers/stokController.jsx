@@ -14,7 +14,14 @@ const useStokController = () => {
       if (!isError) {
         Object.assign(stokData[0], {
           tableData: data.data.perItem.map((item) => {
-            const arr = [item.drug, item.factory_name, item.category_name, currencyFormatter(item.purchase_price), currencyFormatter(item.selling_price), item.total_stock];
+            const arr = [
+              { type: "text", value: item.drug },
+              { type: "text", value: item.factory_name },
+              { type: "text", value: item.category_name },
+              { type: "currency", value: item.purchase_price },
+              { type: "currency", value: item.selling_price },
+              { type: "text", value: item.total_stock },
+            ];
 
             return {
               tables: arr,
@@ -24,7 +31,18 @@ const useStokController = () => {
 
         Object.assign(stokData[1], {
           tableData: data.data.perBatch.map((item) => {
-            const arr = [item.drug, item.factory_name, item.batch_number, moment(item.expired).format("DD-MM-YYYY"), item.total_stock, item.sold_stock, item.active_stock];
+            const arr = [
+              { type: "text", value: item.drug },
+              { type: "text", value: item.factory_name },
+              { type: "text", value: item.batch_number },
+              {
+                type: "text",
+                value: moment(item.expired).format("DD-MM-YYYY"),
+              },
+              { type: "text", value: item.total_stock },
+              { type: "text", value: item.sold_stock },
+              { type: "text", value: item.active_stock },
+            ];
 
             return {
               tables: arr,

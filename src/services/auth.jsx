@@ -46,6 +46,29 @@ export const registerAdministrator = async (data) => {
   }
 };
 
+export const registerEmployee = async (data) => {
+  try {
+    const reqBody = {
+      ...data,
+      gender: data.gender ? data.gender.value : null,
+    };
+
+    const response = await axiosInstance.post(
+      endpoints.registerEmployee,
+      reqBody,
+      {
+        headers: {
+          Authorization: `Bearer ${getRecoil(tokenState)}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const logout = async () => {
   try {
     const response = await axiosInstance.get(endpoints.logout, {

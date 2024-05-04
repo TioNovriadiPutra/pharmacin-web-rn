@@ -1,7 +1,6 @@
 import {
   Dimensions,
   StyleSheet,
-  Text,
   TouchableWithoutFeedback,
   View,
 } from "react-native";

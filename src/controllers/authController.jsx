@@ -1,5 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { login, logout, register, registerAdministrator } from "@services/auth";
+import {
+  login,
+  logout,
+  register,
+  registerAdministrator,
+  registerEmployee,
+} from "@services/auth";
 import {
   paymentStatusState,
   roleIdState,
@@ -103,6 +109,31 @@ const useAuthController = (nav) => {
     },
   });
 
+  const registerEmployeeMutation = useMutation(registerEmployee, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(showFormModalState, false);
+      setRecoil(formDataState, null);
+      queryClient.invalidateQueries(["getEmployees"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+        setRecoil(showFormModalState, false);
+        setRecoil(validationErrorState, null);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   const logoutMutation = useMutation(logout, {
     onMutate: () => {
       setRecoil(isLoadingState, true);
@@ -138,6 +169,7 @@ const useAuthController = (nav) => {
         gender: data.gender ? data.gender.value : null,
       }),
     registerAdministrator: (data) => registerAdministratorMutation.mutate(data),
+    registerEmployee: (data) => registerEmployeeMutation.mutate(data),
     isLoggedIn,
     logout: () => logoutMutation.mutate(),
   };

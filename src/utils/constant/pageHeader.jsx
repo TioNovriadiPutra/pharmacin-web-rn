@@ -8,6 +8,7 @@ import {
   addDrugForm,
   addPatientForm,
   manajemenAdministratorForm,
+  manajemenKaryawanForm,
   updateClinicForm,
 } from "./form";
 
@@ -252,6 +253,50 @@ export const manajemenAdministratorHeader = {
           setRecoil(showFormModalState, true);
           setRecoil(formDataState, manajemenAdministratorForm);
         },
+      },
+    ],
+  },
+};
+
+export const manajemenKaryawanHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Karyawan",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Akun",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenKaryawanForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchEmployee",
+      },
+    ],
+  },
+};
+
+export const manajemenDokterHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Dokter",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Akun",
+        color: colors.Primary,
+      },
+      {
+        type: "search",
+        name: "searchDoctor",
       },
     ],
   },
