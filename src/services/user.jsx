@@ -19,14 +19,11 @@ export const getUserProfile = async () => {
 
 export const getUserDetail = async (id) => {
   try {
-    const response = await axiosInstance.get(
-      `${endpoints.getUserDetail}/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.get(`${endpoints.getUserDetail}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -62,34 +59,6 @@ export const getEmployees = async () => {
   }
 };
 
-export const getDoctors = async () => {
-  try {
-    const response = await axiosInstance.get(endpoints.getDoctors, {
-      headers: {
-        Authorization: `Bearer ${getRecoil(tokenState)}`,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-
-export const getDoctorDetail = async (id) => {
-  try {
-    const response = await axiosInstance.get(`${endpoints.getDoctors}/${id}`, {
-      headers: {
-        Authorization: `Bearer ${getRecoil(tokenState)}`,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    throw error.response.data;
-  }
-};
-
 export const updateAdministrator = async (data) => {
   try {
     const reqBody = {
@@ -97,15 +66,11 @@ export const updateAdministrator = async (data) => {
       gender: data.data.gender ? data.data.gender.value : null,
     };
 
-    const response = await axiosInstance.put(
-      `${endpoints.getAdministrators}/${data.id}`,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.put(`${endpoints.getAdministrators}/${data.id}`, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -120,15 +85,11 @@ export const updateEmployee = async (data) => {
       gender: data.data.gender ? data.data.gender.value : null,
     };
 
-    const response = await axiosInstance.put(
-      `${endpoints.getEmployees}/${data.id}`,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.put(`${endpoints.getEmployees}/${data.id}`, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -138,14 +99,11 @@ export const updateEmployee = async (data) => {
 
 export const deleteAdministrator = async (id) => {
   try {
-    const response = await axiosInstance.delete(
-      `${endpoints.getAdministrators}/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.delete(`${endpoints.getAdministrators}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -155,14 +113,11 @@ export const deleteAdministrator = async (id) => {
 
 export const deleteEmployee = async (id) => {
   try {
-    const response = await axiosInstance.delete(
-      `${endpoints.getEmployees}/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.delete(`${endpoints.getEmployees}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {

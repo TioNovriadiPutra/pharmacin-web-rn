@@ -1,12 +1,18 @@
-import { getDoctors } from "@services/dokter";
-import { useQuery } from "react-query";
+import { getDoctorSpecialities, getDoctors } from "@services/dokter";
+import { useQueries } from "react-query";
 
 const useDokterModel = () => {
   const useGetDoctors = () => {
-    return useQuery({
-      queryKey: ["getDoctors"],
-      queryFn: () => getDoctors(),
-    });
+    return useQueries([
+      {
+        queryKey: ["getDoctors"],
+        queryFn: () => getDoctors(),
+      },
+      {
+        queryKey: ["getDoctorSpecialities"],
+        queryFn: () => getDoctorSpecialities(),
+      },
+    ]);
   };
 
   return {

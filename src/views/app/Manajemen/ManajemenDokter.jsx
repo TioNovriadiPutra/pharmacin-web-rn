@@ -3,13 +3,13 @@ import React from "react";
 import MainContainer from "@containers/MainContainer";
 import PageHeader from "@components/layout/PageHeader";
 import { manajemenDokterHeader } from "@utils/constant/pageHeader";
-import useUserController from "@controllers/userController";
 import PageTableSkeleton from "@components/skeleton/PageTableSkeleton";
 import PageTable from "@components/layout/PageTable";
 import { manajemenDokterData } from "@utils/constant/pageTable";
+import useDokterController from "@controllers/dokterController";
 
 const ManajemenDokter = () => {
-  const { useGetDoctorsQuery } = useUserController();
+  const { useGetDoctorsQuery } = useDokterController();
 
   const { isLoading } = useGetDoctorsQuery();
 
@@ -17,11 +17,7 @@ const ManajemenDokter = () => {
     <MainContainer>
       <PageHeader headerData={manajemenDokterHeader} />
 
-      {isLoading ? (
-        <PageTableSkeleton />
-      ) : (
-        <PageTable pageData={manajemenDokterData} />
-      )}
+      {isLoading ? <PageTableSkeleton /> : <PageTable pageData={manajemenDokterData} />}
     </MainContainer>
   );
 };

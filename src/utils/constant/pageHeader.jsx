@@ -2,15 +2,7 @@ import { formDataState } from "@store/atom/formState";
 import { showFormModalState } from "@store/atom/pageState";
 import { colors } from "@themes/colors";
 import { setRecoil } from "recoil-nexus";
-import {
-  addDrugCategoryForm,
-  addDrugFactoryForm,
-  addDrugForm,
-  addPatientForm,
-  manajemenAdministratorForm,
-  manajemenKaryawanForm,
-  updateClinicForm,
-} from "./form";
+import { addDrugCategoryForm, addDrugFactoryForm, addDrugForm, addPatientForm, manajemenAdministratorForm, manajemenDokterForm, manajemenKaryawanForm, updateClinicForm } from "./form";
 
 export const pabrikanHeader = {
   headerTitle: {
@@ -293,6 +285,10 @@ export const manajemenDokterHeader = {
         type: "button",
         label: "Tambah Akun",
         color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenDokterForm);
+        },
       },
       {
         type: "search",

@@ -1,22 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  login,
-  logout,
-  register,
-  registerAdministrator,
-  registerEmployee,
-} from "@services/auth";
-import {
-  paymentStatusState,
-  roleIdState,
-  tokenState,
-} from "@store/atom/authState";
-import {
-  drawerIndexState,
-  drawerStatusState,
-  drawerSubMenuIndexState,
-  showDrawerProfileMenuState,
-} from "@store/atom/drawerState";
+import { login, logout, register, registerAdministrator, registerDoctor, registerEmployee } from "@services/auth";
+import { paymentStatusState, roleIdState, tokenState } from "@store/atom/authState";
+import { drawerIndexState, drawerStatusState, drawerSubMenuIndexState, showDrawerProfileMenuState } from "@store/atom/drawerState";
 import { formDataState, validationErrorState } from "@store/atom/formState";
 import { isLoadingState, showFormModalState } from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
@@ -48,10 +33,7 @@ const useAuthController = (nav) => {
       setRecoil(paymentStatusState, response.paymentStatus);
       AsyncStorage.setItem("@token", response.token.token);
       AsyncStorage.setItem("@roleId", JSON.stringify(response.roleId));
-      AsyncStorage.setItem(
-        "@paymentStatus",
-        JSON.stringify(response.paymentStatus)
-      );
+      AsyncStorage.setItem("@paymentStatus", JSON.stringify(response.paymentStatus));
 
       handleToast("success", response.message);
     },
@@ -134,6 +116,31 @@ const useAuthController = (nav) => {
     },
   });
 
+  const registerDoctorMutation = useMutation(registerDoctor, {
+    onMutate: () => {
+      setRecoil(isLoadingState, true);
+      setRecoil(validationErrorState, null);
+    },
+    onSuccess: (response) => {
+      handleToast("success", response.message);
+      setRecoil(showFormModalState, false);
+      setRecoil(formDataState, null);
+      queryClient.invalidateQueries(["getDoctors"]);
+    },
+    onError: (error) => {
+      if (error.error.status === 422) {
+        setRecoil(validationErrorState, error.error.message);
+      } else {
+        handleToast("failed", error.error.message);
+        setRecoil(showFormModalState, false);
+        setRecoil(validationErrorState, null);
+      }
+    },
+    onSettled: () => {
+      setRecoil(isLoadingState, false);
+    },
+  });
+
   const logoutMutation = useMutation(logout, {
     onMutate: () => {
       setRecoil(isLoadingState, true);
@@ -171,6 +178,7 @@ const useAuthController = (nav) => {
     registerAdministrator: (data) => registerAdministratorMutation.mutate(data),
     registerEmployee: (data) => registerEmployeeMutation.mutate(data),
     isLoggedIn,
+    registerDoctor: (data) => registerDoctorMutation.mutate(data),
     logout: () => logoutMutation.mutate(),
   };
 };

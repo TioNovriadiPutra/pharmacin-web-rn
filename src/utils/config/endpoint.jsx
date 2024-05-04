@@ -12,6 +12,7 @@ const stockPrefix = "/stock";
 const patientPrefix = "/patient";
 const occupationPrefix = "/occupation";
 const doctorPrefix = "/doctor";
+const doctorSpecialityPrefix = "/speciality";
 const queuePrefix = "/queue";
 const clinicPrefix = "/clinic";
 const actionPrefix = "/action";
@@ -21,6 +22,7 @@ export const endpoints = {
   registerAdmin: authPrefix + "/register/admin",
   registerAdministrator: authPrefix + "/register/administrator",
   registerEmployee: authPrefix + "/register/employee",
+  registerDoctor: authPrefix + "/register/doctor",
   logout: authPrefix + "/logout",
   getDrugFactories: pabrikanPrefix,
   getDrugFactoryDetail: pabrikanPrefix + "/partnership",
@@ -39,6 +41,7 @@ export const endpoints = {
   addPatientQueue: patientPrefix + "/queue",
   getOccupations: occupationPrefix,
   getDoctors: doctorPrefix,
+  getDoctorSpecialities: doctorSpecialityPrefix,
   addAssessments: doctorPrefix + "/assessment",
   getConsultingQueues: queuePrefix,
   getDoctorConsultingQueues: queuePrefix + doctorPrefix + "/consulting",

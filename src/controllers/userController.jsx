@@ -3,42 +3,18 @@ import { userProfileDataState } from "@store/atom/userState";
 import { settingMenu } from "@utils/constant/drawer";
 import { setRecoil } from "recoil-nexus";
 import useAuthController from "./authController";
-import {
-  manajemenAdministratorData,
-  manajemenDokterData,
-  manajemenKaryawanData,
-} from "@utils/constant/pageTable";
-import {
-  manajemenAdministratorForm,
-  manajemenKaryawanForm,
-} from "@utils/constant/form";
+import { manajemenAdministratorData, manajemenKaryawanData } from "@utils/constant/pageTable";
+import { manajemenAdministratorForm, manajemenKaryawanForm } from "@utils/constant/form";
 import { handleToast } from "@utils/helper/toast";
 import { useMutation } from "react-query";
-import {
-  deleteAdministrator,
-  deleteEmployee,
-  getUserDetail,
-  updateAdministrator,
-  updateEmployee,
-} from "@services/user";
-import {
-  isLoadingState,
-  rowIdState,
-  showFormModalState,
-  showValidationModalState,
-} from "@store/atom/pageState";
+import { deleteAdministrator, deleteEmployee, getUserDetail, updateAdministrator, updateEmployee } from "@services/user";
+import { isLoadingState, rowIdState, showFormModalState, showValidationModalState } from "@store/atom/pageState";
 import { queryClient } from "@utils/config/client";
 import { formDataState, validationErrorState } from "@store/atom/formState";
 
 const useUserController = () => {
-  const {
-    useGetUserProfile,
-    useGetAdministrators,
-    useGetEmployees,
-    useGetDoctors,
-  } = useUserModel();
-  const { logout, registerAdministrator, registerEmployee } =
-    useAuthController();
+  const { useGetUserProfile, useGetAdministrators, useGetEmployees } = useUserModel();
+  const { logout, registerAdministrator, registerEmployee } = useAuthController();
 
   const useGetUserProfileQuery = () => {
     const { data, isLoading, isError } = useGetUserProfile();
@@ -96,16 +72,14 @@ const useUserController = () => {
               actions: [
                 {
                   type: "edit",
-                  onPress: () =>
-                    getAdministratorUpdateFormMutation.mutate(item.id),
+                  onPress: () => getAdministratorUpdateFormMutation.mutate(item.id),
                 },
                 {
                   type: "delete",
                   onPress: () => {
                     setRecoil(rowIdState, {
                       type: "delete",
-                      onDelete: () =>
-                        deleteAdministratorMutation.mutate(item.id),
+                      onDelete: () => deleteAdministratorMutation.mutate(item.id),
                     });
                     setRecoil(showValidationModalState, true);
                   },
@@ -193,63 +167,6 @@ const useUserController = () => {
     };
   };
 
-  const useGetDoctorsQuery = () => {
-    const { data, isLoading, isError, error } = useGetDoctors();
-
-    if (!isLoading) {
-      if (!isError) {
-        Object.assign(manajemenDokterData, {
-          tableData: data.data.map((item) => {
-            const arr = [
-              {
-                type: "text",
-                value: item.email,
-              },
-              {
-                type: "text",
-                value: item.full_name,
-              },
-              {
-                type: "text",
-                value: item.gender,
-              },
-              {
-                type: "text",
-                value: item.phone,
-              },
-              {
-                type: "text",
-                value: item.speciality_name,
-              },
-              {
-                type: "text",
-                value: item.address,
-              },
-            ];
-
-            return {
-              tables: arr,
-              actions: [
-                {
-                  type: "edit",
-                },
-                {
-                  type: "delete",
-                },
-              ],
-            };
-          }),
-        });
-      } else {
-        handleToast("failed", error.error.message);
-      }
-    }
-
-    return {
-      isLoading,
-    };
-  };
-
   const getAdministratorUpdateFormMutation = useMutation(getUserDetail, {
     onMutate: () => {
       setRecoil(isLoadingState, true);
@@ -273,8 +190,7 @@ const useUserController = () => {
           ...formData.submitButton,
           label: "Edit Akun",
         },
-        onSubmit: (data) =>
-          updateAdministratorMutation.mutate({ data, id: response.data.id }),
+        onSubmit: (data) => updateAdministratorMutation.mutate({ data, id: response.data.id }),
       });
 
       setRecoil(showFormModalState, true);
@@ -311,8 +227,7 @@ const useUserController = () => {
           ...formData.submitButton,
           label: "Edit Akun",
         },
-        onSubmit: (data) =>
-          updateEmployeeMutation.mutate({ data, id: response.data.id }),
+        onSubmit: (data) => updateEmployeeMutation.mutate({ data, id: response.data.id }),
       });
 
       setRecoil(showFormModalState, true);
@@ -416,7 +331,6 @@ const useUserController = () => {
     useGetUserProfileQuery,
     useGetAdministratorsQuery,
     useGetEmployeesQuery,
-    useGetDoctorsQuery,
   };
 };
 

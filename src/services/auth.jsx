@@ -30,15 +30,11 @@ export const registerAdministrator = async (data) => {
       gender: data.gender ? data.gender.value : null,
     };
 
-    const response = await axiosInstance.post(
-      endpoints.registerAdministrator,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.post(endpoints.registerAdministrator, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -53,15 +49,31 @@ export const registerEmployee = async (data) => {
       gender: data.gender ? data.gender.value : null,
     };
 
-    const response = await axiosInstance.post(
-      endpoints.registerEmployee,
-      reqBody,
-      {
-        headers: {
-          Authorization: `Bearer ${getRecoil(tokenState)}`,
-        },
-      }
-    );
+    const response = await axiosInstance.post(endpoints.registerEmployee, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const registerDoctor = async (data) => {
+  try {
+    const reqBody = {
+      ...data,
+      gender: data.gender ? data.gender.value : null,
+      specialityId: data.specialityId ? data.specialityId.value : null,
+    };
+
+    const response = await axiosInstance.post(endpoints.registerDoctor, reqBody, {
+      headers: {
+        Authorization: `Bearer ${getRecoil(tokenState)}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
