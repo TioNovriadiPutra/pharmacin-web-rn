@@ -4,6 +4,7 @@ import { getDrugsByDrugFactory } from "@services/obat";
 import { addPurchaseTransaction } from "@services/pembelian";
 import { validationErrorState } from "@store/atom/formState";
 import { isLoadingState } from "@store/atom/pageState";
+import { queryClient } from "@utils/config/client";
 import { addPurchaseTransactionForm } from "@utils/constant/form";
 import { pembelianDetail } from "@utils/constant/pageDetail";
 import { pembelianKelolaHeader } from "@utils/constant/pageHeader";
@@ -197,6 +198,7 @@ const usePembelianController = () => {
     },
     onSuccess: (response) => {
       handleToast("success", response.message);
+      queryClient.invalidateQueries(["getPurchaseTransactions", "getStocks"]);
     },
     onError: (error) => {
       if (error.error.status === 422) {
