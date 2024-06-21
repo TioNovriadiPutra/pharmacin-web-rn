@@ -70,5 +70,52 @@ const useLaboratController = () => {
         };
     };
 
+    const getLaboratUpdateFormMutation = useMutation(getLaboratDetail, {
+        onMutate: () => {
+            setRecoil(isLoadingState, true);
+        },
+        onSuccess : (data) => {
+            setRecoil(formDataState, data);
+            setRecoil(showFormModalState, true);
+            setRecoil(isLoadingState, false);
+        }
 
+    });
+
+
+    const addLaboratMutation = useMutation(addLaborat, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("getLaborat");
+            setRecoil(showFormModalState, false);
+            handleToast("success", "Laborat berhasil ditambahkan");
+        },
+        onError: (error) => {
+            setRecoil(validationErrorState, error);
+        },
+    });
+
+    const updateLaboratMutation = useMutation(updateLaborat, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("getLaborat");
+            setRecoil(showFormModalState, false);
+            handleToast("success", "Laborat berhasil diubah");
+        },
+        onError: (error) => {
+            setRecoil(validationErrorState, error);
+        },
+    });
+
+    const deleteLaboratMutation = useMutation(deleteLaborat, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("getLaborat");
+            setRecoil(showValidationModalState, false);
+            handleToast("success", "Laborat berhasil dihapus");
+        },
+    });
+
+    return {
+        useGetLaboratQuery,
+    };
 };
+
+export default useLaboratController;

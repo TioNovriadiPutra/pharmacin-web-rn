@@ -10,6 +10,10 @@ import {
   manajemenAdministratorForm,
   manajemenKaryawanForm,
   updateClinicForm,
+  manajemenTindakanForm,
+  addManajemenAsistenDokterForm,
+  addManajemenDiagosisForm,
+  addManajemenLaboratForm
 } from "./form";
 
 export const pabrikanHeader = {
@@ -309,6 +313,97 @@ export const dokterPasienHeader = {
   },
 };
 
+export const manajemenTindakanHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Tindakan",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Tindakan",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, manajemenTindakanForm);
+        }
+      },
+      {
+        type: "search",
+        name: "searchTindakan",
+      },
+    ],
+  },
+};
+
+export const manajemenDiagnosisHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Diagnosis",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Diagnosis",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addManajemenDiagosisForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchDiagnosis",
+      },
+    ],
+  },
+};
+
+export const ManajemenAsistenDokterHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Asisten Dokter",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "button",
+        label: "Tambah Data",
+        color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addManajemenAsistenDokterForm);
+        },
+      },
+      {
+        type: "search",
+        name: "searchAsistenDokter",
+      },
+    ],
+  },
+};
+
+export const manajemenKasirHeader = {
+  headerTitle: {
+    title: "Manajemen",
+    subTitle: "/ Kasir",
+  },
+  headerFunction: {
+    function: [
+      {
+        type: "date",
+        name: "searchKasir",
+      },
+      {
+        type: "date",
+        name: "searchKasir",
+      },
+    ],
+  },
+};
+
 export const manajemenLaboratHeader = {
   headerTitle: {
     title: "Manajemen",
@@ -320,6 +415,10 @@ export const manajemenLaboratHeader = {
         type: "button",
         label: "Tambah Laborat",
         color: colors.Primary,
+        onPress: () => {
+          setRecoil(showFormModalState, true);
+          setRecoil(formDataState, addManajemenLaboratForm);
+        }
       },
       {
         type: "search",

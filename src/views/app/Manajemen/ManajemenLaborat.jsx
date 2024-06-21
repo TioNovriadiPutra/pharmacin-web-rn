@@ -6,15 +6,16 @@ import PageHeader from "@components/layout/PageHeader";
 import PageTableSkeleton from "@components/skeleton/PageTableSkeleton";
 import PageTable from "@components/layout/PageTable";
 import useObatKategoriController from "src/controllers/obatKategoriController";
-import { obatKategoriData } from "@utils/constant/pageTable";
+import { manajemenLaboratData } from "@utils/constant/pageTable";
 
 const ManajemenLaborat = () => {
-  const { useGetDrugCategoriesQuery } = useObatKategoriController();
+  // const { useGetDrugCategoriesQuery } = useObatKategoriController();
 
-  const { isLoading } = useGetDrugCategoriesQuery();
+  // const { isLoading } = useGetDrugCategoriesQuery();
   return (
     <MainContainer>
       <PageHeader headerData={manajemenLaboratHeader} />
+      <PageTable pageData={manajemenLaboratData} />
     </MainContainer>
   );
 };
@@ -22,3 +23,4 @@ const ManajemenLaborat = () => {
 export default ManajemenLaborat;
 
 const styles = StyleSheet.create({});
+  

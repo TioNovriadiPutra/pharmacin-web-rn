@@ -288,12 +288,12 @@ export const addPatientForm = {
 
 export const addPatientQueueForm = {
   inputs: [
-    {
-      type: "dropdown",
-      name: "doctorId",
-      placeholder: "Pilih Dokter",
-      items: [],
-    },
+      {
+        type: "dropdown",
+        name: "doctorId",
+        placeholder: "Pilih Dokter",
+        items: [],
+      },
   ],
   defaultValues: {
     doctorId: null,
@@ -738,6 +738,130 @@ export const manajemenDokterForm = {
   },
 };
 
+export const manajemenTindakanForm = {
+  title: "Tambah Tindakan",
+  inputs: [
+    {
+      type: "text",
+      name: "actionName",
+      placeholder: "Nama Tindakan",
+    },
+    {
+      type: "currency",
+      name: "actionPrice",
+      placeholder: "Harga",
+    },
+  ],
+  defaultValues: {
+    actionName: "",
+    actionPrice: "",
+  },
+  submitButton: {
+    label: "Tambah Tindakan",
+    color: colors.Primary,
+  },
+};
+
+export const addManajemenAsistenDokterForm = {
+  title: "Tambah Asisten Dokter",
+  inputs: [
+    {
+      type: "text",
+      name: "fullName",
+      placeholder: "Nama Asisten",
+    },
+    {
+      type: "dropdown",
+      name: "gender",
+      placeholder: "Jenis Kelamin",
+      items: [
+        {
+          label: "Laki-laki",
+          value: "male",
+        },
+        {
+          label: "Perempuan",
+          value: "female",
+        },
+      ],
+    },
+    {
+      type: "text",
+      name: "phone",
+      placeholder: "Handphone",
+    },
+    {
+      type: "text",
+      name: "address",
+      placeholder: "Alamat",
+    },
+    {
+      type: "dropdown",
+      name: "doctorId",
+      placeholder: "Pilih Dokter",
+      items: [],
+    },
+    {
+      type: "text",
+      name: "email",
+      placeholder: "Email",
+    },
+    {
+      type: "password",
+      name: "password",
+      placeholder: "Password",
+    },
+    {
+      type: "password",
+      name: "password_confirmation",
+      placeholder: "Konfirmasi Password",
+    },
+  ],
+  defaultValues: {
+    fullName: "",
+    gender: null,
+    phone: "",
+    address: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  },
+  submitButton: {
+    label: "Tambah Asisten",
+    color: colors.Primary,
+  },
+};
+
+export const addManajemenDiagosisForm = {
+  title: "Tambah Diagnosis",
+  inputs: [
+    {
+      type: "text",
+      name: "Code",
+      placeholder: "Kode",
+    },
+    {
+      type: "text",
+      name: "diagnosisName",
+      placeholder: "Nama Diagnosis",
+    },
+    {
+      type: "text",
+      name: "Description",
+      placeholder: "Deskripsi",
+    },
+  ],
+  defaultValues: {
+    Code: "",
+    diagnosisName: "",
+    Description: "",
+  },
+  submitButton: {
+    label: "Tambah Diagnosis",
+    color: colors.Primary,
+  },
+};
+
 export const addManajemenLaboratForm = {
   title: "Tambah Laborat",
   inputs: [
@@ -751,10 +875,23 @@ export const addManajemenLaboratForm = {
       name: "sellingPrice",
       placeholder: "Harga",
     },
+    {
+      type: "number",
+      name: "NormalValue",
+      placeholder: "Nilai Normal",
+    },
+    {
+      type: "dropdown",
+      name: "unitId",
+      placeholder: "Satuan",
+      items: [],
+    },
   ],
   defaultValues: {
     laboratName: "",
     sellingPrice: "",
+    NormalValue: "",
+    unitId: null,
   },
   submitButton: {
     label: "Tambah Laboratorium",

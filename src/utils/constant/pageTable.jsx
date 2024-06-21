@@ -132,6 +132,15 @@ export const manajemenDokterData = {
   ],
   tableData: [],
 };
+export const manajemenTindakanData = {
+  headerData: [
+    "ID",
+    "Nama Tindakan",
+    "Harga",
+    "Tindakan",
+  ],
+  tableData: [],
+};
 
 export const manajemenLaboratData = {
   headerData: [
@@ -140,6 +149,37 @@ export const manajemenLaboratData = {
     "Harga",
     "Nilai Normal",
     "Satuan",
+    "Tindakan",
+  ],
+  tableData: [],
+};
+
+export const manajemenAsistenDokterData = {
+  headerData: [
+    "ID",
+    "Nama Asisten",
+    "Alamat",
+    "Dokter",
+    "Tindakan",
+  ],
+  tableData: [],
+};
+
+export const manajemenKasirData = {
+  headerData: [
+    "Tanggal",
+    "Nama",
+    "Buka",
+    "Tutup",
+  ],
+  tableData: [],
+};
+
+export const manajemenDiagnosisData = {
+  headerData: [
+    "Kode",
+    "Nama Diagnosis",
+    "Deskripsi",
     "Tindakan",
   ],
   tableData: [],
